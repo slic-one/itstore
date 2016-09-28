@@ -20,9 +20,23 @@ namespace ITStoreClient
 	/// </summary>
 	public partial class MainWindow : Window
 	{
+		//значення береться з бази даних (ціна + кількість)
+		decimal totalPrice = 0;
+
 		public MainWindow()
 		{
 			InitializeComponent();
+		}
+
+		private void MenuItemQuit_Click(object sender, RoutedEventArgs e)
+		{
+			Close();
+		}
+
+		private void buttonPayment_Click(object sender, RoutedEventArgs e)
+		{
+			PaymentWindow paymentWindow = new PaymentWindow(totalPrice);
+			paymentWindow.ShowDialog();
 		}
 	}
 }

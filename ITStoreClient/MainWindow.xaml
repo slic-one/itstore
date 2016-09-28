@@ -10,48 +10,61 @@
         Title="MainWindow" Height="582.5" Width="822">
     <Grid>
         <Grid.RowDefinitions>
-            <RowDefinition></RowDefinition>
-            <RowDefinition Height="5*"></RowDefinition>
-            <RowDefinition></RowDefinition>
+            <RowDefinition Height="0.5*"></RowDefinition>
+            <RowDefinition Height="7*"></RowDefinition>
+            <RowDefinition Height="2*"></RowDefinition>
             <RowDefinition></RowDefinition>
             <RowDefinition></RowDefinition>
         </Grid.RowDefinitions>
-        <Grid.ColumnDefinitions>
 
-        </Grid.ColumnDefinitions>
-        <Grid>
+        <DockPanel Grid.Row="0">
+            <Menu DockPanel.Dock="Top" Margin="10 0 0 0" Padding="5">
+                <MenuItem Header="_Меню">
+                    <MenuItem Header="_Звіт за день" />
+                    <Separator />
+                    <MenuItem Header="_Вийти" Click="MenuItemQuit_Click" />
+                </MenuItem>
+                <MenuItem Header="_Редагувати">
+                    <MenuItem Header="_Очистити поточний список товарів" />
+                </MenuItem>
+            </Menu>
+            <TextBox AcceptsReturn="True" />
+        </DockPanel>
+
+        <DataGrid x:Name="dataGrid" Background="Silver" Margin="10" Grid.Row="1"/>
+
+        <Grid Grid.Row="2">
+            <Grid.RowDefinitions>
+                <RowDefinition/>
+                <RowDefinition/>
+            </Grid.RowDefinitions>
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="1*"/>
                 <ColumnDefinition Width="5*"/>
                 <ColumnDefinition Width="2*"/>
             </Grid.ColumnDefinitions>
 
-            <Image x:Name="imageBarcode" Grid.Column="0" HorizontalAlignment="Left" Height="32" Margin="10" />
+            <Image x:Name="imageBarcode" Source="Images/barcode.png" Grid.Column="0" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="20" />
             <TextBox x:Name="textBoxProductId" Style="{StaticResource FlatTextBox}" Grid.Column="1" Height="32"  Margin="10" Text="Product Id "/>
-            <Button x:Name="button_Copy" Content=" Пошук " HorizontalAlignment="Left" Margin="10" Grid.Column="2" Style="{StaticResource FlatButton}"/>
-        </Grid>
+            <Button x:Name="buttonFindProduct" Content=" Пошук " Margin="10" Grid.Column="2" Style="{StaticResource FlatButton}"/>
 
-        <DataGrid x:Name="dataGrid" Background="Silver" Margin="10" Grid.Row="1"/>
-
-        <Grid Grid.Row="2">
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition/>
-                <ColumnDefinition/>
-            </Grid.ColumnDefinitions>
-            
-            <Label x:Name="labelPrice" Content="Price: " Grid.Column="0" HorizontalAlignment="Right" Margin="10" Grid.Row="2" VerticalAlignment="Center" FontSize="22" FontWeight="Bold" />
-            <Label x:Name="price" Content="0.00 (-0%)" Grid.Column="1" HorizontalAlignment="Left" Margin="10" VerticalAlignment="Center" FontSize="22" />
+            <Image x:Name="imageCreditCard" Source="Images/credit_card.png" Grid.Column="0" Grid.Row="1" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="20" />
+            <TextBox x:Name="textBoxCustomerId" Style="{StaticResource FlatTextBox}" Height="32"  Grid.Column="1" Grid.Row="1" Text="Customer id" Margin="10" />
+            <Button x:Name="buttonCalculateDiscount" Content=" Порахувати знижку " Margin="10" Grid.Column="2" Grid.Row="1" Style="{StaticResource FlatButton}"/>
         </Grid>
 
         <Grid Grid.Row="3">
             <Grid.ColumnDefinitions>
-                <ColumnDefinition/>
-                <ColumnDefinition/>
+                <ColumnDefinition Width="4*"/>
+                <ColumnDefinition Width="1*"/>
+                <ColumnDefinition Width="3*"/>
             </Grid.ColumnDefinitions>
 
-            <TextBox x:Name="textBox1" Style="{StaticResource FlatTextBox}" Height="32" Width="300" HorizontalAlignment="Right" Grid.Column="0" Text="Customer id" Margin="10" />
-            <Button x:Name="button" Content=" Порахувати знижку " HorizontalAlignment="Left" Margin="10" Grid.Column="1" Style="{StaticResource FlatButton}"/>
+            <Label x:Name="labelPrice" Content="Всього до сплати: " Grid.Column="0" HorizontalAlignment="Right" Margin="10" Grid.Row="2" VerticalAlignment="Center" FontSize="22" FontWeight="Bold" />
+            <Label x:Name="price" Content="0.00" Grid.Column="1" HorizontalAlignment="Left" Margin="10" VerticalAlignment="Center" FontSize="22" />
+            <Label x:Name="priceDiscount" Content="(-0%)" Grid.Column="2" HorizontalAlignment="Left" Margin="10" VerticalAlignment="Center" FontSize="22" />
         </Grid>
-        <Button x:Name="button2" Content="   Оплатити   " Style="{StaticResource FlatButton}" Background="LightGreen" HorizontalAlignment="Center" Margin="10" Grid.Row="5" />
+
+        <Button x:Name="buttonPayment" Content="   Оплатити   " Style="{StaticResource FlatButton}" Background="LightGreen" Margin="10" Grid.Row="4" Click="buttonPayment_Click" />
     </Grid>
 </Window>

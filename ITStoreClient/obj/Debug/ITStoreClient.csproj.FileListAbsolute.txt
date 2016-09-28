@@ -14,3 +14,5 @@ C:\Users\s23-rp\Desktop\ITStore\ITStoreClient\obj\Debug\ITStoreClient.csproj.Gen
 C:\Users\s23-rp\Desktop\ITStore\ITStoreClient\obj\Debug\ITStoreClient.exe
 C:\Users\s23-rp\Desktop\ITStore\ITStoreClient\obj\Debug\ITStoreClient.pdb
 C:\Users\s23-rp\Desktop\ITStore\ITStoreClient\obj\Debug\App.baml
+C:\Users\s23-rp\Desktop\ITStore\ITStoreClient\obj\Debug\PaymentWindow.g.cs
+C:\Users\s23-rp\Desktop\ITStore\ITStoreClient\obj\Debug\PaymentWindow.baml
