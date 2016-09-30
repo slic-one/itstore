@@ -19,3 +19,27 @@ C:\Users\s23-rp\Desktop\ITStore\ITStoreClient\obj\Debug\PaymentWindow.baml
 H:\Study\Командний проект\STORE\itstore\ITStoreClient\bin\Debug\ITStoreClient.exe.config
 H:\Study\Командний проект\STORE\itstore\ITStoreClient\obj\Debug\ITStoreClient.exe
 H:\Study\Командний проект\STORE\itstore\ITStoreClient\obj\Debug\ITStoreClient.pdb
+D:\Projects\itstore\ITStoreClient\bin\Debug\ITStoreClient.exe.config
+D:\Projects\itstore\ITStoreClient\obj\Debug\ITStoreClient.exe
+D:\Projects\itstore\ITStoreClient\obj\Debug\ITStoreClient.pdb
+D:\Projects\itstore\ITStoreClient\bin\Debug\ITStoreClient.exe
+D:\Projects\itstore\ITStoreClient\bin\Debug\ITStoreClient.pdb
+D:\Projects\itstore\ITStoreClient\bin\Debug\EntityFramework.dll
+D:\Projects\itstore\ITStoreClient\bin\Debug\EntityFramework.SqlServer.dll
+D:\Projects\itstore\ITStoreClient\bin\Debug\EntityFramework.xml
+D:\Projects\itstore\ITStoreClient\bin\Debug\EntityFramework.SqlServer.xml
+D:\Projects\itstore\ITStoreClient\obj\Debug\ITStoreClient.csprojResolveAssemblyReference.cache
+D:\Projects\itstore\ITStoreClient\obj\Debug\LoginWindow.g.cs
+D:\Projects\itstore\ITStoreClient\obj\Debug\MainWindow.g.cs
+D:\Projects\itstore\ITStoreClient\obj\Debug\PaymentWindow.g.cs
+D:\Projects\itstore\ITStoreClient\obj\Debug\App.g.cs
+D:\Projects\itstore\ITStoreClient\obj\Debug\ITStoreClient_Content.g.cs
+D:\Projects\itstore\ITStoreClient\obj\Debug\ITStoreClient_MarkupCompile.cache
+D:\Projects\itstore\ITStoreClient\obj\Debug\ITStoreClient_MarkupCompile.lref
+D:\Projects\itstore\ITStoreClient\obj\Debug\App.baml
+D:\Projects\itstore\ITStoreClient\obj\Debug\LoginWindow.baml
+D:\Projects\itstore\ITStoreClient\obj\Debug\MainWindow.baml
+D:\Projects\itstore\ITStoreClient\obj\Debug\PaymentWindow.baml
+D:\Projects\itstore\ITStoreClient\obj\Debug\ITStoreClient.g.resources
+D:\Projects\itstore\ITStoreClient\obj\Debug\ITStoreClient.Properties.Resources.resources
+D:\Projects\itstore\ITStoreClient\obj\Debug\ITStoreClient.csproj.GenerateResource.Cache

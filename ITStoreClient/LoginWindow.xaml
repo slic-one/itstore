@@ -1,0 +1,43 @@
+﻿<Window x:Class="ITStoreClient.LoginWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:ITStoreClient"
+        mc:Ignorable="d"
+        WindowStyle="None"
+        WindowStartupLocation="CenterScreen"
+        Title="LoginWindow" Height="188.06" Width="360.768">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition Height="0.7*"/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+        <TextBox x:Name="textBoxLogin" Margin="10" Text="Login" FontSize="20"/>
+        <TextBlock IsHitTestVisible="False" Text="Enter Search Term Here" VerticalAlignment="Center" HorizontalAlignment="Left" Margin="10,0,0,0" Foreground="DarkGray">
+            <TextBlock.Style>
+                <Style TargetType="{x:Type TextBlock}">
+                    <Setter Property="Visibility" Value="Collapsed"/>
+                    <Style.Triggers>
+                        <DataTrigger Binding="{Binding Text, ElementName=textBoxLogin}" Value="">
+                            <Setter Property="Visibility" Value="Visible"/>
+                        </DataTrigger>
+                    </Style.Triggers>
+                </Style>
+            </TextBlock.Style>
+        </TextBlock>
+        <PasswordBox Grid.Row="1" x:Name="passwordBox" Margin="10" FontSize="20" />
+        <Label Grid.Row="2" x:Name="labelStatus" Content="Введіть свій логін та пароль." />
+
+        <Grid Grid.Row="3">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+            </Grid.ColumnDefinitions>
+            <Button x:Name="buttonLogin" HorizontalAlignment="Center" Margin="10" Padding="20,0" Content="Login" Click="buttonLogin_Click" />
+            <Button Grid.Column="1" x:Name="buttonQuit" HorizontalAlignment="Center" Margin="10" Padding="20,0" Content="Quit" Click="buttonQuit_Click" />
+        </Grid>
+    </Grid>
+</Window>

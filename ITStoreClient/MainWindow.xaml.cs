@@ -25,6 +25,8 @@ namespace ITStoreClient
 
 		public MainWindow()
 		{
+			LoginWindow login = new LoginWindow(this);
+			login.ShowDialog();
 			InitializeComponent();
 		}
 
