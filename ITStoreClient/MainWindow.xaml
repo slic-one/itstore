@@ -30,9 +30,7 @@
             </Menu>
             <TextBox AcceptsReturn="True" />
         </DockPanel>
-
-        <DataGrid x:Name="dataGrid" Background="Silver" Margin="10" Grid.Row="1"/>
-
+        <DataGrid x:Name="dataGrid" Loaded="grid_Loaded" Background="Silver" Margin="10" Grid.Row="1"/>
         <Grid Grid.Row="2">
             <Grid.RowDefinitions>
                 <RowDefinition/>

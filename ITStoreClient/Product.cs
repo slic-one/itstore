@@ -24,7 +24,7 @@ namespace ITStoreClient
         public int idProduct { get; set; }
         public string Name { get; set; }
         public Nullable<int> idCategory { get; set; }
-        public Nullable<int> Price { get; set; }
+        public Nullable<decimal> Price { get; set; }
         public Nullable<int> Quantity { get; set; }
         public Nullable<int> idProducer { get; set; }
         public Nullable<int> idMeasurement { get; set; }

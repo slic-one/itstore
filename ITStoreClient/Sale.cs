@@ -21,7 +21,7 @@ namespace ITStoreClient
         }
     
         public int idSale { get; set; }
-        public Nullable<int> Price { get; set; }
+        public Nullable<decimal> FullPrice { get; set; }
         public Nullable<int> Quantity { get; set; }
         public Nullable<System.DateTime> DateSale { get; set; }
         public Nullable<int> idUser { get; set; }

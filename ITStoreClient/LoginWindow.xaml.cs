@@ -14,7 +14,9 @@ namespace ITStoreClient
 		public LoginWindow()
 		{
 			InitializeComponent();
-		}
+            textBoxLogin.Text = "one";
+            passwordBox.Password = "1";
+        }
 
 		private void buttonLogin_Click(object sender, RoutedEventArgs e)
 		{
@@ -33,7 +35,7 @@ namespace ITStoreClient
 			}
             if (str == "admin") {
 
-                return;
+                this.Close();
             }
 
             if (str == "cashier") {
@@ -56,7 +58,7 @@ namespace ITStoreClient
             string password = passwordBox.Password;
             string str;
             try {
-                ShopDarEntities data = new ShopDarEntities();
+                ShopEntities data = new ShopEntities();
                 List<User> users = new List<User>();
                 if (data.Users.Where(l => l.Login == login).First().Password == password) {
                     User user = data.Users.First(l => l.Login == login);

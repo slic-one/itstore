@@ -22,13 +22,39 @@ namespace ITStoreClient
 	{
 		//значення береться з бази даних (ціна + кількість)
 		decimal totalPrice = 0;
+        List<AddedProduct> resultProducts = new List<AddedProduct>();
+        ShopEntities data = new ShopEntities();
 
-		public MainWindow()
+
+        public MainWindow()
 		{
 			InitializeComponent();
 		}
 
-		private void MenuItemQuit_Click(object sender, RoutedEventArgs e)
+        //Загрузка содержимого таблицы addedProducts - test
+        private void addProductToDataGrid(Product product)
+        {
+            int id = product.idProduct;
+            string name = product.Name;
+            string measurement = data.Measurements.First(m => m.idMeasurement == product.idMeasurement).Description;
+            int quantity = 1;
+            var price = product.Price+product.Price * data.Markups.First(m => m.idMarkup == product.idMarkup).Percent/100;
+            AddedProduct addedProduct = new AddedProduct(id,name,measurement,quantity,price.Value);
+            resultProducts.Add(addedProduct);
+
+        }
+        //Загрузка содержимого таблицы addedProducts - test
+        private void grid_Loaded(object sender, RoutedEventArgs e)
+        {
+            
+            List<Product> products = data.Products.ToList();
+            foreach (var p in products)
+                addProductToDataGrid(p);
+            dataGrid.ItemsSource = resultProducts;
+        }
+
+
+        private void MenuItemQuit_Click(object sender, RoutedEventArgs e)
 		{
 			Close();
 		}
