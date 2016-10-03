@@ -1,5 +1,8 @@
 ﻿using System.Windows;
 using System.Windows.Media;
+using System.Linq;
+using System.Collections.Generic;
+using System;
 
 namespace ITStoreClient
 {
@@ -8,48 +11,76 @@ namespace ITStoreClient
 	/// </summary>
 	public partial class LoginWindow : Window
 	{
-		Window parent;
-
-		public LoginWindow(Window parent)
+		public LoginWindow()
 		{
 			InitializeComponent();
-			this.parent = parent;
 		}
 
 		private void buttonLogin_Click(object sender, RoutedEventArgs e)
 		{
-			if (CheckLogin())
+            if (textBoxLogin.Text == null || textBoxLogin.Text == "" || passwordBox.Password == null || passwordBox.Password == "")
+            {
+                labelStatus.Foreground = Brushes.DarkRed;
+                labelStatus.Content = "Поле для вводу логіна/пароля не може бути пустим!";
+                return;
+            }
+            string str = CheckLogin();
+            if (str == "no") 
 			{
-				this.Close();
+                labelStatus.Foreground = Brushes.DarkRed;
+                labelStatus.Content = "Помилка: неправильний логін/пароль.";
+                return;
 			}
-		}
+            if (str == "admin") {
 
-		private bool CheckLogin()
+                return;
+            }
+
+            if (str == "cashier") {
+                MainWindow cashierWindow = new MainWindow();
+                cashierWindow.Show();
+                this.Close();
+                
+            }
+
+            labelStatus.Foreground = Brushes.DarkRed;
+            labelStatus.Content = "Помилка: " + str;
+        }
+
+		private string CheckLogin()
 		{
-			if (textBoxLogin.Text == null || textBoxLogin.Text == "" || passwordBox.Password == null || passwordBox.Password == "")
-			{
-				labelStatus.Foreground = Brushes.DarkRed;
-				labelStatus.Content = "Поле для вводу логіна/пароля не може бути пустим!";
-				return false;
-			}
+			
+            // TODO перевірка на правильність логіна та пароля з БД
 
-			// TODO перевірка на правильність логіна та пароля з БД
-
-			if (textBoxLogin.Text == "tmp" && passwordBox.Password == "tmp")
-			{
-				return true;
-			}
-			else
-			{
-				labelStatus.Foreground = Brushes.DarkRed;
-				labelStatus.Content = "Помилка: неправильний логін/пароль.";
-				return false;
-			}
-		}
+            string login = textBoxLogin.Text;
+            string password = passwordBox.Password;
+            string str;
+            try {
+                ShopDarEntities data = new ShopDarEntities();
+                List<User> users = new List<User>();
+                if (data.Users.Where(l => l.Login == login).First().Password == password) {
+                    User user = data.Users.First(l => l.Login == login);
+                    if (user.Admin == true)
+                    {
+                        str = "admin";
+                    }
+                    else {
+                        str = "cashier";
+                    }
+                }
+                else {
+                    str = "no";
+                }
+            }
+            catch(Exception ex)
+            {
+                str = ex.Message;
+            }
+            return str;
+       }
 
 		private void buttonQuit_Click(object sender, RoutedEventArgs e)
 		{
-			parent.Close();
 			Close();
 		}
 	}
