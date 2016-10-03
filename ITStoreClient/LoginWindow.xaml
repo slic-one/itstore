@@ -15,8 +15,8 @@
             <RowDefinition Height="0.7*"/>
             <RowDefinition/>
         </Grid.RowDefinitions>
-        <TextBox x:Name="textBoxLogin" Margin="10" Text="Login" FontSize="20"/>
-        <TextBlock IsHitTestVisible="False" Text="Enter Search Term Here" VerticalAlignment="Center" HorizontalAlignment="Left" Margin="10,0,0,0" Foreground="DarkGray">
+        <TextBox x:Name="textBoxLogin" Margin="10" FontSize="16"/>
+        <TextBlock IsHitTestVisible="False" Text="Логін" VerticalAlignment="Center" HorizontalAlignment="Left" Margin="20,0,0,0" Foreground="DarkGray">
             <TextBlock.Style>
                 <Style TargetType="{x:Type TextBlock}">
                     <Setter Property="Visibility" Value="Collapsed"/>
@@ -28,7 +28,9 @@
                 </Style>
             </TextBlock.Style>
         </TextBlock>
+        
         <PasswordBox Grid.Row="1" x:Name="passwordBox" Margin="10" FontSize="20" />
+        
         <Label Grid.Row="2" x:Name="labelStatus" Content="Введіть свій логін та пароль." />
 
         <Grid Grid.Row="3">

@@ -43,3 +43,10 @@ D:\Projects\itstore\ITStoreClient\obj\Debug\PaymentWindow.baml
 D:\Projects\itstore\ITStoreClient\obj\Debug\ITStoreClient.g.resources
 D:\Projects\itstore\ITStoreClient\obj\Debug\ITStoreClient.Properties.Resources.resources
 D:\Projects\itstore\ITStoreClient\obj\Debug\ITStoreClient.csproj.GenerateResource.Cache
+C:\Users\s23-rp\Desktop\ITStore\ITStoreClient\bin\Debug\EntityFramework.dll
+C:\Users\s23-rp\Desktop\ITStore\ITStoreClient\bin\Debug\EntityFramework.SqlServer.dll
+C:\Users\s23-rp\Desktop\ITStore\ITStoreClient\bin\Debug\EntityFramework.xml
+C:\Users\s23-rp\Desktop\ITStore\ITStoreClient\bin\Debug\EntityFramework.SqlServer.xml
+C:\Users\s23-rp\Desktop\ITStore\ITStoreClient\obj\Debug\LoginWindow.g.cs
+C:\Users\s23-rp\Desktop\ITStore\ITStoreClient\obj\Debug\ITStoreClient_Content.g.cs
+C:\Users\s23-rp\Desktop\ITStore\ITStoreClient\obj\Debug\LoginWindow.baml
