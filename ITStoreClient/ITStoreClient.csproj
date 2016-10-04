@@ -69,6 +69,7 @@
     <Compile Include="Address.cs">
       <DependentUpon>Model.tt</DependentUpon>
     </Compile>
+    <Compile Include="AdminPanel.xaml.cs" />
     <Compile Include="Category.cs">
       <DependentUpon>Model.tt</DependentUpon>
     </Compile>
@@ -116,6 +117,10 @@
     <Compile Include="User.cs">
       <DependentUpon>Model.tt</DependentUpon>
     </Compile>
+    <Page Include="AdminPanel.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="LoginWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
