@@ -34,7 +34,8 @@ namespace ITStoreClient
                 return;
 			}
             if (str == "admin") {
-
+                AdminPanel adminka = new AdminPanel();
+                adminka.ShowDialog();
                 this.Close();
             }
 
