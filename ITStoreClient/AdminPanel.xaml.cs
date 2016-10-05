@@ -18,8 +18,9 @@ namespace ITStoreClient
         public AdminPanel()
 		{
 			InitializeComponent();
-			
-		}
+            products = GetProducts();
+            lstCars.ItemsSource = products;
+        }
 
 				
         public static ObservableCollection<Product> GetProducts()
@@ -34,8 +35,8 @@ namespace ITStoreClient
 
         private void cmdGetProduct_Click(object sender, RoutedEventArgs e)
         {
-            products = GetProducts();
-            lstCars.ItemsSource = products;
+           // products = GetProducts();
+            //lstCars.ItemsSource = products;
         }
 
         private void cmdDeleteProduct_Click(object sender, RoutedEventArgs e)

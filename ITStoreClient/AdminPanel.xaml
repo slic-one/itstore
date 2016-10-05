@@ -40,8 +40,8 @@
 
                         <StackPanel Grid.Row="1" HorizontalAlignment="Right" Orientation="Horizontal" Margin="5,2,5,10">
                             <Button Margin="2,0,0,0"  Padding="2" Content="Получить список машин" Click="cmdGetProduct_Click"/>
-                            <Button Margin="2,0,0,0"  Padding="2" Content="Удалить" Click="cmdDeleteCar_Click"/>
-                            <Button Margin="2,0,0,0"  Padding="2" Content="Добавить" Click="cmdAddCar_Click"/>
+                            <Button Margin="2,0,0,0"  Padding="2" Content="Видалити" Click="cmdDeleteCar_Click"/>
+                            <Button Margin="2,0,0,0"  Padding="2" Content="Добавити" Click="cmdAddCar_Click"/>
                         </StackPanel>
                     </Grid>
 
@@ -61,21 +61,25 @@
                                 <RowDefinition Height="*"></RowDefinition>
                             </Grid.RowDefinitions>
 
-                            <TextBlock Margin="7">Марка:</TextBlock>
-                            <TextBox Margin="5" Grid.Column="1" Text="{Binding Path=ModelName}"></TextBox>
-                            <TextBlock Margin="7" Grid.Row="1">Модель:</TextBlock>
-                            <TextBox Margin="5" Grid.Row="1" Grid.Column="1" Text="{Binding Path=ModelNumber}"></TextBox>
-                            <TextBlock Margin="7" Grid.Row="2">Цена (руб):</TextBlock>
-                            <TextBox Margin="5" Grid.Row="2" Grid.Column="1" Text="{Binding Path=Cost}"></TextBox>
-                            <TextBlock Margin="7,7,7,0" Grid.Row="3">Описание:</TextBlock>
-                            <TextBox Margin="7" Grid.Row="4" Grid.Column="0" Grid.ColumnSpan="2"
-                         VerticalScrollBarVisibility="Visible" TextWrapping="Wrap" 
-                         Text="{Binding Path=Description, TargetNullValue=[Описание не предоставлено]}"></TextBox>
+                            <TextBlock Margin="7">КОД:</TextBlock>
+                            <TextBox Margin="5" Grid.Column="1" Text="{Binding Path=idProduct}"></TextBox>
+                            <TextBlock Margin="7" Grid.Row="1">Назва:</TextBlock>
+                            <TextBox Margin="5" Grid.Row="1" Grid.Column="1" Text="{Binding Path=Name}"></TextBox>
+                            <TextBlock Margin="7" Grid.Row="2">Ціна (грн):</TextBlock>
+                            <TextBox Margin="5" Grid.Row="2" Grid.Column="1" Text="{Binding Path=Price}"></TextBox>
+                            <TextBlock Margin="7" Grid.Row="3">Кількість:</TextBlock>
+                            <TextBox Margin="5" Grid.Row="3" Grid.Column="1" Text="{Binding Path=Quantity}"></TextBox>
                         </Grid>
                     </Border>
                 </Grid>
             </TabItem>
             <TabItem Header="Звіти">
+                <Grid Background="#FFE5E5E5"/>
+            </TabItem>
+            <TabItem Header="Виробники">
+                <Grid Background="#FFE5E5E5"/>
+            </TabItem>
+            <TabItem Header="Постачальники">
                 <Grid Background="#FFE5E5E5"/>
             </TabItem>
         </TabControl>
