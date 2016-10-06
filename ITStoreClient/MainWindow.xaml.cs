@@ -12,7 +12,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
-
+using System.Collections.ObjectModel;
 namespace ITStoreClient
 {
 	/// <summary>
@@ -22,14 +22,16 @@ namespace ITStoreClient
 	{
 		//значення береться з бази даних (ціна + кількість)
 		decimal totalPrice = 0;
-        List<AddedProduct> resultProducts = new List<AddedProduct>();
+        ObservableCollection<AddedProduct> resultProducts = new ObservableCollection<AddedProduct>();
         ShopEntities data = new ShopEntities();
 
 
         public MainWindow()
 		{
 			InitializeComponent();
-		}
+            dataGrid.ItemsSource = resultProducts;
+
+        }
 
         //Загрузка содержимого таблицы addedProducts - test
         private void addProductToDataGrid(Product product)
@@ -41,28 +43,43 @@ namespace ITStoreClient
             var price = product.Price+product.Price * data.Markups.First(m => m.idMarkup == product.idMarkup).Percent/100;
             AddedProduct addedProduct = new AddedProduct(id,name,measurement,quantity,price.Value);
             resultProducts.Add(addedProduct);
-
-        }
-        //Загрузка содержимого таблицы addedProducts - test
-        private void grid_Loaded(object sender, RoutedEventArgs e)
-        {
             
-            List<Product> products = data.Products.ToList();
-            foreach (var p in products)
-                addProductToDataGrid(p);
-            dataGrid.ItemsSource = resultProducts;
         }
-
-
+       
         private void MenuItemQuit_Click(object sender, RoutedEventArgs e)
 		{
 			Close();
 		}
-
-		private void buttonPayment_Click(object sender, RoutedEventArgs e)
+        private void buttonAddProduct_Click(object sender, RoutedEventArgs e)
+        {
+            try {
+                int id = Int32.Parse(textBoxProductId.Text);
+                Product product = data.Products.Where(p => p.idProduct == id).First();
+                addProductToDataGrid(product);
+              
+            }
+            catch (Exception ex)
+            {
+                textBoxProductId.Foreground = Brushes.Red;
+            }
+        }
+        
+        private void buttonPayment_Click(object sender, RoutedEventArgs e)
 		{
 			PaymentWindow paymentWindow = new PaymentWindow(totalPrice);
 			paymentWindow.ShowDialog();
 		}
-	}
+
+        private void textBoxProductId_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            if (textBoxProductId.Foreground != Brushes.Black)
+                textBoxProductId.Foreground = Brushes.Black;
+        }
+
+        private void textBoxCustomerId_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            if (textBoxCustomerId.Foreground != Brushes.Black)
+                textBoxCustomerId.Foreground = Brushes.Black;
+        }
+    }
 }
