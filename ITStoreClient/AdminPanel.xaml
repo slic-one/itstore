@@ -24,9 +24,63 @@
                 <Grid Background="#FFE5E5E5"/>
             </TabItem>
             <TabItem Header="Продукти">
-                <Grid Background="#FFE5E5E5"/>
+              <Grid Background="#FFE5E5E5">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="*"></RowDefinition>
+                        <RowDefinition Height="Auto"></RowDefinition>
+                        <RowDefinition Height="*"></RowDefinition>
+                    </Grid.RowDefinitions>
+
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="*"></RowDefinition>
+                            <RowDefinition Height="Auto"></RowDefinition>
+                        </Grid.RowDefinitions>
+                        <DataGrid x:Name="lstCars"  Background="Silver" Margin="10,0,10,10" />
+                        <!--<ListBox Name="lstCars" Margin="5" />-->
+
+                        <StackPanel Grid.Row="1" HorizontalAlignment="Right" Orientation="Horizontal" Margin="5,2,5,10">
+                            <Button Margin="2,0,0,0"  Padding="2" Content="Получить список машин" Click="cmdGetProduct_Click"/>
+                            <Button Margin="2,0,0,0"  Padding="2" Content="Видалити" Click="cmdDeleteCar_Click"/>
+                            <Button Margin="2,0,0,0"  Padding="2" Content="Добавити" Click="cmdAddCar_Click"/>
+                        </StackPanel>
+                    </Grid>
+
+                    <GridSplitter Grid.Row="1" HorizontalAlignment="Stretch" VerticalAlignment="Bottom" ResizeBehavior="PreviousAndNext" Height="5"/>
+
+                    <Border Grid.Row="2" Padding="7" Margin="7" Background="LightSteelBlue">
+                        <Grid  Name="gridCarDetails" DataContext="{Binding ElementName=lstCars, Path=SelectedItem}">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto"></ColumnDefinition>
+                                <ColumnDefinition></ColumnDefinition>
+                            </Grid.ColumnDefinitions>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto"></RowDefinition>
+                                <RowDefinition Height="Auto"></RowDefinition>
+                                <RowDefinition Height="Auto"></RowDefinition>
+                                <RowDefinition Height="Auto"></RowDefinition>
+                                <RowDefinition Height="*"></RowDefinition>
+                            </Grid.RowDefinitions>
+
+                            <TextBlock Margin="7">КОД:</TextBlock>
+                            <TextBox Margin="5" Grid.Column="1" Text="{Binding Path=idProduct}"></TextBox>
+                            <TextBlock Margin="7" Grid.Row="1">Назва:</TextBlock>
+                            <TextBox Margin="5" Grid.Row="1" Grid.Column="1" Text="{Binding Path=Name}"></TextBox>
+                            <TextBlock Margin="7" Grid.Row="2">Ціна (грн):</TextBlock>
+                            <TextBox Margin="5" Grid.Row="2" Grid.Column="1" Text="{Binding Path=Price}"></TextBox>
+                            <TextBlock Margin="7" Grid.Row="3">Кількість:</TextBlock>
+                            <TextBox Margin="5" Grid.Row="3" Grid.Column="1" Text="{Binding Path=Quantity}"></TextBox>
+                        </Grid>
+                    </Border>
+                </Grid>
             </TabItem>
             <TabItem Header="Звіти">
+                <Grid Background="#FFE5E5E5"/>
+            </TabItem>
+            <TabItem Header="Виробники">
+                <Grid Background="#FFE5E5E5"/>
+            </TabItem>
+            <TabItem Header="Постачальники">
                 <Grid Background="#FFE5E5E5"/>
             </TabItem>
         </TabControl>

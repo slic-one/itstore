@@ -38,5 +38,9 @@ namespace ITStoreClient
         public virtual Producer Producer { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Sale> Sales { get; set; }
+        public override string ToString()
+        {
+            return "ID:"+idProduct + " " + Name;
+        }
     }
 }
