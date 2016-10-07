@@ -13,6 +13,10 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using System.Collections.ObjectModel;
+using System.Collections.Specialized;
+using System.ComponentModel;
+using System.Globalization;
+
 namespace ITStoreClient
 {
 	/// <summary>
@@ -30,20 +34,71 @@ namespace ITStoreClient
 		{
 			InitializeComponent();
             dataGrid.ItemsSource = resultProducts;
+        }
+
+        private void DataGrid_Loaded(object sender, RoutedEventArgs e)
+        {
+            var dg = (DataGrid)sender;
+            if (dg == null || dg.ItemsSource == null) return;
+
+            var sourceCollection = dg.ItemsSource as ObservableCollection<AddedProduct>;
+            if (sourceCollection == null) return;
+
+            sourceCollection.CollectionChanged +=
+                new NotifyCollectionChangedEventHandler(DataGrid_CollectionChanged);
 
         }
 
-        //Загрузка содержимого таблицы addedProducts - test
+        /// TODO !!!!!!!!!!!!
+        void Grid_QuantityCellEditEnding(object sender, DataGridCellEditEndingEventArgs e)
+        {
+            var c2 = (TextBox)e.Column.GetCellContent(e.Row);
+            string str = c2.Text;
+            decimal q;
+            try
+            {
+                decimal.TryParse(str, NumberStyles.AllowDecimalPoint, new NumberFormatInfo { NumberDecimalSeparator = "." }, out q);
+                decimal.TryParse(str, NumberStyles.AllowDecimalPoint, new NumberFormatInfo { NumberDecimalSeparator = "," }, out q);
+            }
+            catch(Exception ec)
+            {
+                e.Cancel = true;
+                MessageBox.Show("");
+            }
+            //DataGrid dg = sender as DataGrid;
+            ////var num=e.Column.GetValue(Quantity);
+            //var cell = (AddedProduct)dg.SelectedItem;
+            //var product = resultProducts.Where(x => x.Id == cell.Id).First();
+            //product.FullPrice = product.Quantity * product.Price;
+            //price.Content = priceWithoutDiscount();
+
+        }
+
+        void DataGrid_CollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
+        {
+                price.Content = priceWithoutDiscount();
+
+        }
+
+        // TODO focus on Quantity column (below doesn't work)?????????
         private void addProductToDataGrid(Product product)
         {
             int id = product.idProduct;
+            if (resultProducts.Where(x => x.Id == id).Count() != 0)
+                return;
             string name = product.Name;
             string measurement = data.Measurements.First(m => m.idMeasurement == product.idMeasurement).Description;
-            int quantity = 1;
+            decimal quantity = 1;
             var price = product.Price+product.Price * data.Markups.First(m => m.idMarkup == product.idMarkup).Percent/100;
             AddedProduct addedProduct = new AddedProduct(id,name,measurement,quantity,price.Value);
+           
             resultProducts.Add(addedProduct);
+                      
             
+            //dataGrid.CurrentCell = new DataGridCellInfo(
+            //dataGrid.Items[dataGrid.Items.Count-1], dataGrid.Columns[3]);
+            //dataGrid.BeginEdit();
+
         }
        
         private void MenuItemQuit_Click(object sender, RoutedEventArgs e)
@@ -64,6 +119,15 @@ namespace ITStoreClient
             }
         }
         
+        private decimal priceWithoutDiscount()
+        {
+            decimal price=0;
+            foreach(var p in resultProducts)
+               price += p.Price * p.Quantity;
+            return price;
+
+        }
+
         private void buttonPayment_Click(object sender, RoutedEventArgs e)
 		{
 			PaymentWindow paymentWindow = new PaymentWindow(totalPrice);

@@ -18,7 +18,7 @@ namespace ITStoreClient
         public Product()
         {
             this.Daliveries = new HashSet<Dalivery>();
-            this.Sales = new HashSet<Sale>();
+            this.ProductOrderQuantities = new HashSet<ProductOrderQuantity>();
         }
     
         public int idProduct { get; set; }
@@ -37,6 +37,6 @@ namespace ITStoreClient
         public virtual Measurement Measurement { get; set; }
         public virtual Producer Producer { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Sale> Sales { get; set; }
+        public virtual ICollection<ProductOrderQuantity> ProductOrderQuantities { get; set; }
     }
 }

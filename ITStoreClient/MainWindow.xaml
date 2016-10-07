@@ -36,7 +36,16 @@
                 <ColumnDefinition Width="2*"/>
                 <ColumnDefinition/>
             </Grid.ColumnDefinitions>
-            <DataGrid x:Name="dataGrid" Background="Silver" Margin="10,10,10,5" Grid.Row="1"/>
+            <DataGrid x:Name="dataGrid" AutoGenerateColumns="False" SelectionMode="Single" CellEditEnding="Grid_QuantityCellEditEnding" Loaded="DataGrid_Loaded" Background="Silver" Margin="10,10,10,5" Grid.Row="1">
+                <DataGrid.Columns>
+                    <DataGridTextColumn Header="id" Binding="{Binding Id}" IsReadOnly="True" Selector.IsSelected="False" />
+                    <DataGridTextColumn Header="Назва" Binding="{Binding Name}" IsReadOnly="True" Selector.IsSelected="False"/>
+                    <DataGridTextColumn Header="Одиниця виміру" Binding="{Binding Measurement}" IsReadOnly="True" Selector.IsSelected="False"/>
+                    <DataGridTextColumn Header="Ціна за од." Binding="{Binding Price}" IsReadOnly="True" Selector.IsSelected="False"/>
+                    <DataGridTextColumn Header="Кількість" Binding="{Binding Quantity}"  />
+                    <DataGridTextColumn Header="Ціна" Binding="{Binding FullPrice}" IsReadOnly="True" Selector.IsSelected="False"/>
+                </DataGrid.Columns>
+            </DataGrid>
             <Grid Grid.Column="1">
                 <Grid.RowDefinitions>
                     <RowDefinition/>
