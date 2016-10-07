@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="ShopModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema Namespace="ShopModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="Address">
           <Key>
             <PropertyRef Name="idAddress" />
@@ -73,16 +73,6 @@
           <Property Name="Name" Type="varchar" MaxLength="50" />
           <Property Name="Description" Type="varchar" MaxLength="50" />
         </EntityType>
-        <!--Errors Found During Generation:
-warning 6002: The table/view 'ShopDar.dbo.Order1' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
-        <EntityType Name="Order1">
-          <Key>
-            <PropertyRef Name="IdSale" />
-            <PropertyRef Name="IdProduct" />
-          </Key>
-          <Property Name="IdSale" Type="int" Nullable="false" />
-          <Property Name="IdProduct" Type="int" Nullable="false" />
-        </EntityType>
         <EntityType Name="Producer">
           <Key>
             <PropertyRef Name="idProducer" />
@@ -99,10 +89,19 @@ warning 6002: The table/view 'ShopDar.dbo.Order1' does not have a primary key de
           <Property Name="Name" Type="varchar" MaxLength="50" />
           <Property Name="idCategory" Type="int" />
           <Property Name="Price" Type="decimal" Precision="18" Scale="0" />
-          <Property Name="Quantity" Type="int" />
+          <Property Name="Quantity" Type="decimal" Precision="18" Scale="0" />
           <Property Name="idProducer" Type="int" />
           <Property Name="idMeasurement" Type="int" />
           <Property Name="idMarkup" Type="int" />
+        </EntityType>
+        <EntityType Name="ProductOrderQuantity">
+          <Key>
+            <PropertyRef Name="IdProductOrderQuantity" />
+          </Key>
+          <Property Name="IdProductOrderQuantity" Type="int" Nullable="false" />
+          <Property Name="IdSale" Type="int" Nullable="false" />
+          <Property Name="IdProduct" Type="int" Nullable="false" />
+          <Property Name="Quantity" Type="decimal" Precision="18" Scale="0" Nullable="false" />
         </EntityType>
         <EntityType Name="Sale">
           <Key>
@@ -110,7 +109,6 @@ warning 6002: The table/view 'ShopDar.dbo.Order1' does not have a primary key de
           </Key>
           <Property Name="idSale" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="FullPrice" Type="decimal" Precision="18" Scale="0" />
-          <Property Name="Quantity" Type="int" />
           <Property Name="DateSale" Type="datetime" />
           <Property Name="idUser" Type="int" />
           <Property Name="idCustomer" Type="int" />
@@ -193,24 +191,24 @@ warning 6002: The table/view 'ShopDar.dbo.Order1' does not have a primary key de
         </Association>
         <Association Name="FK_Order1_Product">
           <End Role="Product" Type="Self.Product" Multiplicity="1" />
-          <End Role="Order1" Type="Self.Order1" Multiplicity="*" />
+          <End Role="ProductOrderQuantity" Type="Self.ProductOrderQuantity" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Product">
               <PropertyRef Name="idProduct" />
             </Principal>
-            <Dependent Role="Order1">
+            <Dependent Role="ProductOrderQuantity">
               <PropertyRef Name="IdProduct" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_Order1_Sale">
           <End Role="Sale" Type="Self.Sale" Multiplicity="1" />
-          <End Role="Order1" Type="Self.Order1" Multiplicity="*" />
+          <End Role="ProductOrderQuantity" Type="Self.ProductOrderQuantity" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Sale">
               <PropertyRef Name="idSale" />
             </Principal>
-            <Dependent Role="Order1">
+            <Dependent Role="ProductOrderQuantity">
               <PropertyRef Name="IdSale" />
             </Dependent>
           </ReferentialConstraint>
@@ -311,6 +309,37 @@ warning 6002: The table/view 'ShopDar.dbo.Order1' does not have a primary key de
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Function Name="fn_diagramobjects" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="true" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" ReturnType="int" />
+        <Function Name="sp_alterdiagram" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
+          <Parameter Name="owner_id" Type="int" Mode="In" />
+          <Parameter Name="version" Type="int" Mode="In" />
+          <Parameter Name="definition" Type="varbinary(max)" Mode="In" />
+        </Function>
+        <Function Name="sp_creatediagram" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
+          <Parameter Name="owner_id" Type="int" Mode="In" />
+          <Parameter Name="version" Type="int" Mode="In" />
+          <Parameter Name="definition" Type="varbinary(max)" Mode="In" />
+        </Function>
+        <Function Name="sp_dropdiagram" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
+          <Parameter Name="owner_id" Type="int" Mode="In" />
+        </Function>
+        <Function Name="sp_helpdiagramdefinition" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
+          <Parameter Name="owner_id" Type="int" Mode="In" />
+        </Function>
+        <Function Name="sp_helpdiagrams" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
+          <Parameter Name="owner_id" Type="int" Mode="In" />
+        </Function>
+        <Function Name="sp_renamediagram" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
+          <Parameter Name="owner_id" Type="int" Mode="In" />
+          <Parameter Name="new_diagramname" Type="nvarchar" Mode="In" />
+        </Function>
+        <Function Name="sp_upgraddiagrams" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
         <EntityContainer Name="ShopModelStoreContainer">
           <EntitySet Name="Address" EntityType="Self.Address" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Category" EntityType="Self.Category" Schema="dbo" store:Type="Tables" />
@@ -322,16 +351,11 @@ warning 6002: The table/view 'ShopDar.dbo.Order1' does not have a primary key de
           <EntitySet Name="Measurement" EntityType="Self.Measurement" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Producer" EntityType="Self.Producer" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Product" EntityType="Self.Product" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ProductOrderQuantity" EntityType="Self.ProductOrderQuantity" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Sale" EntityType="Self.Sale" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Supplier" EntityType="Self.Supplier" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="User" EntityType="Self.User" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="Order1" EntityType="Self.Order1" store:Type="Tables" store:Schema="dbo">
-            <DefiningQuery>SELECT 
-    [Order1].[IdSale] AS [IdSale], 
-    [Order1].[IdProduct] AS [IdProduct]
-    FROM [dbo].[Order1] AS [Order1]</DefiningQuery>
-          </EntitySet>
           <AssociationSet Name="FK_Address_Country" Association="Self.FK_Address_Country">
             <End Role="Country" EntitySet="Country" />
             <End Role="Address" EntitySet="Address" />
@@ -350,11 +374,11 @@ warning 6002: The table/view 'ShopDar.dbo.Order1' does not have a primary key de
           </AssociationSet>
           <AssociationSet Name="FK_Order1_Product" Association="Self.FK_Order1_Product">
             <End Role="Product" EntitySet="Product" />
-            <End Role="Order1" EntitySet="Order1" />
+            <End Role="ProductOrderQuantity" EntitySet="ProductOrderQuantity" />
           </AssociationSet>
           <AssociationSet Name="FK_Order1_Sale" Association="Self.FK_Order1_Sale">
             <End Role="Sale" EntitySet="Sale" />
-            <End Role="Order1" EntitySet="Order1" />
+            <End Role="ProductOrderQuantity" EntitySet="ProductOrderQuantity" />
           </AssociationSet>
           <AssociationSet Name="FK_Producer_Address" Association="Self.FK_Producer_Address">
             <End Role="Address" EntitySet="Address" />
@@ -389,8 +413,7 @@ warning 6002: The table/view 'ShopDar.dbo.Order1' does not have a primary key de
             <End Role="Supplier" EntitySet="Supplier" />
           </AssociationSet>
         </EntityContainer>
-      </Schema>
-    </edmx:StorageModels>
+      </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="ShopModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
@@ -501,7 +524,7 @@ warning 6002: The table/view 'ShopDar.dbo.Order1' does not have a primary key de
           <NavigationProperty Name="Markup" Relationship="Self.FK_Product_Markup" FromRole="Product" ToRole="Markup" />
           <NavigationProperty Name="Measurement" Relationship="Self.FK_Product_Measurement" FromRole="Product" ToRole="Measurement" />
           <NavigationProperty Name="Producer" Relationship="Self.FK_Product_Producer1" FromRole="Product" ToRole="Producer" />
-          <NavigationProperty Name="Sales" Relationship="Self.Order1" FromRole="Product" ToRole="Sale" />
+          <NavigationProperty Name="ProductOrderQuantities" Relationship="ShopModel.FK_Order1_Product" FromRole="Product" ToRole="ProductOrderQuantity" />
         </EntityType>
         <EntityType Name="Sale">
           <Key>
@@ -509,13 +532,12 @@ warning 6002: The table/view 'ShopDar.dbo.Order1' does not have a primary key de
           </Key>
           <Property Name="idSale" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="FullPrice" Type="Decimal" Precision="18" Scale="0" />
-          <Property Name="Quantity" Type="Int32" />
           <Property Name="DateSale" Type="DateTime" Precision="3" />
           <Property Name="idUser" Type="Int32" />
           <Property Name="idCustomer" Type="Int32" />
           <NavigationProperty Name="Customer" Relationship="Self.FK_Sale_Customer" FromRole="Sale" ToRole="Customer" />
           <NavigationProperty Name="User" Relationship="Self.FK_Sale_User" FromRole="Sale" ToRole="User" />
-          <NavigationProperty Name="Products" Relationship="Self.Order1" FromRole="Sale" ToRole="Product" />
+          <NavigationProperty Name="ProductOrderQuantities" Relationship="ShopModel.FK_Order1_Sale" FromRole="Sale" ToRole="ProductOrderQuantity" />
         </EntityType>
         <EntityType Name="Supplier">
           <Key>
@@ -692,10 +714,6 @@ warning 6002: The table/view 'ShopDar.dbo.Order1' does not have a primary key de
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="Order1">
-          <End Role="Product" Type="Self.Product" Multiplicity="*" />
-          <End Role="Sale" Type="Self.Sale" Multiplicity="*" />
-        </Association>
         <EntityContainer Name="ShopEntities" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="Addresses" EntityType="Self.Address" />
           <EntitySet Name="Categories" EntityType="Self.Category" />
@@ -759,11 +777,92 @@ warning 6002: The table/view 'ShopDar.dbo.Order1' does not have a primary key de
             <End Role="User" EntitySet="Users" />
             <End Role="Sale" EntitySet="Sales" />
           </AssociationSet>
-          <AssociationSet Name="Order1" Association="Self.Order1">
+          <EntitySet Name="ProductOrderQuantities" EntityType="ShopModel.ProductOrderQuantity" />
+          <AssociationSet Name="FK_Order1_Product" Association="ShopModel.FK_Order1_Product">
             <End Role="Product" EntitySet="Products" />
-            <End Role="Sale" EntitySet="Sales" />
+            <End Role="ProductOrderQuantity" EntitySet="ProductOrderQuantities" />
           </AssociationSet>
+          <AssociationSet Name="FK_Order1_Sale" Association="ShopModel.FK_Order1_Sale">
+            <End Role="Sale" EntitySet="Sales" />
+            <End Role="ProductOrderQuantity" EntitySet="ProductOrderQuantities" />
+          </AssociationSet>
+          <FunctionImport Name="sp_alterdiagram">
+            <Parameter Name="diagramname" Mode="In" Type="String" />
+            <Parameter Name="owner_id" Mode="In" Type="Int32" />
+            <Parameter Name="version" Mode="In" Type="Int32" />
+            <Parameter Name="definition" Mode="In" Type="Binary" />
+          </FunctionImport>
+          <FunctionImport Name="sp_creatediagram">
+            <Parameter Name="diagramname" Mode="In" Type="String" />
+            <Parameter Name="owner_id" Mode="In" Type="Int32" />
+            <Parameter Name="version" Mode="In" Type="Int32" />
+            <Parameter Name="definition" Mode="In" Type="Binary" />
+          </FunctionImport>
+          <FunctionImport Name="sp_dropdiagram">
+            <Parameter Name="diagramname" Mode="In" Type="String" />
+            <Parameter Name="owner_id" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="sp_helpdiagramdefinition" ReturnType="Collection(ShopModel.sp_helpdiagramdefinition_Result)">
+            <Parameter Name="diagramname" Mode="In" Type="String" />
+            <Parameter Name="owner_id" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="sp_helpdiagrams" ReturnType="Collection(ShopModel.sp_helpdiagrams_Result)">
+            <Parameter Name="diagramname" Mode="In" Type="String" />
+            <Parameter Name="owner_id" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="sp_renamediagram">
+            <Parameter Name="diagramname" Mode="In" Type="String" />
+            <Parameter Name="owner_id" Mode="In" Type="Int32" />
+            <Parameter Name="new_diagramname" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="sp_upgraddiagrams" />
         </EntityContainer>
+        <EntityType Name="ProductOrderQuantity">
+          <Key>
+            <PropertyRef Name="IdProductOrderQuantity" />
+          </Key>
+          <Property Name="IdProductOrderQuantity" Type="Int32" Nullable="false" />
+          <Property Name="IdSale" Type="Int32" Nullable="false" />
+          <Property Name="IdProduct" Type="Int32" Nullable="false" />
+          <Property Name="Quantity" Type="Decimal" Nullable="false" Precision="18" Scale="0" />
+          <NavigationProperty Name="Product" Relationship="ShopModel.FK_Order1_Product" FromRole="ProductOrderQuantity" ToRole="Product" />
+          <NavigationProperty Name="Sale" Relationship="ShopModel.FK_Order1_Sale" FromRole="ProductOrderQuantity" ToRole="Sale" />
+        </EntityType>
+        <Association Name="FK_Order1_Product">
+          <End Type="ShopModel.Product" Role="Product" Multiplicity="1" />
+          <End Type="ShopModel.ProductOrderQuantity" Role="ProductOrderQuantity" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Product">
+              <PropertyRef Name="idProduct" />
+            </Principal>
+            <Dependent Role="ProductOrderQuantity">
+              <PropertyRef Name="IdProduct" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Order1_Sale">
+          <End Type="ShopModel.Sale" Role="Sale" Multiplicity="1" />
+          <End Type="ShopModel.ProductOrderQuantity" Role="ProductOrderQuantity" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Sale">
+              <PropertyRef Name="idSale" />
+            </Principal>
+            <Dependent Role="ProductOrderQuantity">
+              <PropertyRef Name="IdSale" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <ComplexType Name="sp_helpdiagramdefinition_Result">
+          <Property Type="Int32" Name="version" Nullable="true" />
+          <Property Type="Binary" Name="definition" Nullable="true" />
+        </ComplexType>
+        <ComplexType Name="sp_helpdiagrams_Result">
+          <Property Type="String" Name="Database" Nullable="true" MaxLength="128" />
+          <Property Type="String" Name="Name" Nullable="false" MaxLength="128" />
+          <Property Type="Int32" Name="ID" Nullable="false" />
+          <Property Type="String" Name="Owner" Nullable="true" MaxLength="128" />
+          <Property Type="Int32" Name="OwnerID" Nullable="false" />
+        </ComplexType>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -874,7 +973,6 @@ warning 6002: The table/view 'ShopDar.dbo.Order1' does not have a primary key de
               <MappingFragment StoreEntitySet="Sale">
                 <ScalarProperty Name="idSale" ColumnName="idSale" />
                 <ScalarProperty Name="FullPrice" ColumnName="FullPrice" />
-                <ScalarProperty Name="Quantity" ColumnName="Quantity" />
                 <ScalarProperty Name="DateSale" ColumnName="DateSale" />
                 <ScalarProperty Name="idUser" ColumnName="idUser" />
                 <ScalarProperty Name="idCustomer" ColumnName="idCustomer" />
@@ -912,14 +1010,40 @@ warning 6002: The table/view 'ShopDar.dbo.Order1' does not have a primary key de
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <AssociationSetMapping Name="Order1" TypeName="ShopModel.Order1" StoreEntitySet="Order1">
-            <EndProperty Name="Product">
-              <ScalarProperty Name="idProduct" ColumnName="IdProduct" />
-            </EndProperty>
-            <EndProperty Name="Sale">
-              <ScalarProperty Name="idSale" ColumnName="IdSale" />
-            </EndProperty>
-          </AssociationSetMapping>
+          <EntitySetMapping Name="ProductOrderQuantities">
+            <EntityTypeMapping TypeName="ShopModel.ProductOrderQuantity">
+              <MappingFragment StoreEntitySet="ProductOrderQuantity">
+                <ScalarProperty Name="Quantity" ColumnName="Quantity" />
+                <ScalarProperty Name="IdProduct" ColumnName="IdProduct" />
+                <ScalarProperty Name="IdSale" ColumnName="IdSale" />
+                <ScalarProperty Name="IdProductOrderQuantity" ColumnName="IdProductOrderQuantity" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="sp_alterdiagram" FunctionName="ShopModel.Store.sp_alterdiagram" />
+          <FunctionImportMapping FunctionImportName="sp_creatediagram" FunctionName="ShopModel.Store.sp_creatediagram" />
+          <FunctionImportMapping FunctionImportName="sp_dropdiagram" FunctionName="ShopModel.Store.sp_dropdiagram" />
+          <FunctionImportMapping FunctionImportName="sp_helpdiagramdefinition" FunctionName="ShopModel.Store.sp_helpdiagramdefinition">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="ShopModel.sp_helpdiagramdefinition_Result">
+                <ScalarProperty Name="version" ColumnName="version" />
+                <ScalarProperty Name="definition" ColumnName="definition" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="sp_helpdiagrams" FunctionName="ShopModel.Store.sp_helpdiagrams">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="ShopModel.sp_helpdiagrams_Result">
+                <ScalarProperty Name="Database" ColumnName="Database" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="Owner" ColumnName="Owner" />
+                <ScalarProperty Name="OwnerID" ColumnName="OwnerID" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="sp_renamediagram" FunctionName="ShopModel.Store.sp_renamediagram" />
+          <FunctionImportMapping FunctionImportName="sp_upgraddiagrams" FunctionName="ShopModel.Store.sp_upgraddiagrams" />
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>
