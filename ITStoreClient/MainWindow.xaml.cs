@@ -87,16 +87,23 @@ namespace ITStoreClient
         private void addProductToDataGrid(Product product)
         {
             int id = product.idProduct;
-            if (resultProducts.Where(x => x.Id == id).Count() != 0)
-                return;
-            string name = product.Name;
-            string measurement = data.Measurements.First(m => m.idMeasurement == product.idMeasurement).Description;
-            decimal quantity = 1;
-            var price = product.Price+product.Price * data.Markups.First(m => m.idMarkup == product.idMarkup).Percent/100;
+			string name = product.Name;
+			string measurement = data.Measurements.First(m => m.idMeasurement == product.idMeasurement).Description;
+			decimal quantity = 1;
+			var price = product.Price + product.Price * data.Markups.First(m => m.idMarkup == product.idMarkup).Percent / 100;
+
+			if (resultProducts.Where(x => x.Id == id).Count() != 0)
+			{
+				var index = resultProducts.IndexOf(resultProducts.Where(x => x.Id == id).First());
+                resultProducts[index] = new AddedProduct(id, name, measurement, resultProducts[index].Quantity + 1, price.Value);
+				return;
+			}
+            
             AddedProduct addedProduct = new AddedProduct(id,name,measurement,quantity,price.Value);
            
             resultProducts.Add(addedProduct);
-                      
+
+            //product.Quantity
             
             //dataGrid.CurrentCell = new DataGridCellInfo(
             //dataGrid.Items[dataGrid.Items.Count-1], dataGrid.Columns[3]);
