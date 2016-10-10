@@ -154,5 +154,29 @@ namespace ITStoreClient
                 textBoxCustomerId.Foreground = Brushes.Black;
         }
 
-    }
+		private void textBoxSearchById_TextChanged(object sender, TextChangedEventArgs e)
+		{
+			try {
+				int id = Int32.Parse(textBoxSearchById.Text);
+				var findRes = data.Products.Where(x => x.idProduct == id);
+				//listViewSearchItems.Items.Add(findRes);
+
+				foreach (var res in findRes)
+				{
+					//listViewSearchItems.Items.Add(res.Name);
+					listViewSearchItems.Items.Add(new ListViewItem { Content = (res.idProduct + " " + res.Name + " " + res.Price)});
+				}
+			}
+			catch(Exception)
+			{
+				listViewSearchItems.Items.Clear();
+                return;
+			}
+		}
+
+		private void textBoxSearchByName_TextChanged(object sender, TextChangedEventArgs e)
+		{
+
+		}
+	}
 }
