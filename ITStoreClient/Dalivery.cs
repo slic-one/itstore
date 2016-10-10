@@ -23,6 +23,5 @@ namespace ITStoreClient
     
         public virtual Product Product { get; set; }
         public virtual Supplier Supplier { get; set; }
-
     }
 }

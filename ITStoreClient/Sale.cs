@@ -17,12 +17,11 @@ namespace ITStoreClient
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public Sale()
         {
-            this.Products = new HashSet<Product>();
+            this.ProductOrderQuantities = new HashSet<ProductOrderQuantity>();
         }
     
         public int idSale { get; set; }
         public Nullable<decimal> FullPrice { get; set; }
-        public Nullable<int> Quantity { get; set; }
         public Nullable<System.DateTime> DateSale { get; set; }
         public Nullable<int> idUser { get; set; }
         public Nullable<int> idCustomer { get; set; }
@@ -30,6 +29,6 @@ namespace ITStoreClient
         public virtual Customer Customer { get; set; }
         public virtual User User { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Product> Products { get; set; }
+        public virtual ICollection<ProductOrderQuantity> ProductOrderQuantities { get; set; }
     }
 }

@@ -31,7 +31,9 @@
         <AssociationConnector Association="ShopModel.FK_Product_Measurement" ManuallyRouted="false" />
         <AssociationConnector Association="ShopModel.FK_Product_Producer1" ManuallyRouted="false" />
         <AssociationConnector Association="ShopModel.FK_Sale_User" ManuallyRouted="false" />
-        <AssociationConnector Association="ShopModel.Order1" ManuallyRouted="false" />
+        <EntityTypeShape EntityType="ShopModel.ProductOrderQuantity" Width="1.5" PointX="12" PointY="2.875" />
+        <AssociationConnector Association="ShopModel.FK_Order1_Product" />
+        <AssociationConnector Association="ShopModel.FK_Order1_Sale" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

@@ -8,18 +8,20 @@ namespace ITStoreClient
 {
     class AddedProduct
     {
-        public AddedProduct(int Id, string Name, string Measurement, int Quantity,decimal Price)
+        public AddedProduct(int Id, string Name, string Measurement, decimal Quantity,decimal Price)
         {
             this.Id = Id;
             this.Name = Name;
             this.Measurement = Measurement;
             this.Price =Price;
             this.Quantity = Quantity;
+            this.FullPrice = Price * Quantity; 
         }
         public int Id { get; set; }
         public string Name { get; set; }
         public string Measurement { get; set; }
-        public int Quantity { get; set; }
+        public decimal Quantity { get; set; }
         public decimal Price { get; set; }
+        public decimal FullPrice { get; set; }
     }
 }
