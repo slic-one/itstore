@@ -52,21 +52,24 @@ namespace ITStoreClient
         /// TODO !!!!!!!!!!!!
         void Grid_QuantityCellEditEnding(object sender, DataGridCellEditEndingEventArgs e)
         {
+            if (e.EditAction == DataGridEditAction.Cancel)
+                return;
+            var d = sender as DataGrid;
             var c2 = (TextBox)e.Column.GetCellContent(e.Row);
             string str = c2.Text;
             decimal q;
             try
             {
-                decimal.TryParse(str, NumberStyles.AllowDecimalPoint, new NumberFormatInfo { NumberDecimalSeparator = "." }, out q);
-                decimal.TryParse(str, NumberStyles.AllowDecimalPoint, new NumberFormatInfo { NumberDecimalSeparator = "," }, out q);
+                q=decimal.Parse(str, NumberStyles.AllowDecimalPoint, new NumberFormatInfo { NumberDecimalSeparator = "." });
             }
-            catch(Exception ec)
+            catch(Exception ex)
             {
                 e.Cancel = true;
-                MessageBox.Show("");
+                d.CancelEdit(DataGridEditingUnit.Cell);
             }
-            //DataGrid dg = sender as DataGrid;
-            ////var num=e.Column.GetValue(Quantity);
+          
+            //var num=e.Column.Value();
+            //Quantity.SetValue(
             //var cell = (AddedProduct)dg.SelectedItem;
             //var product = resultProducts.Where(x => x.Id == cell.Id).First();
             //product.FullPrice = product.Quantity * product.Price;
@@ -134,7 +137,6 @@ namespace ITStoreClient
 			paymentWindow.ShowDialog();
 		}
 
-
         private void textBoxProductId_TextChanged(object sender, TextChangedEventArgs e)
         {
             if (textBoxProductId.Foreground != Brushes.Black)
@@ -146,6 +148,5 @@ namespace ITStoreClient
             if (textBoxCustomerId.Foreground != Brushes.Black)
                 textBoxCustomerId.Foreground = Brushes.Black;
         }
-
     }
 }
