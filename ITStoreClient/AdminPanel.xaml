@@ -18,6 +18,7 @@
                     <DataGrid x:Name="dataGridUsers" />
                     
                     <Label x:Name="status" Grid.Row="1" Content="Status"/>
+                    <Button x:Name="buttonQuit" Content=" X " HorizontalAlignment="Right" VerticalAlignment="Top" Margin="0, -27, 0, 0" Background="Red" Foreground="White" Click="buttonQuit_Click"/>
                 </Grid>
             </TabItem>
             <TabItem Header="Клієнти">

@@ -52,5 +52,9 @@ namespace ITStoreClient
             //cars.Remove((CarTable)lstCars.SelectedItem);
         }
 
-    }
+		private void buttonQuit_Click(object sender, RoutedEventArgs e)
+		{
+			Close();
+		}
+	}
 }
