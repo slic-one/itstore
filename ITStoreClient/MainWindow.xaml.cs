@@ -64,5 +64,7 @@ namespace ITStoreClient
 			PaymentWindow paymentWindow = new PaymentWindow(totalPrice);
 			paymentWindow.ShowDialog();
 		}
-	}
+
+       
+    }
 }
