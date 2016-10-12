@@ -15,7 +15,7 @@ namespace ITStoreClient
     public partial class Dalivery
     {
         public int idDelivery { get; set; }
-        public Nullable<int> idProduct { get; set; }
+        public Nullable<long> idProduct { get; set; }
         public Nullable<int> idSupplier { get; set; }
         public Nullable<int> Price { get; set; }
         public Nullable<int> Quantity { get; set; }

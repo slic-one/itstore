@@ -28,12 +28,16 @@ namespace ITStoreClient
 		decimal totalPrice = 0;
         ObservableCollection<AddedProduct> resultProducts = new ObservableCollection<AddedProduct>();
         ShopEntities data = new ShopEntities();
+        Customer customer = null;
+        DateTime registrationDate;
+        DateTime outRegistrationDate;
 
 
         public MainWindow()
 		{
 			InitializeComponent();
             dataGrid.ItemsSource = resultProducts;
+
         }
 
         private void DataGrid_Loaded(object sender, RoutedEventArgs e)
@@ -49,7 +53,7 @@ namespace ITStoreClient
 
         }
 
-        /// TODO !!!!!!!!!!!!
+       
         void Grid_QuantityCellEditEnding(object sender, DataGridCellEditEndingEventArgs e)
         {
             if (e.EditAction == DataGridEditAction.Cancel)
@@ -57,7 +61,7 @@ namespace ITStoreClient
             var d = sender as DataGrid;
             var c2 = (TextBox)e.Column.GetCellContent(e.Row);
             string str = c2.Text;
-            decimal q;
+            decimal q=1;
             try
             {
                 q=decimal.Parse(str, NumberStyles.AllowDecimalPoint, new NumberFormatInfo { NumberDecimalSeparator = "." });
@@ -67,26 +71,29 @@ namespace ITStoreClient
                 e.Cancel = true;
                 d.CancelEdit(DataGridEditingUnit.Cell);
             }
-          
-            //var num=e.Column.Value();
-            //Quantity.SetValue(
-            //var cell = (AddedProduct)dg.SelectedItem;
-            //var product = resultProducts.Where(x => x.Id == cell.Id).First();
-            //product.FullPrice = product.Quantity * product.Price;
-            //price.Content = priceWithoutDiscount();
+            var index = d.SelectedIndex;
+            
+            long id = resultProducts[index].Id;
+            string name = resultProducts[index].Name;
+            string measurement = resultProducts[index].Measurement;
+            decimal quantity = q;
+            decimal price = resultProducts[index].Price;
+            decimal fullPrice = quantity * price;
+            resultProducts[index] = new AddedProduct(id, name, measurement, quantity, price);
+
 
         }
 
         void DataGrid_CollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
         {
-                price.Content = priceWithoutDiscount();
+                price.Content = countPrice();
 
         }
 
         // TODO focus on Quantity column (below doesn't work)?????????
         private void addProductToDataGrid(Product product)
         {
-            int id = product.idProduct;
+            long id = product.idProduct;
 			string name = product.Name;
 			string measurement = data.Measurements.First(m => m.idMeasurement == product.idMeasurement).Description;
 			decimal quantity = 1;
@@ -118,7 +125,7 @@ namespace ITStoreClient
         private void buttonAddProduct_Click(object sender, RoutedEventArgs e)
         {
             try {
-                int id = Int32.Parse(textBoxProductId.Text);
+                long id = Int64.Parse(textBoxProductId.Text);
                 Product product = data.Products.Where(p => p.idProduct == id).First();
                 addProductToDataGrid(product);
               
@@ -129,15 +136,32 @@ namespace ITStoreClient
             }
         }
         
-        private decimal priceWithoutDiscount()
+        private decimal countPrice()
         {
-            decimal price=0;
+            int discountPercent = 0;
+            try {
+                discountPercent = data.CustomerDiscounts.Where(x => x.idDiscount == customer.idDiscount).Select(x => x.Percent).First();
+            }
+            catch (Exception ex){ }
+            decimal price = 0;
             foreach(var p in resultProducts)
                price += p.Price * p.Quantity;
-            return price;
+            decimal discount = price * discountPercent / 100;
+            return price-discount;
 
         }
+        private void buttonAddCustomer_Click(object sender, RoutedEventArgs e) {
+            
+            try {
+                int id = Int32.Parse(textBoxCustomerId.Text);
+                customer = data.Customers.Where(c => c.idCustomer == id).First();
+            }
+            catch(Exception ex) { return; }
 
+            int discount = data.CustomerDiscounts.Where(d => d.idDiscount == customer.idDiscount).First().Percent;
+            price.Content=countPrice();
+            priceDiscount.Content = discount.ToString() + "%";
+        }
         private void buttonPayment_Click(object sender, RoutedEventArgs e)
 		{
 			PaymentWindow paymentWindow = new PaymentWindow(totalPrice);

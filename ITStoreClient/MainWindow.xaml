@@ -134,7 +134,7 @@
                 </TextBlock.Style>
             </TextBlock>
 
-            <Button x:Name="buttonCalculateDiscount" Content=" Порахувати знижку " Margin="10" Grid.Column="2" Grid.Row="1" Style="{StaticResource FlatButton}"/>
+            <Button x:Name="buttonCalculateDiscount" Click="buttonAddCustomer_Click" Content=" Порахувати знижку " Margin="10" Grid.Column="2" Grid.Row="1" Style="{StaticResource FlatButton}"/>
         </Grid>
 
         <Grid Grid.Row="3">

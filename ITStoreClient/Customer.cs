@@ -20,7 +20,7 @@ namespace ITStoreClient
             this.Sales = new HashSet<Sale>();
         }
     
-        public int idCustomer { get; set; }
+        public long idCustomer { get; set; }
         public string Name { get; set; }
         public string Surname { get; set; }
         public decimal Spended_Money { get; set; }

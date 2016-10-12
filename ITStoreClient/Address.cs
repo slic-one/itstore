@@ -22,11 +22,10 @@ namespace ITStoreClient
         }
     
         public int idAddress { get; set; }
-        public Nullable<int> idCountry { get; set; }
         public string Town { get; set; }
         public string Street { get; set; }
+        public string Country { get; set; }
     
-        public virtual Country Country { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Producer> Producers { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

@@ -29,7 +29,6 @@ namespace ITStoreClient
     
         public virtual DbSet<Address> Addresses { get; set; }
         public virtual DbSet<Category> Categories { get; set; }
-        public virtual DbSet<Country> Countries { get; set; }
         public virtual DbSet<Customer> Customers { get; set; }
         public virtual DbSet<CustomerDiscount> CustomerDiscounts { get; set; }
         public virtual DbSet<Dalivery> Daliveries { get; set; }

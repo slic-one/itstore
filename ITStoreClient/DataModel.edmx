@@ -10,7 +10,7 @@
             <PropertyRef Name="idAddress" />
           </Key>
           <Property Name="idAddress" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="idCountry" Type="int" />
+          <Property Name="Country" Type="varchar" MaxLength="50" />
           <Property Name="Town" Type="varchar" MaxLength="50" />
           <Property Name="Street" Type="varchar" MaxLength="50" />
         </EntityType>
@@ -21,18 +21,11 @@
           <Property Name="idCatedory" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="Name" Type="varchar" MaxLength="50" />
         </EntityType>
-        <EntityType Name="Country">
-          <Key>
-            <PropertyRef Name="idCountry" />
-          </Key>
-          <Property Name="idCountry" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="Name" Type="varchar" MaxLength="50" />
-        </EntityType>
         <EntityType Name="Customer">
           <Key>
             <PropertyRef Name="idCustomer" />
           </Key>
-          <Property Name="idCustomer" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="idCustomer" Type="bigint" Nullable="false" StoreGeneratedPattern="Identity" />
           <Property Name="Name" Type="varchar" MaxLength="50" Nullable="false" />
           <Property Name="Surname" Type="varchar" MaxLength="50" Nullable="false" />
           <Property Name="Spended Money" Type="decimal" Precision="18" Scale="0" Nullable="false" />
@@ -51,7 +44,7 @@
             <PropertyRef Name="idDelivery" />
           </Key>
           <Property Name="idDelivery" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="idProduct" Type="int" />
+          <Property Name="idProduct" Type="bigint" />
           <Property Name="idSupplier" Type="int" />
           <Property Name="Price" Type="int" />
           <Property Name="Quantity" Type="int" />
@@ -85,7 +78,7 @@
           <Key>
             <PropertyRef Name="idProduct" />
           </Key>
-          <Property Name="idProduct" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="idProduct" Type="bigint" Nullable="false" StoreGeneratedPattern="Identity" />
           <Property Name="Name" Type="varchar" MaxLength="50" />
           <Property Name="idCategory" Type="int" />
           <Property Name="Price" Type="decimal" Precision="18" Scale="0" />
@@ -100,7 +93,7 @@
           </Key>
           <Property Name="IdProductOrderQuantity" Type="int" Nullable="false" />
           <Property Name="IdSale" Type="int" Nullable="false" />
-          <Property Name="IdProduct" Type="int" Nullable="false" />
+          <Property Name="IdProduct" Type="bigint" Nullable="false" />
           <Property Name="Quantity" Type="decimal" Precision="18" Scale="0" Nullable="false" />
         </EntityType>
         <EntityType Name="Sale">
@@ -111,7 +104,7 @@
           <Property Name="FullPrice" Type="decimal" Precision="18" Scale="0" />
           <Property Name="DateSale" Type="datetime" />
           <Property Name="idUser" Type="int" />
-          <Property Name="idCustomer" Type="int" />
+          <Property Name="idCustomer" Type="bigint" />
         </EntityType>
         <EntityType Name="Supplier">
           <Key>
@@ -141,18 +134,6 @@
           <Property Name="Password" Type="varchar" MaxLength="50" Nullable="false" />
           <Property Name="Admin" Type="bit" Nullable="false" />
         </EntityType>
-        <Association Name="FK_Address_Country">
-          <End Role="Country" Type="Self.Country" Multiplicity="0..1" />
-          <End Role="Address" Type="Self.Address" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Country">
-              <PropertyRef Name="idCountry" />
-            </Principal>
-            <Dependent Role="Address">
-              <PropertyRef Name="idCountry" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="FK_Customer_CustomerDiscount">
           <End Role="CustomerDiscount" Type="Self.CustomerDiscount" Multiplicity="1" />
           <End Role="Customer" Type="Self.Customer" Multiplicity="*" />
@@ -343,7 +324,6 @@
         <EntityContainer Name="ShopModelStoreContainer">
           <EntitySet Name="Address" EntityType="Self.Address" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Category" EntityType="Self.Category" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="Country" EntityType="Self.Country" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Customer" EntityType="Self.Customer" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="CustomerDiscount" EntityType="Self.CustomerDiscount" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Dalivery" EntityType="Self.Dalivery" Schema="dbo" store:Type="Tables" />
@@ -356,10 +336,6 @@
           <EntitySet Name="Supplier" EntityType="Self.Supplier" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="User" EntityType="Self.User" Schema="dbo" store:Type="Tables" />
-          <AssociationSet Name="FK_Address_Country" Association="Self.FK_Address_Country">
-            <End Role="Country" EntitySet="Country" />
-            <End Role="Address" EntitySet="Address" />
-          </AssociationSet>
           <AssociationSet Name="FK_Customer_CustomerDiscount" Association="Self.FK_Customer_CustomerDiscount">
             <End Role="CustomerDiscount" EntitySet="CustomerDiscount" />
             <End Role="Customer" EntitySet="Customer" />
@@ -422,12 +398,11 @@
             <PropertyRef Name="idAddress" />
           </Key>
           <Property Name="idAddress" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="idCountry" Type="Int32" />
           <Property Name="Town" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="Street" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <NavigationProperty Name="Country" Relationship="Self.FK_Address_Country" FromRole="Address" ToRole="Country" />
           <NavigationProperty Name="Producers" Relationship="Self.FK_Producer_Address" FromRole="Address" ToRole="Producer" />
           <NavigationProperty Name="Suppliers" Relationship="Self.FK_Supplier_Address" FromRole="Address" ToRole="Supplier" />
+          <Property Name="Country" Type="String" Unicode="false" FixedLength="false" MaxLength="50" />
         </EntityType>
         <EntityType Name="Category">
           <Key>
@@ -437,19 +412,11 @@
           <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <NavigationProperty Name="Products" Relationship="Self.FK_Product_Category" FromRole="Category" ToRole="Product" />
         </EntityType>
-        <EntityType Name="Country">
-          <Key>
-            <PropertyRef Name="idCountry" />
-          </Key>
-          <Property Name="idCountry" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <NavigationProperty Name="Addresses" Relationship="Self.FK_Address_Country" FromRole="Country" ToRole="Address" />
-        </EntityType>
         <EntityType Name="Customer">
           <Key>
             <PropertyRef Name="idCustomer" />
           </Key>
-          <Property Name="idCustomer" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="idCustomer" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="Surname" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="Spended_Money" Type="Decimal" Precision="18" Scale="0" Nullable="false" />
@@ -471,7 +438,7 @@
             <PropertyRef Name="idDelivery" />
           </Key>
           <Property Name="idDelivery" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="idProduct" Type="Int32" />
+          <Property Name="idProduct" Type="Int64" />
           <Property Name="idSupplier" Type="Int32" />
           <Property Name="Price" Type="Int32" />
           <Property Name="Quantity" Type="Int32" />
@@ -511,7 +478,7 @@
           <Key>
             <PropertyRef Name="idProduct" />
           </Key>
-          <Property Name="idProduct" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="idProduct" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="idCategory" Type="Int32" />
           <Property Name="Price" Type="Decimal" Precision="18" Scale="0" />
@@ -534,7 +501,7 @@
           <Property Name="FullPrice" Type="Decimal" Precision="18" Scale="0" />
           <Property Name="DateSale" Type="DateTime" Precision="3" />
           <Property Name="idUser" Type="Int32" />
-          <Property Name="idCustomer" Type="Int32" />
+          <Property Name="idCustomer" Type="Int64" />
           <NavigationProperty Name="Customer" Relationship="Self.FK_Sale_Customer" FromRole="Sale" ToRole="Customer" />
           <NavigationProperty Name="User" Relationship="Self.FK_Sale_User" FromRole="Sale" ToRole="User" />
           <NavigationProperty Name="ProductOrderQuantities" Relationship="ShopModel.FK_Order1_Sale" FromRole="Sale" ToRole="ProductOrderQuantity" />
@@ -570,18 +537,6 @@
           <Property Name="Admin" Type="Boolean" Nullable="false" />
           <NavigationProperty Name="Sales" Relationship="Self.FK_Sale_User" FromRole="User" ToRole="Sale" />
         </EntityType>
-        <Association Name="FK_Address_Country">
-          <End Role="Country" Type="Self.Country" Multiplicity="0..1" />
-          <End Role="Address" Type="Self.Address" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Country">
-              <PropertyRef Name="idCountry" />
-            </Principal>
-            <Dependent Role="Address">
-              <PropertyRef Name="idCountry" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="FK_Producer_Address">
           <End Role="Address" Type="Self.Address" Multiplicity="0..1" />
           <End Role="Producer" Type="Self.Producer" Multiplicity="*" />
@@ -717,7 +672,6 @@
         <EntityContainer Name="ShopEntities" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="Addresses" EntityType="Self.Address" />
           <EntitySet Name="Categories" EntityType="Self.Category" />
-          <EntitySet Name="Countries" EntityType="Self.Country" />
           <EntitySet Name="Customers" EntityType="Self.Customer" />
           <EntitySet Name="CustomerDiscounts" EntityType="Self.CustomerDiscount" />
           <EntitySet Name="Daliveries" EntityType="Self.Dalivery" />
@@ -729,10 +683,6 @@
           <EntitySet Name="Suppliers" EntityType="Self.Supplier" />
           <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagram" />
           <EntitySet Name="Users" EntityType="Self.User" />
-          <AssociationSet Name="FK_Address_Country" Association="Self.FK_Address_Country">
-            <End Role="Country" EntitySet="Countries" />
-            <End Role="Address" EntitySet="Addresses" />
-          </AssociationSet>
           <AssociationSet Name="FK_Producer_Address" Association="Self.FK_Producer_Address">
             <End Role="Address" EntitySet="Addresses" />
             <End Role="Producer" EntitySet="Producers" />
@@ -777,15 +727,6 @@
             <End Role="User" EntitySet="Users" />
             <End Role="Sale" EntitySet="Sales" />
           </AssociationSet>
-          <EntitySet Name="ProductOrderQuantities" EntityType="ShopModel.ProductOrderQuantity" />
-          <AssociationSet Name="FK_Order1_Product" Association="ShopModel.FK_Order1_Product">
-            <End Role="Product" EntitySet="Products" />
-            <End Role="ProductOrderQuantity" EntitySet="ProductOrderQuantities" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Order1_Sale" Association="ShopModel.FK_Order1_Sale">
-            <End Role="Sale" EntitySet="Sales" />
-            <End Role="ProductOrderQuantity" EntitySet="ProductOrderQuantities" />
-          </AssociationSet>
           <FunctionImport Name="sp_alterdiagram">
             <Parameter Name="diagramname" Mode="In" Type="String" />
             <Parameter Name="owner_id" Mode="In" Type="Int32" />
@@ -816,14 +757,34 @@
             <Parameter Name="new_diagramname" Mode="In" Type="String" />
           </FunctionImport>
           <FunctionImport Name="sp_upgraddiagrams" />
-        </EntityContainer>
+          <EntitySet Name="ProductOrderQuantities" EntityType="ShopModel.ProductOrderQuantity" />
+          <AssociationSet Name="FK_Order1_Product" Association="ShopModel.FK_Order1_Product">
+            <End Role="Product" EntitySet="Products" />
+            <End Role="ProductOrderQuantity" EntitySet="ProductOrderQuantities" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Order1_Sale" Association="ShopModel.FK_Order1_Sale">
+            <End Role="Sale" EntitySet="Sales" />
+            <End Role="ProductOrderQuantity" EntitySet="ProductOrderQuantities" />
+          </AssociationSet>
+          </EntityContainer>
+        <ComplexType Name="sp_helpdiagramdefinition_Result">
+          <Property Type="Int32" Name="version" Nullable="true" />
+          <Property Type="Binary" Name="definition" Nullable="true" />
+        </ComplexType>
+        <ComplexType Name="sp_helpdiagrams_Result">
+          <Property Type="String" Name="Database" Nullable="true" MaxLength="128" />
+          <Property Type="String" Name="Name" Nullable="false" MaxLength="128" />
+          <Property Type="Int32" Name="ID" Nullable="false" />
+          <Property Type="String" Name="Owner" Nullable="true" MaxLength="128" />
+          <Property Type="Int32" Name="OwnerID" Nullable="false" />
+        </ComplexType>
         <EntityType Name="ProductOrderQuantity">
           <Key>
             <PropertyRef Name="IdProductOrderQuantity" />
           </Key>
           <Property Name="IdProductOrderQuantity" Type="Int32" Nullable="false" />
           <Property Name="IdSale" Type="Int32" Nullable="false" />
-          <Property Name="IdProduct" Type="Int32" Nullable="false" />
+          <Property Name="IdProduct" Type="Int64" Nullable="false" />
           <Property Name="Quantity" Type="Decimal" Nullable="false" Precision="18" Scale="0" />
           <NavigationProperty Name="Product" Relationship="ShopModel.FK_Order1_Product" FromRole="ProductOrderQuantity" ToRole="Product" />
           <NavigationProperty Name="Sale" Relationship="ShopModel.FK_Order1_Sale" FromRole="ProductOrderQuantity" ToRole="Sale" />
@@ -852,18 +813,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <ComplexType Name="sp_helpdiagramdefinition_Result">
-          <Property Type="Int32" Name="version" Nullable="true" />
-          <Property Type="Binary" Name="definition" Nullable="true" />
-        </ComplexType>
-        <ComplexType Name="sp_helpdiagrams_Result">
-          <Property Type="String" Name="Database" Nullable="true" MaxLength="128" />
-          <Property Type="String" Name="Name" Nullable="false" MaxLength="128" />
-          <Property Type="Int32" Name="ID" Nullable="false" />
-          <Property Type="String" Name="Owner" Nullable="true" MaxLength="128" />
-          <Property Type="Int32" Name="OwnerID" Nullable="false" />
-        </ComplexType>
-      </Schema>
+        </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
     <edmx:Mappings>
@@ -872,8 +822,8 @@
           <EntitySetMapping Name="Addresses">
             <EntityTypeMapping TypeName="ShopModel.Address">
               <MappingFragment StoreEntitySet="Address">
+                <ScalarProperty Name="Country" ColumnName="Country" />
                 <ScalarProperty Name="idAddress" ColumnName="idAddress" />
-                <ScalarProperty Name="idCountry" ColumnName="idCountry" />
                 <ScalarProperty Name="Town" ColumnName="Town" />
                 <ScalarProperty Name="Street" ColumnName="Street" />
               </MappingFragment>
@@ -883,14 +833,6 @@
             <EntityTypeMapping TypeName="ShopModel.Category">
               <MappingFragment StoreEntitySet="Category">
                 <ScalarProperty Name="idCatedory" ColumnName="idCatedory" />
-                <ScalarProperty Name="Name" ColumnName="Name" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="Countries">
-            <EntityTypeMapping TypeName="ShopModel.Country">
-              <MappingFragment StoreEntitySet="Country">
-                <ScalarProperty Name="idCountry" ColumnName="idCountry" />
                 <ScalarProperty Name="Name" ColumnName="Name" />
               </MappingFragment>
             </EntityTypeMapping>
@@ -1010,16 +952,6 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="ProductOrderQuantities">
-            <EntityTypeMapping TypeName="ShopModel.ProductOrderQuantity">
-              <MappingFragment StoreEntitySet="ProductOrderQuantity">
-                <ScalarProperty Name="Quantity" ColumnName="Quantity" />
-                <ScalarProperty Name="IdProduct" ColumnName="IdProduct" />
-                <ScalarProperty Name="IdSale" ColumnName="IdSale" />
-                <ScalarProperty Name="IdProductOrderQuantity" ColumnName="IdProductOrderQuantity" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <FunctionImportMapping FunctionImportName="sp_alterdiagram" FunctionName="ShopModel.Store.sp_alterdiagram" />
           <FunctionImportMapping FunctionImportName="sp_creatediagram" FunctionName="ShopModel.Store.sp_creatediagram" />
           <FunctionImportMapping FunctionImportName="sp_dropdiagram" FunctionName="ShopModel.Store.sp_dropdiagram" />
@@ -1044,6 +976,16 @@
           </FunctionImportMapping>
           <FunctionImportMapping FunctionImportName="sp_renamediagram" FunctionName="ShopModel.Store.sp_renamediagram" />
           <FunctionImportMapping FunctionImportName="sp_upgraddiagrams" FunctionName="ShopModel.Store.sp_upgraddiagrams" />
+          <EntitySetMapping Name="ProductOrderQuantities">
+            <EntityTypeMapping TypeName="ShopModel.ProductOrderQuantity">
+              <MappingFragment StoreEntitySet="ProductOrderQuantity">
+                <ScalarProperty Name="Quantity" ColumnName="Quantity" />
+                <ScalarProperty Name="IdProduct" ColumnName="IdProduct" />
+                <ScalarProperty Name="IdSale" ColumnName="IdSale" />
+                <ScalarProperty Name="IdProductOrderQuantity" ColumnName="IdProductOrderQuantity" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

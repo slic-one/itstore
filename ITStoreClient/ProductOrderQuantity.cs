@@ -16,7 +16,7 @@ namespace ITStoreClient
     {
         public int IdProductOrderQuantity { get; set; }
         public int IdSale { get; set; }
-        public int IdProduct { get; set; }
+        public long IdProduct { get; set; }
         public decimal Quantity { get; set; }
     
         public virtual Product Product { get; set; }

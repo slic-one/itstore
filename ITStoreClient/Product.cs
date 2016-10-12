@@ -21,7 +21,7 @@ namespace ITStoreClient
             this.ProductOrderQuantities = new HashSet<ProductOrderQuantity>();
         }
     
-        public int idProduct { get; set; }
+        public long idProduct { get; set; }
         public string Name { get; set; }
         public Nullable<int> idCategory { get; set; }
         public Nullable<decimal> Price { get; set; }
