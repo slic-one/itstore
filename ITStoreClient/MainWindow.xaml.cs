@@ -124,17 +124,25 @@ namespace ITStoreClient
 		}
         private void buttonAddProduct_Click(object sender, RoutedEventArgs e)
         {
-            try {
-                long id = Int64.Parse(textBoxProductId.Text);
-                Product product = data.Products.Where(p => p.idProduct == id).First();
-                addProductToDataGrid(product);
-              
-            }
-            catch (Exception ex)
-            {
-                textBoxProductId.Foreground = Brushes.Red;
-            }
+
+			AddProduct();
+
         }
+
+		private void AddProduct()
+		{
+			try
+			{
+				int id = Int32.Parse(textBoxProductId.Text);
+				Product product = data.Products.Where(p => p.idProduct == id).First();
+				addProductToDataGrid(product);
+
+			}
+			catch (Exception ex)
+			{
+				textBoxProductId.Foreground = Brushes.Red;
+			}
+		}
         
         private decimal countPrice()
         {
@@ -179,5 +187,52 @@ namespace ITStoreClient
             if (textBoxCustomerId.Foreground != Brushes.Black)
                 textBoxCustomerId.Foreground = Brushes.Black;
         }
-    }
+
+
+		private void textBoxSearchById_TextChanged(object sender, TextChangedEventArgs e)
+		{
+			try {
+				int id = Int32.Parse(textBoxSearchById.Text);
+				var findRes = data.Products.Where(x => x.idProduct == id);
+				//listViewSearchItems.Items.Add(findRes);
+
+				foreach (var res in findRes)
+				{
+					//listViewSearchItems.Items.Add(res.Name);
+					listViewSearchItems.Items.Add(new ListViewItem { Content = (res.idProduct + " " + res.Name + " " + res.Price)});
+				}
+			}
+			catch(Exception)
+			{
+				listViewSearchItems.Items.Clear();
+                return;
+			}
+		}
+
+		private void textBoxSearchByName_TextChanged(object sender, TextChangedEventArgs e)
+		{
+
+		}
+
+		private void textBoxProductId_KeyDown(object sender, KeyEventArgs e)
+		{
+			if (e.Key == Key.Enter)
+			{
+				AddProduct();
+				textBoxProductId.Clear();
+			}
+		}
+
+		private void textBoxCustomerId_KeyDown(object sender, KeyEventArgs e)
+		{
+			if (e.Key == Key.Enter)
+			{
+				// TODO replace with discount calculating method
+				priceDiscount.Content = "(-" + 10 + "%)";
+
+				textBoxCustomerId.Clear();
+			}
+		}
+	}
+
 }
