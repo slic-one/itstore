@@ -97,7 +97,7 @@
 
             <Image x:Name="imageBarcode" Source="Images/barcode.png" Grid.Column="0" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="20" />
             
-            <TextBox x:Name="textBoxProductId" Style="{StaticResource FlatTextBox}" Grid.Column="1" Height="32"  Margin="10" TextChanged="textBoxProductId_TextChanged" />
+            <TextBox x:Name="textBoxProductId" Style="{StaticResource FlatTextBox}" Grid.Column="1" Height="32"  Margin="10" TextChanged="textBoxProductId_TextChanged" KeyDown="textBoxProductId_KeyDown" />
             <TextBlock Grid.Column="1" IsHitTestVisible="False" Text="ID товару" VerticalAlignment="Center" HorizontalAlignment="Left" Margin="20,0,0,0" Foreground="DarkGray">
                 <TextBlock.Style>
                     <Style TargetType="{x:Type TextBlock}">
@@ -115,7 +115,7 @@
 
             <Image x:Name="imageCreditCard" Source="Images/credit_card.png" Grid.Column="0" Grid.Row="1" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="20" />
             
-            <TextBox x:Name="textBoxCustomerId" Style="{StaticResource FlatTextBox}" Height="32"  Grid.Column="1" Grid.Row="1" Margin="10" TextChanged="textBoxCustomerId_TextChanged" />
+            <TextBox x:Name="textBoxCustomerId" Style="{StaticResource FlatTextBox}" Height="32"  Grid.Column="1" Grid.Row="1" Margin="10" TextChanged="textBoxCustomerId_TextChanged" KeyDown="textBoxCustomerId_KeyDown" />
             <TextBlock Grid.Column="1" Grid.Row="1" IsHitTestVisible="False" Text="ID клієнта" VerticalAlignment="Center" HorizontalAlignment="Left" Margin="20,0,0,0" Foreground="DarkGray">
                 <TextBlock.Style>
                     <Style TargetType="{x:Type TextBlock}">

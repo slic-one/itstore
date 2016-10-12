@@ -114,17 +114,23 @@ namespace ITStoreClient
 		}
         private void buttonAddProduct_Click(object sender, RoutedEventArgs e)
         {
-            try {
-                int id = Int32.Parse(textBoxProductId.Text);
-                Product product = data.Products.Where(p => p.idProduct == id).First();
-                addProductToDataGrid(product);
-              
-            }
-            catch (Exception ex)
-            {
-                textBoxProductId.Foreground = Brushes.Red;
-            }
+			AddProduct();
         }
+
+		private void AddProduct()
+		{
+			try
+			{
+				int id = Int32.Parse(textBoxProductId.Text);
+				Product product = data.Products.Where(p => p.idProduct == id).First();
+				addProductToDataGrid(product);
+
+			}
+			catch (Exception ex)
+			{
+				textBoxProductId.Foreground = Brushes.Red;
+			}
+		}
         
         private decimal priceWithoutDiscount()
         {
@@ -177,6 +183,26 @@ namespace ITStoreClient
 		private void textBoxSearchByName_TextChanged(object sender, TextChangedEventArgs e)
 		{
 
+		}
+
+		private void textBoxProductId_KeyDown(object sender, KeyEventArgs e)
+		{
+			if (e.Key == Key.Enter)
+			{
+				AddProduct();
+				textBoxProductId.Clear();
+			}
+		}
+
+		private void textBoxCustomerId_KeyDown(object sender, KeyEventArgs e)
+		{
+			if (e.Key == Key.Enter)
+			{
+				// TODO replace with discount calculating method
+				priceDiscount.Content = "(-" + 10 + "%)";
+
+				textBoxCustomerId.Clear();
+			}
 		}
 	}
 }
