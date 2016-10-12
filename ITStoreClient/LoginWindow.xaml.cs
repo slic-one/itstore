@@ -11,7 +11,9 @@ namespace ITStoreClient
 	/// </summary>
 	public partial class LoginWindow : Window
 	{
-		public LoginWindow()
+
+        User user = null;
+        public LoginWindow()
 		{
 			InitializeComponent();
             textBoxLogin.Text = "one";
@@ -40,7 +42,7 @@ namespace ITStoreClient
             }
 
             if (str == "cashier") {
-                MainWindow cashierWindow = new MainWindow();
+                MainWindow cashierWindow = new MainWindow(user);
                 cashierWindow.Show();
                 this.Close();
                 
@@ -62,7 +64,7 @@ namespace ITStoreClient
                 ShopEntities data = new ShopEntities();
                 List<User> users = new List<User>();
                 if (data.Users.Where(l => l.Login == login).First().Password == password) {
-                    User user = data.Users.First(l => l.Login == login);
+                    user = data.Users.First(l => l.Login == login);
                     if (user.Admin == true)
                     {
                         str = "admin";

@@ -16,6 +16,7 @@ using System.Collections.ObjectModel;
 using System.Collections.Specialized;
 using System.ComponentModel;
 using System.Globalization;
+using System;
 
 namespace ITStoreClient
 {
@@ -29,15 +30,17 @@ namespace ITStoreClient
         ObservableCollection<AddedProduct> resultProducts = new ObservableCollection<AddedProduct>();
         ShopEntities data = new ShopEntities();
         Customer customer = null;
+        User user = null;
         DateTime registrationDate;
         DateTime outRegistrationDate;
 
 
-        public MainWindow()
+        public MainWindow(User user)
 		{
 			InitializeComponent();
             dataGrid.ItemsSource = resultProducts;
-
+            this.user = user;
+            registrationDate = DateTime.Now;
         }
 
         private void DataGrid_Loaded(object sender, RoutedEventArgs e)
@@ -93,6 +96,7 @@ namespace ITStoreClient
         // TODO focus on Quantity column (below doesn't work)?????????
         private void addProductToDataGrid(Product product)
         {
+            
             long id = product.idProduct;
 			string name = product.Name;
 			string measurement = data.Measurements.First(m => m.idMeasurement == product.idMeasurement).Description;
@@ -133,7 +137,7 @@ namespace ITStoreClient
 		{
 			try
 			{
-				int id = Int32.Parse(textBoxProductId.Text);
+				long id = Int64.Parse(textBoxProductId.Text);
 				Product product = data.Products.Where(p => p.idProduct == id).First();
 				addProductToDataGrid(product);
 
@@ -158,17 +162,21 @@ namespace ITStoreClient
             return price-discount;
 
         }
-        private void buttonAddCustomer_Click(object sender, RoutedEventArgs e) {
-            
-            try {
-                int id = Int32.Parse(textBoxCustomerId.Text);
+        private void findCustomer() {
+
+            try
+            {
+                long id = Int64.Parse(textBoxCustomerId.Text);
                 customer = data.Customers.Where(c => c.idCustomer == id).First();
             }
-            catch(Exception ex) { return; }
+            catch (Exception ex) { return; }
 
             int discount = data.CustomerDiscounts.Where(d => d.idDiscount == customer.idDiscount).First().Percent;
-            price.Content=countPrice();
+            price.Content = countPrice();
             priceDiscount.Content = discount.ToString() + "%";
+        }
+        private void buttonAddCustomer_Click(object sender, RoutedEventArgs e) {
+            findCustomer();
         }
         private void buttonPayment_Click(object sender, RoutedEventArgs e)
 		{
@@ -227,10 +235,8 @@ namespace ITStoreClient
 		{
 			if (e.Key == Key.Enter)
 			{
-				// TODO replace with discount calculating method
-				priceDiscount.Content = "(-" + 10 + "%)";
-
-				textBoxCustomerId.Clear();
+                findCustomer();
+                textBoxCustomerId.Clear();
 			}
 		}
 	}
