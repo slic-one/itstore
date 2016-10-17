@@ -104,6 +104,7 @@ namespace ITStoreClient
 				return;
 			}
             
+
             AddedProduct addedProduct = new AddedProduct(id,name,measurement,quantity,price.Value);
            
             resultProducts.Add(addedProduct);
