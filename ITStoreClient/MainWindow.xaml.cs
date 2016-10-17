@@ -53,10 +53,8 @@ namespace ITStoreClient
 
             sourceCollection.CollectionChanged +=
                 new NotifyCollectionChangedEventHandler(DataGrid_CollectionChanged);
-
         }
 
-       
         void Grid_QuantityCellEditEnding(object sender, DataGridCellEditEndingEventArgs e)
         {
             if (e.EditAction == DataGridEditAction.Cancel)
@@ -83,20 +81,16 @@ namespace ITStoreClient
             decimal price = resultProducts[index].Price;
             decimal fullPrice = quantity * price;
             resultProducts[index] = new AddedProduct(id, name, measurement, quantity, price);
-
-
         }
 
         void DataGrid_CollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
         {
-                price.Content = countPrice();
-
+            price.Content = countPrice();
         }
 
         // TODO focus on Quantity column (below doesn't work)?????????
         private void addProductToDataGrid(Product product)
         {
-            
             long id = product.idProduct;
 			string name = product.Name;
 			string measurement = data.Measurements.First(m => m.idMeasurement == product.idMeasurement).Description;
@@ -119,7 +113,6 @@ namespace ITStoreClient
             //dataGrid.CurrentCell = new DataGridCellInfo(
             //dataGrid.Items[dataGrid.Items.Count-1], dataGrid.Columns[3]);
             //dataGrid.BeginEdit();
-
         }
        
         private void MenuItemQuit_Click(object sender, RoutedEventArgs e)
@@ -128,9 +121,7 @@ namespace ITStoreClient
 		}
         private void buttonAddProduct_Click(object sender, RoutedEventArgs e)
         {
-
 			AddProduct();
-
         }
 
 		private void AddProduct()
@@ -196,18 +187,17 @@ namespace ITStoreClient
                 textBoxCustomerId.Foreground = Brushes.Black;
         }
 
-
 		private void textBoxSearchById_TextChanged(object sender, TextChangedEventArgs e)
 		{
+			listViewSearchItems.Items.Clear();
 			try {
-				int id = Int32.Parse(textBoxSearchById.Text);
-				var findRes = data.Products.Where(x => x.idProduct == id);
-				//listViewSearchItems.Items.Add(findRes);
+				var findRes = data.Products.Where(x => x.idProduct.ToString().Substring(0, textBoxSearchById.Text.Length) == textBoxSearchById.Text);
 
-				foreach (var res in findRes)
+				foreach (Product res in findRes)
 				{
 					//listViewSearchItems.Items.Add(res.Name);
-					listViewSearchItems.Items.Add(new ListViewItem { Content = (res.idProduct + " " + res.Name + " " + res.Price)});
+					ListViewItem itm = new ListViewItem();
+					listViewSearchItems.Items.Add(new ListViewItem { Content = (res.idProduct + " " + res.Name + " " + res.Price), Tag = res });
 				}
 			}
 			catch(Exception)
@@ -215,6 +205,12 @@ namespace ITStoreClient
 				listViewSearchItems.Items.Clear();
                 return;
 			}
+		}
+
+		protected void HandleDoubleClick(object sender, MouseButtonEventArgs e)
+		{
+			//addProductToDataGrid((Product)((ListViewItem)sender).Tag);
+			MessageBox.Show("SHIET");
 		}
 
 		private void textBoxSearchByName_TextChanged(object sender, TextChangedEventArgs e)
@@ -240,5 +236,4 @@ namespace ITStoreClient
 			}
 		}
 	}
-
 }
