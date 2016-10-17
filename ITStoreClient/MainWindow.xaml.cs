@@ -83,7 +83,7 @@ namespace ITStoreClient
         // TODO focus on Quantity column (below doesn't work)?????????
         private void addProductToDataGrid(Product product)
         {
-            int id = product.idProduct;
+            long id = product.idProduct;
             if (resultProducts.Where(x => x.Id == id).Count() != 0)
                 return;
             string name = product.Name;

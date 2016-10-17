@@ -8,7 +8,7 @@ namespace ITStoreClient
 {
     class AddedProduct
     {
-        public AddedProduct(int Id, string Name, string Measurement, decimal Quantity,decimal Price)
+        public AddedProduct(long Id, string Name, string Measurement, decimal Quantity,decimal Price)
         {
             this.Id = Id;
             this.Name = Name;
@@ -17,7 +17,7 @@ namespace ITStoreClient
             this.Quantity = Quantity;
             this.FullPrice = Price * Quantity; 
         }
-        public int Id { get; set; }
+        public long Id { get; set; }
         public string Name { get; set; }
         public string Measurement { get; set; }
         public decimal Quantity { get; set; }
