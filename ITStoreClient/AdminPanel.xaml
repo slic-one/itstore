@@ -365,7 +365,7 @@
                             </Grid.RowDefinitions>
 
                             <TextBlock Margin="7">Код категорії:</TextBlock>
-                            <TextBox Margin="5" Grid.Column="1" IsReadOnly="True" Text="{Binding Path=idCategory}"></TextBox>
+                            <TextBox Margin="5" Grid.Column="1" IsReadOnly="True" Text="{Binding Path=idCatedory}"></TextBox>
                             <TextBlock Margin="7" Grid.Row="1">Назва:</TextBlock>
                             <TextBox Name="CategoryName" Margin="5" Grid.Row="1" Grid.Column="1" Text="{Binding Path=Name}"></TextBox>
                            
