@@ -17,7 +17,7 @@
                         <RowDefinition/>
                     </Grid.RowDefinitions>
                     <DataGrid x:Name="dataGridUsers" />
-                    
+
                     <Label x:Name="status" Grid.Row="1" Content="Status"/>
                 </Grid>
             </TabItem>
@@ -25,7 +25,7 @@
                 <Grid Background="#FFE5E5E5"/>
             </TabItem>
             <TabItem Header="Продукти">
-              <Grid Background="#FFE5E5E5">
+                <Grid Background="#FFE5E5E5">
                     <Grid.RowDefinitions>
                         <RowDefinition Height="*"></RowDefinition>
                         <RowDefinition Height="Auto"></RowDefinition>
@@ -76,7 +76,31 @@
                 </Grid>
             </TabItem>
             <TabItem Header="Звіти">
-                <Grid Background="#FFE5E5E5"/>
+                <Grid Background="#FFE5E5E5">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="0.07*"/>
+                        <RowDefinition/>
+                    </Grid.RowDefinitions>
+                    <DockPanel>
+                        <DatePicker x:Name="dateFrom" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="10, 0" >
+                            <DatePicker.Resources>
+                                <Style TargetType="DatePickerTextBox">
+                                    <Setter Property="Text" Value="Від"/>
+                                </Style>
+                            </DatePicker.Resources>
+                        </DatePicker>
+                        <DatePicker x:Name="dateTo" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="10, 0" >
+                            <DatePicker.Resources>
+                                <Style TargetType="DatePickerTextBox">
+                                    <Setter Property="Text" Value="До"/>
+                                </Style>
+                            </DatePicker.Resources>
+                        </DatePicker>
+                    </DockPanel>
+                    <DataGrid Grid.Row="1">
+
+                    </DataGrid>
+                </Grid>
             </TabItem>
             <TabItem Header="Виробники">
                 <Grid Background="#FFE5E5E5"/>
