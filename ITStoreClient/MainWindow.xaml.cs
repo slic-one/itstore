@@ -210,13 +210,27 @@ namespace ITStoreClient
 
 		protected void HandleDoubleClick(object sender, MouseButtonEventArgs e)
 		{
-			//addProductToDataGrid((Product)((ListViewItem)sender).Tag);
-			MessageBox.Show("SHIET");
+			// TODO add to resultProduct
 		}
 
 		private void textBoxSearchByName_TextChanged(object sender, TextChangedEventArgs e)
 		{
+			listViewSearchItems.Items.Clear();
+			try
+			{
+				var findRes = data.Products.Where(x => x.Name.ToString().Substring(0, textBoxSearchByName.Text.Length) == textBoxSearchByName.Text);
 
+				foreach (Product res in findRes)
+				{
+					ListViewItem itm = new ListViewItem();
+					listViewSearchItems.Items.Add(new ListViewItem { Content = (res.idProduct + " " + res.Name + " " + res.Price), Tag = res });
+				}
+			}
+			catch (Exception)
+			{
+				listViewSearchItems.Items.Clear();
+				return;
+			}
 		}
 
 		private void textBoxProductId_KeyDown(object sender, KeyEventArgs e)
@@ -235,6 +249,12 @@ namespace ITStoreClient
                 findCustomer();
                 textBoxCustomerId.Clear();
 			}
+		}
+
+		private void listViewSearchItems_MouseDoubleClick(object sender, MouseButtonEventArgs e)
+		{
+			// витягує з виділеного елемента списку Tag, в якому ссилка на Product
+			addProductToDataGrid((Product)((ListViewItem)((ListView)sender).SelectedItem).Tag);
 		}
 	}
 }

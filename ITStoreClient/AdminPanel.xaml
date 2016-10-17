@@ -213,6 +213,10 @@
                             </DatePicker.Resources>
                         </DatePicker>
                         <Button HorizontalAlignment="Left" VerticalAlignment="Center" Margin="10, 0" Content=" Пошук " />
+                        <Label HorizontalAlignment="Left" VerticalAlignment="Center"  Content="Касир" />
+                        <ComboBox x:Name="cashierComboBox" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="10, 0" MinWidth="50" />
+                        <Label HorizontalAlignment="Left" VerticalAlignment="Center"  Content="Покупець" />
+                        <ComboBox x:Name="customerComboBox" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="10, 0" MinWidth="50" />
                     </DockPanel>
                     <DataGrid Grid.Row="1">
 
