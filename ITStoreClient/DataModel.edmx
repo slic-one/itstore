@@ -47,7 +47,7 @@
           <Property Name="idProduct" Type="bigint" />
           <Property Name="idSupplier" Type="int" />
           <Property Name="Price" Type="int" />
-          <Property Name="Quantity" Type="int" />
+          <Property Name="Quantity" Type="decimal" Precision="18" Scale="0" />
           <Property Name="DateDelivery" Type="date" />
         </EntityType>
         <EntityType Name="Markup">
@@ -79,13 +79,13 @@
             <PropertyRef Name="idProduct" />
           </Key>
           <Property Name="idProduct" Type="bigint" Nullable="false" StoreGeneratedPattern="Identity" />
-          <Property Name="Name" Type="varchar" MaxLength="50" />
-          <Property Name="idCategory" Type="int" />
-          <Property Name="Price" Type="decimal" Precision="18" Scale="0" />
-          <Property Name="Quantity" Type="decimal" Precision="18" Scale="0" />
-          <Property Name="idProducer" Type="int" />
-          <Property Name="idMeasurement" Type="int" />
-          <Property Name="idMarkup" Type="int" />
+          <Property Name="Name" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="idCategory" Type="int" Nullable="false" />
+          <Property Name="Price" Type="decimal" Precision="18" Scale="0" Nullable="false" />
+          <Property Name="Quantity" Type="decimal" Precision="18" Scale="0" Nullable="false" />
+          <Property Name="idProducer" Type="int" Nullable="false" />
+          <Property Name="idMeasurement" Type="int" Nullable="false" />
+          <Property Name="idMarkup" Type="int" Nullable="false" />
         </EntityType>
         <EntityType Name="ProductOrderQuantity">
           <Key>
@@ -207,7 +207,7 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_Product_Category">
-          <End Role="Category" Type="Self.Category" Multiplicity="0..1" />
+          <End Role="Category" Type="Self.Category" Multiplicity="1" />
           <End Role="Product" Type="Self.Product" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Category">
@@ -219,7 +219,7 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_Product_Markup">
-          <End Role="Markup" Type="Self.Markup" Multiplicity="0..1" />
+          <End Role="Markup" Type="Self.Markup" Multiplicity="1" />
           <End Role="Product" Type="Self.Product" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Markup">
@@ -231,7 +231,7 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_Product_Measurement">
-          <End Role="Measurement" Type="Self.Measurement" Multiplicity="0..1" />
+          <End Role="Measurement" Type="Self.Measurement" Multiplicity="1" />
           <End Role="Product" Type="Self.Product" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Measurement">
@@ -243,7 +243,7 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_Product_Producer1">
-          <End Role="Producer" Type="Self.Producer" Multiplicity="0..1" />
+          <End Role="Producer" Type="Self.Producer" Multiplicity="1" />
           <End Role="Product" Type="Self.Product" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Producer">
@@ -441,7 +441,7 @@
           <Property Name="idProduct" Type="Int64" />
           <Property Name="idSupplier" Type="Int32" />
           <Property Name="Price" Type="Int32" />
-          <Property Name="Quantity" Type="Int32" />
+          <Property Name="Quantity" Type="Decimal" Precision="18" Scale="0" />
           <Property Name="DateDelivery" Type="DateTime" Precision="0" />
           <NavigationProperty Name="Product" Relationship="Self.FK_Dalivery_Product" FromRole="Dalivery" ToRole="Product" />
           <NavigationProperty Name="Supplier" Relationship="Self.FK_Dalivery_Supplier" FromRole="Dalivery" ToRole="Supplier" />
@@ -479,13 +479,13 @@
             <PropertyRef Name="idProduct" />
           </Key>
           <Property Name="idProduct" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="idCategory" Type="Int32" />
-          <Property Name="Price" Type="Decimal" Precision="18" Scale="0" />
-          <Property Name="Quantity" Type="Int32" />
-          <Property Name="idProducer" Type="Int32" />
-          <Property Name="idMeasurement" Type="Int32" />
-          <Property Name="idMarkup" Type="Int32" />
+          <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="idCategory" Type="Int32" Nullable="false" />
+          <Property Name="Price" Type="Decimal" Precision="18" Scale="0" Nullable="false" />
+          <Property Name="Quantity" Type="Decimal" Nullable="false" Precision="18" Scale="0" />
+          <Property Name="idProducer" Type="Int32" Nullable="false" />
+          <Property Name="idMeasurement" Type="Int32" Nullable="false" />
+          <Property Name="idMarkup" Type="Int32" Nullable="false" />
           <NavigationProperty Name="Category" Relationship="Self.FK_Product_Category" FromRole="Product" ToRole="Category" />
           <NavigationProperty Name="Daliveries" Relationship="Self.FK_Dalivery_Product" FromRole="Product" ToRole="Dalivery" />
           <NavigationProperty Name="Markup" Relationship="Self.FK_Product_Markup" FromRole="Product" ToRole="Markup" />
@@ -562,7 +562,7 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_Product_Category">
-          <End Role="Category" Type="Self.Category" Multiplicity="0..1" />
+          <End Role="Category" Type="Self.Category" Multiplicity="1" />
           <End Role="Product" Type="Self.Product" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Category">
@@ -622,7 +622,7 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_Product_Markup">
-          <End Role="Markup" Type="Self.Markup" Multiplicity="0..1" />
+          <End Role="Markup" Type="Self.Markup" Multiplicity="1" />
           <End Role="Product" Type="Self.Product" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Markup">
@@ -634,7 +634,7 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_Product_Measurement">
-          <End Role="Measurement" Type="Self.Measurement" Multiplicity="0..1" />
+          <End Role="Measurement" Type="Self.Measurement" Multiplicity="1" />
           <End Role="Product" Type="Self.Product" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Measurement">
@@ -646,7 +646,7 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_Product_Producer1">
-          <End Role="Producer" Type="Self.Producer" Multiplicity="0..1" />
+          <End Role="Producer" Type="Self.Producer" Multiplicity="1" />
           <End Role="Product" Type="Self.Product" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Producer">

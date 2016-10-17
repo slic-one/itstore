@@ -18,7 +18,7 @@ namespace ITStoreClient
         public Nullable<long> idProduct { get; set; }
         public Nullable<int> idSupplier { get; set; }
         public Nullable<int> Price { get; set; }
-        public Nullable<int> Quantity { get; set; }
+        public Nullable<decimal> Quantity { get; set; }
         public Nullable<System.DateTime> DateDelivery { get; set; }
     
         public virtual Product Product { get; set; }
