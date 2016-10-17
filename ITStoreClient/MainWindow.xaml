@@ -77,7 +77,7 @@
                     </Style>
                 </TextBlock.Style>
             </TextBlock>
-                <ListView x:Name="listViewSearchItems" Grid.Row="2" Margin="10">
+                <ListView x:Name="listViewSearchItems" Grid.Row="2" Margin="10" MouseDoubleClick="listViewSearchItems_MouseDoubleClick">
                     <Style TargetType="{x:Type ListViewItem}">
                         <EventSetter Event="MouseDoubleClick" Handler="HandleDoubleClick" />
                     </Style>
