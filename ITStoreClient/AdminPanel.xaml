@@ -96,6 +96,7 @@
                                 </Style>
                             </DatePicker.Resources>
                         </DatePicker>
+                        <Button HorizontalAlignment="Left" VerticalAlignment="Center" Margin="10, 0" Content=" Пошук " />
                     </DockPanel>
                     <DataGrid Grid.Row="1">
 
