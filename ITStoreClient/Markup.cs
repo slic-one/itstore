@@ -26,9 +26,5 @@ namespace ITStoreClient
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Product> Products { get; set; }
-        public override string ToString()
-        {
-            return Percent.ToString();
-        }
     }
 }
