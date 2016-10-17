@@ -13,16 +13,118 @@
             <TabItem Header="Користувачі">
                 <Grid Background="#FFE5E5E5">
                     <Grid.RowDefinitions>
-                        <RowDefinition Height="9*"/>
-                        <RowDefinition/>
+                        <RowDefinition Height="*"></RowDefinition>
+                        <RowDefinition Height="Auto"></RowDefinition>
+                        <RowDefinition Height="*"></RowDefinition>
                     </Grid.RowDefinitions>
-                    <DataGrid x:Name="dataGridUsers" />
-                    
-                    <Label x:Name="status" Grid.Row="1" Content="Status"/>
+
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="*"></RowDefinition>
+                            <RowDefinition Height="Auto"></RowDefinition>
+                        </Grid.RowDefinitions>
+                        <DataGrid x:Name="UsersList"  Background="Silver" Margin="10,0,10,10" />
+
+
+                        <StackPanel Grid.Row="1" HorizontalAlignment="Right" Orientation="Horizontal" Margin="5,2,5,10">
+                            <Button Margin="2,0,0,0"  Padding="2" Content="Зберегти зміни" Click="SaveChanges_Click"/>
+                            <Button Margin="2,0,0,0"  Padding="2" Content="Добавити" Click="AddUser_Click"/>
+                            <Button Margin="2,0,0,0"  Padding="2" Content="Видалити" Click="DeleteUser_Click"/>
+
+                        </StackPanel>
+                    </Grid>
+
+                    <GridSplitter Grid.Row="1" HorizontalAlignment="Stretch" VerticalAlignment="Bottom" ResizeBehavior="PreviousAndNext" Height="5"/>
+
+                    <Border Grid.Row="2" Padding="7" Margin="7" Background="LightSteelBlue">
+                        <Grid  Name="UserDetails" DataContext="{Binding ElementName=UsersList, Path=SelectedItem}">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto"></ColumnDefinition>
+                                <ColumnDefinition></ColumnDefinition>
+                            </Grid.ColumnDefinitions>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto"></RowDefinition>
+                                <RowDefinition Height="Auto"></RowDefinition>
+                                <RowDefinition Height="Auto"></RowDefinition>
+                                <RowDefinition Height="Auto"></RowDefinition>
+                                <RowDefinition Height="*"></RowDefinition>
+                            </Grid.RowDefinitions>
+
+                            <TextBlock Margin="7">Код користувача:</TextBlock>
+                            <TextBox Margin="5" Grid.Column="1" IsReadOnly="True" Text="{Binding Path=idUser}"></TextBox>
+                            <TextBlock Margin="7" Grid.Row="1">Ім'я:</TextBlock>
+                            <TextBox Name="UserName" Margin="5" Grid.Row="1" Grid.Column="1" Text="{Binding Path=Name}"></TextBox>
+                            <TextBlock Margin="7" Grid.Row="2">Логін:</TextBlock>
+                            <TextBox Name="UserLogin" Margin="5" Grid.Row="2" Grid.Column="1" Text="{Binding Path=Login}"></TextBox>
+                            <TextBlock Margin="7" Grid.Row="3">Пароль:</TextBlock>
+                            <TextBox Name="UserPassword" Margin="5" Grid.Row="3" Grid.Column="1" Text="{Binding Path=Password}"></TextBox>
+                            <TextBlock Margin="7" Grid.Row="4">Права адміністратора:</TextBlock>
+                            <CheckBox Name="UserIsAdmin" Margin="5" Grid.Row="4" Grid.Column="1" IsChecked="{Binding Path=Admin}"></CheckBox>
+                        </Grid>
+                    </Border>
                 </Grid>
+
             </TabItem>
             <TabItem Header="Клієнти">
-                <Grid Background="#FFE5E5E5"/>
+                <Grid Background="#FFE5E5E5">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="*"></RowDefinition>
+                        <RowDefinition Height="Auto"></RowDefinition>
+                        <RowDefinition Height="*"></RowDefinition>
+                        
+                    </Grid.RowDefinitions>
+
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="*"></RowDefinition>
+                            <RowDefinition Height="Auto"></RowDefinition>
+                        </Grid.RowDefinitions>
+                        <DataGrid x:Name="CustomersList" Background="Silver" Margin="10,0,10,10" SelectionChanged="CustomersList_SelectionChanged" />
+
+
+                        <StackPanel Grid.Row="1" HorizontalAlignment="Right" Orientation="Horizontal" Margin="5,2,5,10">
+                            <Button Margin="2,0,0,0"  Padding="2" Content="Зберегти зміни" Click="SaveChanges_Click"/>
+                            <Button Margin="2,0,0,0"  Padding="2" Content="Добавити" Click="AddCustomer_Click"/>
+                            <Button Margin="2,0,0,0"  Padding="2" Content="Видалити" Click="DeleteCustomer_Click"/>
+
+                        </StackPanel>
+                    </Grid>
+
+                    <GridSplitter Grid.Row="1" HorizontalAlignment="Stretch" VerticalAlignment="Bottom" ResizeBehavior="PreviousAndNext" Height="5"/>
+
+                    <Border Grid.Row="2" Padding="7" Margin="7" Background="LightSteelBlue">
+                        <Grid  Name="CustomerDetails" DataContext="{Binding ElementName=CustomersList, Path=SelectedItem}">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto"></ColumnDefinition>
+                                <ColumnDefinition></ColumnDefinition>
+                            </Grid.ColumnDefinitions>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto"></RowDefinition>
+                                <RowDefinition Height="Auto"></RowDefinition>
+                                <RowDefinition Height="Auto"></RowDefinition>
+                                <RowDefinition Height="Auto"></RowDefinition>
+                                <RowDefinition Height="Auto"></RowDefinition>
+                            </Grid.RowDefinitions>
+
+                            <TextBlock Margin="7">Код клієнта:</TextBlock>
+                            <TextBox Name="CustomerId" Margin="5" Grid.Column="1" Text="{Binding Path=idCustomer}"></TextBox>
+                            <TextBlock Margin="7" Grid.Row="1">Ім'я:</TextBlock>
+                            <TextBox Name="CustomerName" Margin="5" Grid.Row="1" Grid.Column="1" Text="{Binding Path=Name}"></TextBox>
+                            <TextBlock Margin="7" Grid.Row="2">Прізвище:</TextBlock>
+                            <TextBox Name="CustomerSurname" Margin="5" Grid.Row="2" Grid.Column="1" Text="{Binding Path=Surname}"></TextBox>
+                            <TextBlock Margin="7" Grid.Row="3">Сума покупок:</TextBlock>
+                            <TextBox Name="CustomerSpentMoney" Margin="5" Grid.Row="3" Grid.Column="1" Text="{Binding Path=Spended_Money}"></TextBox>
+                            <TextBlock Margin="7" Grid.Row="4">Знижка %:</TextBlock>
+                            <ComboBox Name="DiscountComboBox" Margin="5" Grid.Row="4" Grid.Column="1" DropDownClosed="DiscountComboBox_DropDownClosed"/> 
+                           
+                        </Grid>
+                        
+                    </Border>
+                    <Grid Grid.Row="3">
+
+                    </Grid>
+                </Grid>
+
             </TabItem>
             <TabItem Header="Продукти">
               <Grid Background="#FFE5E5E5">
@@ -37,20 +139,21 @@
                             <RowDefinition Height="*"></RowDefinition>
                             <RowDefinition Height="Auto"></RowDefinition>
                         </Grid.RowDefinitions>
-                        <DataGrid x:Name="lstCars"  Background="Silver" Margin="10,0,10,10" />
-                        <!--<ListBox Name="lstCars" Margin="5" />-->
+                        <DataGrid x:Name="ProductsList"  Background="Silver" Margin="10,0,10,10" SelectionChanged="ProductsList_SelectionChanged" />
+                        
 
                         <StackPanel Grid.Row="1" HorizontalAlignment="Right" Orientation="Horizontal" Margin="5,2,5,10">
-                            <Button Margin="2,0,0,0"  Padding="2" Content="Получить список машин" Click="cmdGetProduct_Click"/>
-                            <Button Margin="2,0,0,0"  Padding="2" Content="Видалити" Click="cmdDeleteCar_Click"/>
-                            <Button Margin="2,0,0,0"  Padding="2" Content="Добавити" Click="cmdAddCar_Click"/>
+                            <Button Margin="2,0,0,0"  Padding="2" Content="Зберегти зміни" Click="SaveChanges_Click"/>
+                            <Button Margin="2,0,0,0"  Padding="2" Content="Добавити" Click="AddProduct_Click"/>
+                            <Button Margin="2,0,0,0"  Padding="2" Content="Видалити" Click="DeleteProduct_Click"/>
+                            
                         </StackPanel>
                     </Grid>
 
                     <GridSplitter Grid.Row="1" HorizontalAlignment="Stretch" VerticalAlignment="Bottom" ResizeBehavior="PreviousAndNext" Height="5"/>
 
                     <Border Grid.Row="2" Padding="7" Margin="7" Background="LightSteelBlue">
-                        <Grid  Name="gridCarDetails" DataContext="{Binding ElementName=lstCars, Path=SelectedItem}">
+                        <Grid  Name="ProductDetails" DataContext="{Binding ElementName=ProductsList, Path=SelectedItem}">
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition Width="Auto"></ColumnDefinition>
                                 <ColumnDefinition></ColumnDefinition>
@@ -60,17 +163,28 @@
                                 <RowDefinition Height="Auto"></RowDefinition>
                                 <RowDefinition Height="Auto"></RowDefinition>
                                 <RowDefinition Height="Auto"></RowDefinition>
-                                <RowDefinition Height="*"></RowDefinition>
+                                <RowDefinition Height="Auto"></RowDefinition>
+                                <RowDefinition Height="Auto"></RowDefinition>
+                                <RowDefinition Height="Auto"></RowDefinition>
+                                <RowDefinition Height="Auto"></RowDefinition>
                             </Grid.RowDefinitions>
 
-                            <TextBlock Margin="7">КОД:</TextBlock>
-                            <TextBox Margin="5" Grid.Column="1" Text="{Binding Path=idProduct}"></TextBox>
+                            <TextBlock Margin="7">Код товару:</TextBlock>
+                            <TextBox Name="ProductId" Margin="5" Grid.Column="1" Text="{Binding Path=idProduct}"></TextBox>
                             <TextBlock Margin="7" Grid.Row="1">Назва:</TextBlock>
-                            <TextBox Margin="5" Grid.Row="1" Grid.Column="1" Text="{Binding Path=Name}"></TextBox>
+                            <TextBox Name="ProductName" Margin="5" Grid.Row="1" Grid.Column="1" Text="{Binding Path=Name}"></TextBox>
                             <TextBlock Margin="7" Grid.Row="2">Ціна (грн):</TextBlock>
-                            <TextBox Margin="5" Grid.Row="2" Grid.Column="1" Text="{Binding Path=Price}"></TextBox>
+                            <TextBox Name="ProductPrice" Margin="5" Grid.Row="2" Grid.Column="1" Text="{Binding Path=Price}"></TextBox>
                             <TextBlock Margin="7" Grid.Row="3">Кількість:</TextBlock>
-                            <TextBox Margin="5" Grid.Row="3" Grid.Column="1" Text="{Binding Path=Quantity}"></TextBox>
+                            <TextBox Name="ProductQuantity" Margin="5" Grid.Row="3" Grid.Column="1" Text="{Binding Path=Quantity}"></TextBox>
+                            <TextBlock Margin="7" Grid.Row="4">Категорія:</TextBlock>
+                            <ComboBox Name="CategoryComboBox" Margin="5" Grid.Row="4" Grid.Column="1" DropDownClosed="CategoryComboBox_DropDownClosed" />
+                            <TextBlock Margin="7" Grid.Row="5">Націнка %:</TextBlock>
+                            <ComboBox Name="MarkupComboBox" Margin="5" Grid.Row="5" Grid.Column="1" DropDownClosed="MarkupComboBox_DropDownClosed"  />
+                            <TextBlock Margin="7" Grid.Row="6">Одиниця виміру:</TextBlock>
+                            <ComboBox Name="MeasurementComboBox" Margin="5" Grid.Row="6" Grid.Column="1" DropDownClosed="MeasurementComboBox_DropDownClosed"   />
+                            <TextBlock Margin="7" Grid.Row="7">Виробник:</TextBlock>
+                            <ComboBox Name="ProducerComboBox" Margin="5" Grid.Row="7" Grid.Column="1" DropDownClosed="ProducerComboBox_DropDownClosed"   />
                         </Grid>
                     </Border>
                 </Grid>
@@ -79,10 +193,261 @@
                 <Grid Background="#FFE5E5E5"/>
             </TabItem>
             <TabItem Header="Виробники">
-                <Grid Background="#FFE5E5E5"/>
+                <Grid Background="#FFE5E5E5">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="*"></RowDefinition>
+                        <RowDefinition Height="Auto"></RowDefinition>
+                        <RowDefinition Height="*"></RowDefinition>
+                    </Grid.RowDefinitions>
+
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="*"></RowDefinition>
+                            <RowDefinition Height="Auto"></RowDefinition>
+                        </Grid.RowDefinitions>
+                        <DataGrid x:Name="ProducersList"  Background="Silver" Margin="10,0,10,10" />
+
+
+                        <StackPanel Grid.Row="1" HorizontalAlignment="Right" Orientation="Horizontal" Margin="5,2,5,10">
+                            <Button Margin="2,0,0,0"  Padding="2" Content="Зберегти зміни" Click="SaveChanges_Click"/>
+                            <Button Margin="2,0,0,0"  Padding="2" Content="Добавити" Click="AddProducer_Click"/>
+                            <Button Margin="2,0,0,0"  Padding="2" Content="Видалити" Click="DeleteProducer_Click"/>
+                        </StackPanel>
+                    </Grid>
+
+                    <GridSplitter Grid.Row="1" HorizontalAlignment="Stretch" VerticalAlignment="Bottom" ResizeBehavior="PreviousAndNext" Height="5"/>
+
+                    <Border Grid.Row="2" Padding="7" Margin="7" Background="LightSteelBlue">
+                        <Grid  Name="ProducerDetails" DataContext="{Binding ElementName=ProducersList, Path=SelectedItem}">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto"></ColumnDefinition>
+                                <ColumnDefinition></ColumnDefinition>
+                            </Grid.ColumnDefinitions>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto"></RowDefinition>
+                                <RowDefinition Height="Auto"></RowDefinition>
+                                <RowDefinition Height="Auto"></RowDefinition>
+                                <RowDefinition Height="Auto"></RowDefinition>
+                                <RowDefinition Height="Auto"></RowDefinition>
+                            </Grid.RowDefinitions>
+
+                            <TextBlock Margin="7">Код виробника:</TextBlock>
+                            <TextBox Margin="5" Grid.Column="1"  IsReadOnly="True" Text="{Binding Path=idProducer}"></TextBox>
+                            <TextBlock Margin="7" Grid.Row="1">Назва:</TextBlock>
+                            <TextBox  Name="ProducerName" Margin="5" Grid.Row="1" Grid.Column="1" Text="{Binding Path=Name}"></TextBox>
+                            <TextBlock Margin="7" Grid.Row="2">Країна:</TextBlock>
+                            <TextBox Name="ProducerCountry" Margin="5" Grid.Row="2" Grid.Column="1" Text="{Binding Path=Address.Country}"></TextBox>
+                            <TextBlock Margin="7" Grid.Row="3">Місто:</TextBlock>
+                            <TextBox Name="ProducerTown" Margin="5" Grid.Row="3" Grid.Column="1" Text="{Binding Path=Address.Town}"></TextBox>
+                            <TextBlock Margin="7" Grid.Row="4">Вулиця:</TextBlock>
+                            <TextBox Name="ProducerStreet" Margin="5" Grid.Row="4" Grid.Column="1" Text="{Binding Path=Address.Street}"></TextBox>
+                        </Grid>
+                    </Border>
+                </Grid>
             </TabItem>
             <TabItem Header="Постачальники">
-                <Grid Background="#FFE5E5E5"/>
+                <Grid Background="#FFE5E5E5">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="*"></RowDefinition>
+                        <RowDefinition Height="Auto"></RowDefinition>
+                        <RowDefinition Height="*"></RowDefinition>
+                    </Grid.RowDefinitions>
+
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="*"></RowDefinition>
+                            <RowDefinition Height="Auto"></RowDefinition>
+                        </Grid.RowDefinitions>
+                        <DataGrid x:Name="SuppliersList"  Background="Silver" Margin="10,0,10,10" />
+
+
+                        <StackPanel Grid.Row="1" HorizontalAlignment="Right" Orientation="Horizontal" Margin="5,2,5,10">
+                            <Button Margin="2,0,0,0"  Padding="2" Content="Зберегти зміни" Click="SaveChanges_Click"/>
+                            <Button Margin="2,0,0,0"  Padding="2" Content="Добавити" Click="AddSupplier_Click"/>
+                            <Button Margin="2,0,0,0"  Padding="2" Content="Видалити" Click="DeleteSupplier_Click"/>
+                        </StackPanel>
+                    </Grid>
+
+                    <GridSplitter Grid.Row="1" HorizontalAlignment="Stretch" VerticalAlignment="Bottom" ResizeBehavior="PreviousAndNext" Height="5"/>
+
+                    <Border Grid.Row="2" Padding="7" Margin="7" Background="LightSteelBlue">
+                        <Grid  Name="SupplierDetails" DataContext="{Binding ElementName=SuppliersList, Path=SelectedItem}">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto"></ColumnDefinition>
+                                <ColumnDefinition></ColumnDefinition>
+                            </Grid.ColumnDefinitions>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto"></RowDefinition>
+                                <RowDefinition Height="Auto"></RowDefinition>
+                                <RowDefinition Height="Auto"></RowDefinition>
+                                <RowDefinition Height="Auto"></RowDefinition>
+                                <RowDefinition Height="Auto"></RowDefinition>
+                            </Grid.RowDefinitions>
+
+                            <TextBlock Margin="7">Код постачальника:</TextBlock>
+                            <TextBox Margin="5" Grid.Column="1"  IsReadOnly="True" Text="{Binding Path=idSupplier}"></TextBox>
+                            <TextBlock Margin="7" Grid.Row="1">Назва:</TextBlock>
+                            <TextBox  Name="SupplierName" Margin="5" Grid.Row="1" Grid.Column="1" Text="{Binding Path=Name}"></TextBox>
+                            <TextBlock Margin="7" Grid.Row="2">Країна:</TextBlock>
+                            <TextBox Name="SupplierCountry" Margin="5" Grid.Row="2" Grid.Column="1" Text="{Binding Path=Address.Country}"></TextBox>
+                            <TextBlock Margin="7" Grid.Row="3">Місто:</TextBlock>
+                            <TextBox Name="SupplierTown" Margin="5" Grid.Row="3" Grid.Column="1" Text="{Binding Path=Address.Town}"></TextBox>
+                            <TextBlock Margin="7" Grid.Row="4">Вулиця:</TextBlock>
+                            <TextBox Name="SupplierStreet" Margin="5" Grid.Row="4" Grid.Column="1" Text="{Binding Path=Address.Street}"></TextBox>
+                        </Grid>
+                    </Border>
+                </Grid>
+            </TabItem>
+            <TabItem Header="Категорії товарів">
+                <Grid Background="#FFE5E5E5">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="*"></RowDefinition>
+                        <RowDefinition Height="Auto"></RowDefinition>
+                        <RowDefinition Height="*"></RowDefinition>
+                    </Grid.RowDefinitions>
+
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="*"></RowDefinition>
+                            <RowDefinition Height="Auto"></RowDefinition>
+                        </Grid.RowDefinitions>
+                        <DataGrid x:Name="CategoriesList"  Background="Silver" Margin="10,0,10,10" />
+
+
+                        <StackPanel Grid.Row="1" HorizontalAlignment="Right" Orientation="Horizontal" Margin="5,2,5,10">
+                            <Button Margin="2,0,0,0"  Padding="2" Content="Зберегти зміни" Click="SaveChanges_Click"/>
+                            <Button Margin="2,0,0,0"  Padding="2" Content="Добавити" Click="AddCategory_Click"/>
+                            <Button Margin="2,0,0,0"  Padding="2" Content="Видалити" Click="DeleteCategory_Click"/>
+
+                        </StackPanel>
+                    </Grid>
+
+                    <GridSplitter Grid.Row="1" HorizontalAlignment="Stretch" VerticalAlignment="Bottom" ResizeBehavior="PreviousAndNext" Height="5"/>
+
+                    <Border Grid.Row="2" Padding="7" Margin="7" Background="LightSteelBlue">
+                        <Grid  Name="CategoryDetails" DataContext="{Binding ElementName=CategoriesList, Path=SelectedItem}">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto"></ColumnDefinition>
+                                <ColumnDefinition></ColumnDefinition>
+                            </Grid.ColumnDefinitions>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto"></RowDefinition>
+                                <RowDefinition Height="Auto"></RowDefinition>
+                                <RowDefinition Height="Auto"></RowDefinition>
+                               
+                            </Grid.RowDefinitions>
+
+                            <TextBlock Margin="7">Код категорії:</TextBlock>
+                            <TextBox Margin="5" Grid.Column="1" IsReadOnly="True" Text="{Binding Path=idCategory}"></TextBox>
+                            <TextBlock Margin="7" Grid.Row="1">Назва:</TextBlock>
+                            <TextBox Name="CategoryName" Margin="5" Grid.Row="1" Grid.Column="1" Text="{Binding Path=Name}"></TextBox>
+                           
+                        </Grid>
+                    </Border>
+                </Grid>
+
+            </TabItem>
+            <TabItem Header="Націнки">
+                <Grid Background="#FFE5E5E5">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="*"></RowDefinition>
+                        <RowDefinition Height="Auto"></RowDefinition>
+                        <RowDefinition Height="*"></RowDefinition>
+                    </Grid.RowDefinitions>
+
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="*"></RowDefinition>
+                            <RowDefinition Height="Auto"></RowDefinition>
+                        </Grid.RowDefinitions>
+                        <DataGrid x:Name="MarkUpList"  Background="Silver" Margin="10,0,10,10" />
+
+
+                        <StackPanel Grid.Row="1" HorizontalAlignment="Right" Orientation="Horizontal" Margin="5,2,5,10">
+                            <Button Margin="2,0,0,0"  Padding="2" Content="Зберегти зміни" Click="SaveChanges_Click"/>
+                            <Button Margin="2,0,0,0"  Padding="2" Content="Добавити" Click="AddUser_Click"/>
+                            <Button Margin="2,0,0,0"  Padding="2" Content="Видалити" Click="DeleteUser_Click"/>
+
+                        </StackPanel>
+                    </Grid>
+
+                    <GridSplitter Grid.Row="1" HorizontalAlignment="Stretch" VerticalAlignment="Bottom" ResizeBehavior="PreviousAndNext" Height="5"/>
+
+                    <Border Grid.Row="2" Padding="7" Margin="7" Background="LightSteelBlue">
+                        <Grid  Name="MarkUpDetails" DataContext="{Binding ElementName=MarkUpList, Path=SelectedItem}">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto"></ColumnDefinition>
+                                <ColumnDefinition></ColumnDefinition>
+                            </Grid.ColumnDefinitions>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto"></RowDefinition>
+                                <RowDefinition Height="Auto"></RowDefinition>
+                                <RowDefinition Height="Auto"></RowDefinition>
+                                
+                            </Grid.RowDefinitions>
+
+                            <TextBlock Margin="7">Код націнки:</TextBlock>
+                            <TextBox Margin="5" Grid.Column="1" IsReadOnly="True" Text="{Binding Path=idMarkup}"></TextBox>
+                            <TextBlock Margin="7" Grid.Row="1">Назва:</TextBlock>
+                            <TextBox Name="MarkUpName" Margin="5" Grid.Row="1" Grid.Column="1" Text="{Binding Path=Name}"></TextBox>
+                            <TextBlock Margin="7" Grid.Row="2">Розмір %:</TextBlock>
+                            <TextBox Name="MarkUpPercent" Margin="5" Grid.Row="2" Grid.Column="1" Text="{Binding Path=Percent}"></TextBox>
+                           
+                        </Grid>
+                    </Border>
+                </Grid>
+
+            </TabItem>
+            <TabItem Header="Одиниці виміру">
+                <Grid Background="#FFE5E5E5">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="*"></RowDefinition>
+                        <RowDefinition Height="Auto"></RowDefinition>
+                        <RowDefinition Height="*"></RowDefinition>
+                    </Grid.RowDefinitions>
+
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="*"></RowDefinition>
+                            <RowDefinition Height="Auto"></RowDefinition>
+                        </Grid.RowDefinitions>
+                        <DataGrid x:Name="MeasurementsList"  Background="Silver" Margin="10,0,10,10" />
+
+
+                        <StackPanel Grid.Row="1" HorizontalAlignment="Right" Orientation="Horizontal" Margin="5,2,5,10">
+                            <Button Margin="2,0,0,0"  Padding="2" Content="Зберегти зміни" Click="SaveChanges_Click"/>
+                            <Button Margin="2,0,0,0"  Padding="2" Content="Добавити" Click="AddUser_Click"/>
+                            <Button Margin="2,0,0,0"  Padding="2" Content="Видалити" Click="DeleteUser_Click"/>
+
+                        </StackPanel>
+                    </Grid>
+
+                    <GridSplitter Grid.Row="1" HorizontalAlignment="Stretch" VerticalAlignment="Bottom" ResizeBehavior="PreviousAndNext" Height="5"/>
+
+                    <Border Grid.Row="2" Padding="7" Margin="7" Background="LightSteelBlue">
+                        <Grid  Name="MeasurementDetails" DataContext="{Binding ElementName=MeasurementsList, Path=SelectedItem}">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto"></ColumnDefinition>
+                                <ColumnDefinition></ColumnDefinition>
+                            </Grid.ColumnDefinitions>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto"></RowDefinition>
+                                <RowDefinition Height="Auto"></RowDefinition>
+                                <RowDefinition Height="Auto"></RowDefinition>
+                                
+                            </Grid.RowDefinitions>
+
+                            <TextBlock Margin="7">Код одиниці виміру:</TextBlock>
+                            <TextBox Margin="5" Grid.Column="1" IsReadOnly="True" Text="{Binding Path=idMeasurement}"></TextBox>
+                            <TextBlock Margin="7" Grid.Row="1">Назва:</TextBlock>
+                            <TextBox Name="MeasurementName" Margin="5" Grid.Row="1" Grid.Column="1" Text="{Binding Path=Name}"></TextBox>
+                            <TextBlock Margin="7" Grid.Row="2">Опис:</TextBlock>
+                            <TextBox Name="MeasurementDescription" Margin="5" Grid.Row="2" Grid.Column="1" Text="{Binding Path=Description}"></TextBox>
+                           
+                        </Grid>
+                    </Border>
+                </Grid>
+
             </TabItem>
         </TabControl>
 

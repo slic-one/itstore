@@ -27,8 +27,8 @@ namespace ITStoreClient
         public Nullable<long> idCustomer { get; set; }
     
         public virtual Customer Customer { get; set; }
-        public virtual User User { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<ProductOrderQuantity> ProductOrderQuantities { get; set; }
+        public virtual User User { get; set; }
     }
 }

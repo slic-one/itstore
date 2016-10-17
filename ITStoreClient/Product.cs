@@ -23,12 +23,12 @@ namespace ITStoreClient
     
         public long idProduct { get; set; }
         public string Name { get; set; }
-        public Nullable<int> idCategory { get; set; }
+        public int idCategory { get; set; }
         public Nullable<decimal> Price { get; set; }
-        public Nullable<int> Quantity { get; set; }
-        public Nullable<int> idProducer { get; set; }
-        public Nullable<int> idMeasurement { get; set; }
-        public Nullable<int> idMarkup { get; set; }
+        public Nullable<decimal> Quantity { get; set; }
+        public int idProducer { get; set; }
+        public int idMeasurement { get; set; }
+        public int idMarkup { get; set; }
     
         public virtual Category Category { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

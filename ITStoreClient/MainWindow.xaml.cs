@@ -96,6 +96,7 @@ namespace ITStoreClient
         // TODO focus on Quantity column (below doesn't work)?????????
         private void addProductToDataGrid(Product product)
         {
+
             
             long id = product.idProduct;
 			string name = product.Name;
@@ -110,6 +111,7 @@ namespace ITStoreClient
 				return;
 			}
             
+
             AddedProduct addedProduct = new AddedProduct(id,name,measurement,quantity,price.Value);
            
             resultProducts.Add(addedProduct);
