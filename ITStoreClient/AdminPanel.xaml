@@ -8,7 +8,7 @@
         WindowState="Maximized" WindowStyle="None"  ResizeMode="NoResize" 
         Title="AdminPanel">
     <Grid>
-        <Button x:Name="buttonQuit" Content=" X " HorizontalAlignment="Right" VerticalAlignment="Top" Background="Red" Foreground="White" Click="buttonQuit_Click"/>
+        <Button x:Name="buttonQuit" Content=" X " HorizontalAlignment="Right" VerticalAlignment="Top" Background="Red" Foreground="White" Click="buttonQuit_Click" Panel.ZIndex="999"/>
         <TabControl x:Name="tabControl" >
             <TabItem Header="Користувачі">
                 <Grid Background="#FFE5E5E5">
