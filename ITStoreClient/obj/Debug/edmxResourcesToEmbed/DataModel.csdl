@@ -5,12 +5,11 @@
       <PropertyRef Name="idAddress" />
     </Key>
     <Property Name="idAddress" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-    <Property Name="idCountry" Type="Int32" />
     <Property Name="Town" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
     <Property Name="Street" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-    <NavigationProperty Name="Country" Relationship="Self.FK_Address_Country" FromRole="Address" ToRole="Country" />
     <NavigationProperty Name="Producers" Relationship="Self.FK_Producer_Address" FromRole="Address" ToRole="Producer" />
     <NavigationProperty Name="Suppliers" Relationship="Self.FK_Supplier_Address" FromRole="Address" ToRole="Supplier" />
+    <Property Name="Country" Type="String" Unicode="false" FixedLength="false" MaxLength="50" />
   </EntityType>
   <EntityType Name="Category">
     <Key>
@@ -20,19 +19,11 @@
     <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
     <NavigationProperty Name="Products" Relationship="Self.FK_Product_Category" FromRole="Category" ToRole="Product" />
   </EntityType>
-  <EntityType Name="Country">
-    <Key>
-      <PropertyRef Name="idCountry" />
-    </Key>
-    <Property Name="idCountry" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-    <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-    <NavigationProperty Name="Addresses" Relationship="Self.FK_Address_Country" FromRole="Country" ToRole="Address" />
-  </EntityType>
   <EntityType Name="Customer">
     <Key>
       <PropertyRef Name="idCustomer" />
     </Key>
-    <Property Name="idCustomer" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="idCustomer" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
     <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
     <Property Name="Surname" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
     <Property Name="Spended_Money" Type="Decimal" Precision="18" Scale="0" Nullable="false" />
@@ -54,10 +45,10 @@
       <PropertyRef Name="idDelivery" />
     </Key>
     <Property Name="idDelivery" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-    <Property Name="idProduct" Type="Int32" />
+    <Property Name="idProduct" Type="Int64" />
     <Property Name="idSupplier" Type="Int32" />
     <Property Name="Price" Type="Int32" />
-    <Property Name="Quantity" Type="Int32" />
+    <Property Name="Quantity" Type="Decimal" Precision="18" Scale="0" />
     <Property Name="DateDelivery" Type="DateTime" Precision="0" />
     <NavigationProperty Name="Product" Relationship="Self.FK_Dalivery_Product" FromRole="Dalivery" ToRole="Product" />
     <NavigationProperty Name="Supplier" Relationship="Self.FK_Dalivery_Supplier" FromRole="Dalivery" ToRole="Supplier" />
@@ -94,20 +85,20 @@
     <Key>
       <PropertyRef Name="idProduct" />
     </Key>
-    <Property Name="idProduct" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-    <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-    <Property Name="idCategory" Type="Int32" />
-    <Property Name="Price" Type="Decimal" Precision="18" Scale="0" />
-    <Property Name="Quantity" Type="Int32" />
-    <Property Name="idProducer" Type="Int32" />
-    <Property Name="idMeasurement" Type="Int32" />
-    <Property Name="idMarkup" Type="Int32" />
+    <Property Name="idProduct" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="idCategory" Type="Int32" Nullable="false" />
+    <Property Name="Price" Type="Decimal" Precision="18" Scale="0" Nullable="false" />
+    <Property Name="Quantity" Type="Decimal" Nullable="false" Precision="18" Scale="0" />
+    <Property Name="idProducer" Type="Int32" Nullable="false" />
+    <Property Name="idMeasurement" Type="Int32" Nullable="false" />
+    <Property Name="idMarkup" Type="Int32" Nullable="false" />
     <NavigationProperty Name="Category" Relationship="Self.FK_Product_Category" FromRole="Product" ToRole="Category" />
     <NavigationProperty Name="Daliveries" Relationship="Self.FK_Dalivery_Product" FromRole="Product" ToRole="Dalivery" />
     <NavigationProperty Name="Markup" Relationship="Self.FK_Product_Markup" FromRole="Product" ToRole="Markup" />
     <NavigationProperty Name="Measurement" Relationship="Self.FK_Product_Measurement" FromRole="Product" ToRole="Measurement" />
     <NavigationProperty Name="Producer" Relationship="Self.FK_Product_Producer1" FromRole="Product" ToRole="Producer" />
-    <NavigationProperty Name="Sales" Relationship="Self.Order1" FromRole="Product" ToRole="Sale" />
+    <NavigationProperty Name="ProductOrderQuantities" Relationship="ShopModel.FK_Order1_Product" FromRole="Product" ToRole="ProductOrderQuantity" />
   </EntityType>
   <EntityType Name="Sale">
     <Key>
@@ -115,13 +106,12 @@
     </Key>
     <Property Name="idSale" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
     <Property Name="FullPrice" Type="Decimal" Precision="18" Scale="0" />
-    <Property Name="Quantity" Type="Int32" />
     <Property Name="DateSale" Type="DateTime" Precision="3" />
     <Property Name="idUser" Type="Int32" />
-    <Property Name="idCustomer" Type="Int32" />
+    <Property Name="idCustomer" Type="Int64" />
     <NavigationProperty Name="Customer" Relationship="Self.FK_Sale_Customer" FromRole="Sale" ToRole="Customer" />
     <NavigationProperty Name="User" Relationship="Self.FK_Sale_User" FromRole="Sale" ToRole="User" />
-    <NavigationProperty Name="Products" Relationship="Self.Order1" FromRole="Sale" ToRole="Product" />
+    <NavigationProperty Name="ProductOrderQuantities" Relationship="ShopModel.FK_Order1_Sale" FromRole="Sale" ToRole="ProductOrderQuantity" />
   </EntityType>
   <EntityType Name="Supplier">
     <Key>
@@ -154,18 +144,6 @@
     <Property Name="Admin" Type="Boolean" Nullable="false" />
     <NavigationProperty Name="Sales" Relationship="Self.FK_Sale_User" FromRole="User" ToRole="Sale" />
   </EntityType>
-  <Association Name="FK_Address_Country">
-    <End Role="Country" Type="Self.Country" Multiplicity="0..1" />
-    <End Role="Address" Type="Self.Address" Multiplicity="*" />
-    <ReferentialConstraint>
-      <Principal Role="Country">
-        <PropertyRef Name="idCountry" />
-      </Principal>
-      <Dependent Role="Address">
-        <PropertyRef Name="idCountry" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
   <Association Name="FK_Producer_Address">
     <End Role="Address" Type="Self.Address" Multiplicity="0..1" />
     <End Role="Producer" Type="Self.Producer" Multiplicity="*" />
@@ -191,7 +169,7 @@
     </ReferentialConstraint>
   </Association>
   <Association Name="FK_Product_Category">
-    <End Role="Category" Type="Self.Category" Multiplicity="0..1" />
+    <End Role="Category" Type="Self.Category" Multiplicity="1" />
     <End Role="Product" Type="Self.Product" Multiplicity="*" />
     <ReferentialConstraint>
       <Principal Role="Category">
@@ -251,7 +229,7 @@
     </ReferentialConstraint>
   </Association>
   <Association Name="FK_Product_Markup">
-    <End Role="Markup" Type="Self.Markup" Multiplicity="0..1" />
+    <End Role="Markup" Type="Self.Markup" Multiplicity="1" />
     <End Role="Product" Type="Self.Product" Multiplicity="*" />
     <ReferentialConstraint>
       <Principal Role="Markup">
@@ -263,7 +241,7 @@
     </ReferentialConstraint>
   </Association>
   <Association Name="FK_Product_Measurement">
-    <End Role="Measurement" Type="Self.Measurement" Multiplicity="0..1" />
+    <End Role="Measurement" Type="Self.Measurement" Multiplicity="1" />
     <End Role="Product" Type="Self.Product" Multiplicity="*" />
     <ReferentialConstraint>
       <Principal Role="Measurement">
@@ -275,7 +253,7 @@
     </ReferentialConstraint>
   </Association>
   <Association Name="FK_Product_Producer1">
-    <End Role="Producer" Type="Self.Producer" Multiplicity="0..1" />
+    <End Role="Producer" Type="Self.Producer" Multiplicity="1" />
     <End Role="Product" Type="Self.Product" Multiplicity="*" />
     <ReferentialConstraint>
       <Principal Role="Producer">
@@ -298,14 +276,9 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
-  <Association Name="Order1">
-    <End Role="Product" Type="Self.Product" Multiplicity="*" />
-    <End Role="Sale" Type="Self.Sale" Multiplicity="*" />
-  </Association>
   <EntityContainer Name="ShopEntities" annotation:LazyLoadingEnabled="true">
     <EntitySet Name="Addresses" EntityType="Self.Address" />
     <EntitySet Name="Categories" EntityType="Self.Category" />
-    <EntitySet Name="Countries" EntityType="Self.Country" />
     <EntitySet Name="Customers" EntityType="Self.Customer" />
     <EntitySet Name="CustomerDiscounts" EntityType="Self.CustomerDiscount" />
     <EntitySet Name="Daliveries" EntityType="Self.Dalivery" />
@@ -317,10 +290,6 @@
     <EntitySet Name="Suppliers" EntityType="Self.Supplier" />
     <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagram" />
     <EntitySet Name="Users" EntityType="Self.User" />
-    <AssociationSet Name="FK_Address_Country" Association="Self.FK_Address_Country">
-      <End Role="Country" EntitySet="Countries" />
-      <End Role="Address" EntitySet="Addresses" />
-    </AssociationSet>
     <AssociationSet Name="FK_Producer_Address" Association="Self.FK_Producer_Address">
       <End Role="Address" EntitySet="Addresses" />
       <End Role="Producer" EntitySet="Producers" />
@@ -365,9 +334,90 @@
       <End Role="User" EntitySet="Users" />
       <End Role="Sale" EntitySet="Sales" />
     </AssociationSet>
-    <AssociationSet Name="Order1" Association="Self.Order1">
+    <FunctionImport Name="sp_alterdiagram">
+      <Parameter Name="diagramname" Mode="In" Type="String" />
+      <Parameter Name="owner_id" Mode="In" Type="Int32" />
+      <Parameter Name="version" Mode="In" Type="Int32" />
+      <Parameter Name="definition" Mode="In" Type="Binary" />
+    </FunctionImport>
+    <FunctionImport Name="sp_creatediagram">
+      <Parameter Name="diagramname" Mode="In" Type="String" />
+      <Parameter Name="owner_id" Mode="In" Type="Int32" />
+      <Parameter Name="version" Mode="In" Type="Int32" />
+      <Parameter Name="definition" Mode="In" Type="Binary" />
+    </FunctionImport>
+    <FunctionImport Name="sp_dropdiagram">
+      <Parameter Name="diagramname" Mode="In" Type="String" />
+      <Parameter Name="owner_id" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="sp_helpdiagramdefinition" ReturnType="Collection(ShopModel.sp_helpdiagramdefinition_Result)">
+      <Parameter Name="diagramname" Mode="In" Type="String" />
+      <Parameter Name="owner_id" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="sp_helpdiagrams" ReturnType="Collection(ShopModel.sp_helpdiagrams_Result)">
+      <Parameter Name="diagramname" Mode="In" Type="String" />
+      <Parameter Name="owner_id" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="sp_renamediagram">
+      <Parameter Name="diagramname" Mode="In" Type="String" />
+      <Parameter Name="owner_id" Mode="In" Type="Int32" />
+      <Parameter Name="new_diagramname" Mode="In" Type="String" />
+    </FunctionImport>
+    <FunctionImport Name="sp_upgraddiagrams" />
+    <EntitySet Name="ProductOrderQuantities" EntityType="ShopModel.ProductOrderQuantity" />
+    <AssociationSet Name="FK_Order1_Product" Association="ShopModel.FK_Order1_Product">
       <End Role="Product" EntitySet="Products" />
+      <End Role="ProductOrderQuantity" EntitySet="ProductOrderQuantities" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Order1_Sale" Association="ShopModel.FK_Order1_Sale">
       <End Role="Sale" EntitySet="Sales" />
+      <End Role="ProductOrderQuantity" EntitySet="ProductOrderQuantities" />
     </AssociationSet>
   </EntityContainer>
+  <ComplexType Name="sp_helpdiagramdefinition_Result">
+    <Property Type="Int32" Name="version" Nullable="true" />
+    <Property Type="Binary" Name="definition" Nullable="true" />
+  </ComplexType>
+  <ComplexType Name="sp_helpdiagrams_Result">
+    <Property Type="String" Name="Database" Nullable="true" MaxLength="128" />
+    <Property Type="String" Name="Name" Nullable="false" MaxLength="128" />
+    <Property Type="Int32" Name="ID" Nullable="false" />
+    <Property Type="String" Name="Owner" Nullable="true" MaxLength="128" />
+    <Property Type="Int32" Name="OwnerID" Nullable="false" />
+  </ComplexType>
+  <EntityType Name="ProductOrderQuantity">
+    <Key>
+      <PropertyRef Name="IdProductOrderQuantity" />
+    </Key>
+    <Property Name="IdProductOrderQuantity" Type="Int32" Nullable="false" />
+    <Property Name="IdSale" Type="Int32" Nullable="false" />
+    <Property Name="IdProduct" Type="Int64" Nullable="false" />
+    <Property Name="Quantity" Type="Decimal" Nullable="false" Precision="18" Scale="0" />
+    <NavigationProperty Name="Product" Relationship="ShopModel.FK_Order1_Product" FromRole="ProductOrderQuantity" ToRole="Product" />
+    <NavigationProperty Name="Sale" Relationship="ShopModel.FK_Order1_Sale" FromRole="ProductOrderQuantity" ToRole="Sale" />
+  </EntityType>
+  <Association Name="FK_Order1_Product">
+    <End Type="ShopModel.Product" Role="Product" Multiplicity="1" />
+    <End Type="ShopModel.ProductOrderQuantity" Role="ProductOrderQuantity" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Product">
+        <PropertyRef Name="idProduct" />
+      </Principal>
+      <Dependent Role="ProductOrderQuantity">
+        <PropertyRef Name="IdProduct" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Order1_Sale">
+    <End Type="ShopModel.Sale" Role="Sale" Multiplicity="1" />
+    <End Type="ShopModel.ProductOrderQuantity" Role="ProductOrderQuantity" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Sale">
+        <PropertyRef Name="idSale" />
+      </Principal>
+      <Dependent Role="ProductOrderQuantity">
+        <PropertyRef Name="IdSale" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
 </Schema>

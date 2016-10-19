@@ -4,17 +4,17 @@
 winexe
 C#
 .cs
-F:\IStore\itstore\ITStoreClient\obj\Debug\
+E:\Study\Командний проект\STORE\itstore\ITStoreClient\obj\Debug\
 ITStoreClient
 none
 false
 DEBUG;TRACE
-F:\IStore\itstore\ITStoreClient\App.xaml
-32103192507
+E:\Study\Командний проект\STORE\itstore\ITStoreClient\App.xaml
+4796125856
 2921250124
-29-1084586137
-18181009864
-LoginWindow.xaml;MainWindow.xaml;PaymentWindow.xaml;
+321791564740
+18-32559206
+AdminPanel.xaml;LoginWindow.xaml;MainWindow.xaml;PaymentWindow.xaml;
 
-False
+True
 
