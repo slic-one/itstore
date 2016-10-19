@@ -83,7 +83,7 @@ namespace ITStoreClient
 
             cashiers = GetCashiers();
             cashierComboBox.ItemsSource = cashiers;
-            customerComboBox.ItemsSource = customers;
+            customerComboBox.ItemsSource = customers.ToList();
 
             markUps = GetMarkUps();
             MarkUpList.ItemsSource = markUps;
@@ -527,15 +527,31 @@ namespace ITStoreClient
             DateTime? fromDate = dateFrom.SelectedDate;
             DateTime? toDate = dateTo.SelectedDate;
 
+
+            var user = (User)cashierComboBox.SelectedItem;
+            var customer = (Customer)customerComboBox.SelectedItem;
             var sales = data.Sales.Where(s => s.DateSale >= fromDate && s.DateSale <= toDate).Select(x => x);
 
+            if (user != null&&customer==null)
+            {
+                sales = sales.Where(s=>s.idUser == user.idUser).Select(x => x);
+            }
+            if (user == null && customer != null)
+            {
+                sales = sales.Where(s => s.idCustomer == customer.idCustomer).Select(x => x);
+            }
+            if (user !=null && customer != null)
+            {
+                sales = sales.Where(s => s.idUser == user.idUser).Select(x => x);
+                sales = sales.Where(s => s.idCustomer == customer.idCustomer).Select(x => x);
+            }
 
 
             var prod = from sl in sales
                        from pq in data.ProductOrderQuantities
                        where (pq.IdSale == sl.idSale)
                        group pq by pq.IdProduct
-                     into grp
+                      into grp
                        select new { idProduct = grp.Key, Quantity = grp.Select(x => x.Quantity).Sum() };
 
             var rez = from p in data.Products
