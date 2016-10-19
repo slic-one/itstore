@@ -11,7 +11,7 @@ namespace ITStoreClient
 {
     using System;
     using System.Collections.Generic;
-    
+    using System.Text;
     public partial class Address
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
@@ -32,7 +32,8 @@ namespace ITStoreClient
         public virtual ICollection<Supplier> Suppliers { get; set; }
         public override string ToString()
         {
-            return "Країна: " + Country + " Місто: " + Town + " Вулиця: " + Street;
+            return Country + "  " + Town + "  " + Street;
+            
         }
     }
 }
