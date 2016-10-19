@@ -199,8 +199,9 @@
                         <ColumnDefinition Width="541*"/>
                     </Grid.ColumnDefinitions>
                     <Grid.RowDefinitions>
-                        <RowDefinition Height="0.07*"/>
                         <RowDefinition/>
+                        <RowDefinition Height="15*"/>
+                        <RowDefinition Height="1.5*"/>
                     </Grid.RowDefinitions>
                     <DockPanel Grid.ColumnSpan="3">
                         <DatePicker x:Name="dateFrom" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="10, 0" >
@@ -217,16 +218,25 @@
                                 </Style>
                             </DatePicker.Resources>
                         </DatePicker>
-                        <Button Name="btnSearchReport" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="10, 0" Content=" Пошук " Click="searchReportClick" />
+                        
                         <Label HorizontalAlignment="Left" VerticalAlignment="Center"  Content="Касир" />
                         <ComboBox x:Name="cashierComboBox" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="10, 0" MinWidth="50" />
                         <Label HorizontalAlignment="Left" VerticalAlignment="Center"  Content="Покупець" />
                         <ComboBox x:Name="customerComboBox" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="10, 0" MinWidth="50" />
+                        <Button Name="btnSearchReport" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="10, 0" Content=" Пошук " Click="searchReportClick" />
                         <Button HorizontalAlignment="Right" VerticalAlignment="Center" Margin="10, 0" Content="Очистити" Click="Button_Click" />
                     </DockPanel>
                     <DataGrid x:Name="dataGridReport" Grid.Row="1" Grid.ColumnSpan="3">
-
                     </DataGrid>
+                    <DockPanel Grid.Row="2" Grid.ColumnSpan="3" HorizontalAlignment="Center" VerticalAlignment="Center">
+                        <Label Content="Загальна вартість поставки:"/>
+                        <Label x:Name="totalSupplyLabel" Content="-" FontWeight="Bold" FontSize="17.333"  />
+                        <Label Content="Загальна вартість продаж:"/>
+                        <Label x:Name="totalSaleLabel" FontWeight="Bold" FontSize="17.333" Content="-"/>
+                        <Label Content="Загальний прибуток:"/>
+                        <Label x:Name="totalProfitLabel" FontWeight="Bold" FontSize="17.333" Content="-"/>
+                    </DockPanel>
+                    <Button x:Name="saveReport" Grid.ColumnSpan="3" Grid.Row="2" Content="Зберегти звіт" HorizontalAlignment="Right" VerticalAlignment="Center" Click="saveReport_Click"/>
                 </Grid>
             </TabItem>
             <TabItem Header="Виробники">
