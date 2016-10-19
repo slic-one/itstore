@@ -16,7 +16,7 @@ namespace ITStoreClient
         public LoginWindow()
 		{
 			InitializeComponent();
-            textBoxLogin.Text = "one";
+            textBoxLogin.Text = "admin";
             passwordBox.Password = "1";
         }
 

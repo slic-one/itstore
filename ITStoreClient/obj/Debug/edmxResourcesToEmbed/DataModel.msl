@@ -4,8 +4,8 @@
     <EntitySetMapping Name="Addresses">
       <EntityTypeMapping TypeName="ShopModel.Address">
         <MappingFragment StoreEntitySet="Address">
+          <ScalarProperty Name="Country" ColumnName="Country" />
           <ScalarProperty Name="idAddress" ColumnName="idAddress" />
-          <ScalarProperty Name="idCountry" ColumnName="idCountry" />
           <ScalarProperty Name="Town" ColumnName="Town" />
           <ScalarProperty Name="Street" ColumnName="Street" />
         </MappingFragment>
@@ -15,14 +15,6 @@
       <EntityTypeMapping TypeName="ShopModel.Category">
         <MappingFragment StoreEntitySet="Category">
           <ScalarProperty Name="idCatedory" ColumnName="idCatedory" />
-          <ScalarProperty Name="Name" ColumnName="Name" />
-        </MappingFragment>
-      </EntityTypeMapping>
-    </EntitySetMapping>
-    <EntitySetMapping Name="Countries">
-      <EntityTypeMapping TypeName="ShopModel.Country">
-        <MappingFragment StoreEntitySet="Country">
-          <ScalarProperty Name="idCountry" ColumnName="idCountry" />
           <ScalarProperty Name="Name" ColumnName="Name" />
         </MappingFragment>
       </EntityTypeMapping>
@@ -105,7 +97,6 @@
         <MappingFragment StoreEntitySet="Sale">
           <ScalarProperty Name="idSale" ColumnName="idSale" />
           <ScalarProperty Name="FullPrice" ColumnName="FullPrice" />
-          <ScalarProperty Name="Quantity" ColumnName="Quantity" />
           <ScalarProperty Name="DateSale" ColumnName="DateSale" />
           <ScalarProperty Name="idUser" ColumnName="idUser" />
           <ScalarProperty Name="idCustomer" ColumnName="idCustomer" />
@@ -143,13 +134,39 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
-    <AssociationSetMapping Name="Order1" TypeName="ShopModel.Order1" StoreEntitySet="Order1">
-      <EndProperty Name="Product">
-        <ScalarProperty Name="idProduct" ColumnName="IdProduct" />
-      </EndProperty>
-      <EndProperty Name="Sale">
-        <ScalarProperty Name="idSale" ColumnName="IdSale" />
-      </EndProperty>
-    </AssociationSetMapping>
+    <FunctionImportMapping FunctionImportName="sp_alterdiagram" FunctionName="ShopModel.Store.sp_alterdiagram" />
+    <FunctionImportMapping FunctionImportName="sp_creatediagram" FunctionName="ShopModel.Store.sp_creatediagram" />
+    <FunctionImportMapping FunctionImportName="sp_dropdiagram" FunctionName="ShopModel.Store.sp_dropdiagram" />
+    <FunctionImportMapping FunctionImportName="sp_helpdiagramdefinition" FunctionName="ShopModel.Store.sp_helpdiagramdefinition">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="ShopModel.sp_helpdiagramdefinition_Result">
+          <ScalarProperty Name="version" ColumnName="version" />
+          <ScalarProperty Name="definition" ColumnName="definition" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="sp_helpdiagrams" FunctionName="ShopModel.Store.sp_helpdiagrams">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="ShopModel.sp_helpdiagrams_Result">
+          <ScalarProperty Name="Database" ColumnName="Database" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="ID" ColumnName="ID" />
+          <ScalarProperty Name="Owner" ColumnName="Owner" />
+          <ScalarProperty Name="OwnerID" ColumnName="OwnerID" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="sp_renamediagram" FunctionName="ShopModel.Store.sp_renamediagram" />
+    <FunctionImportMapping FunctionImportName="sp_upgraddiagrams" FunctionName="ShopModel.Store.sp_upgraddiagrams" />
+    <EntitySetMapping Name="ProductOrderQuantities">
+      <EntityTypeMapping TypeName="ShopModel.ProductOrderQuantity">
+        <MappingFragment StoreEntitySet="ProductOrderQuantity">
+          <ScalarProperty Name="Quantity" ColumnName="Quantity" />
+          <ScalarProperty Name="IdProduct" ColumnName="IdProduct" />
+          <ScalarProperty Name="IdSale" ColumnName="IdSale" />
+          <ScalarProperty Name="IdProductOrderQuantity" ColumnName="IdProductOrderQuantity" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
   </EntityContainerMapping>
 </Mapping>
