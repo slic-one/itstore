@@ -650,8 +650,13 @@ namespace ITStoreClient
 
 
 
-        #endregion
 
+		#endregion
 
-    }
+		private void Button_Click(object sender, RoutedEventArgs e)
+		{
+			cashierComboBox.SelectedItem = null;
+			customerComboBox.SelectedItem = null;
+		}
+	}
 }

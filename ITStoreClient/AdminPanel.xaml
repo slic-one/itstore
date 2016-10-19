@@ -217,6 +217,7 @@
                         <ComboBox x:Name="cashierComboBox" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="10, 0" MinWidth="50" />
                         <Label HorizontalAlignment="Left" VerticalAlignment="Center"  Content="Покупець" />
                         <ComboBox x:Name="customerComboBox" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="10, 0" MinWidth="50" />
+                        <Button HorizontalAlignment="Right" VerticalAlignment="Center" Margin="10, 0" Content="Очистити" Click="Button_Click" />
                     </DockPanel>
                     <DataGrid Grid.Row="1">
 
