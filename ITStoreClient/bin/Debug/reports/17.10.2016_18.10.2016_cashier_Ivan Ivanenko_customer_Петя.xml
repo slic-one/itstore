@@ -1,0 +1,13 @@
+<?xml version="1.0"?>
+<Reports xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <Report>
+    <ProductName>JAFA</ProductName>
+    <IdProduct>1</IdProduct>
+    <Quantity>10</Quantity>
+    <Measurment>кг.</Measurment>
+    <Price>5</Price>
+    <TotalSuplyPrice>50</TotalSuplyPrice>
+    <TotalSalePrice>75.000000</TotalSalePrice>
+    <Profit>25.000000</Profit>
+  </Report>
+</Reports>

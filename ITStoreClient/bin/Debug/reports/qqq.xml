@@ -1,0 +1,33 @@
+<?xml version="1.0"?>
+<Reports xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <Report>
+    <ProductName>JAFA</ProductName>
+    <IdProduct>1</IdProduct>
+    <Quantity>30</Quantity>
+    <Price>5</Price>
+    <Measurment>кг.</Measurment>
+    <TotalSuplyPrice>150</TotalSuplyPrice>
+    <TotalSalePrice>225.000000</TotalSalePrice>
+    <Profit>75.000000</Profit>
+  </Report>
+  <Report>
+    <ProductName>PIVAS</ProductName>
+    <IdProduct>2222690135109</IdProduct>
+    <Quantity>20</Quantity>
+    <Price>25</Price>
+    <Measurment>л.</Measurment>
+    <TotalSuplyPrice>500</TotalSuplyPrice>
+    <TotalSalePrice>750.000000</TotalSalePrice>
+    <Profit>250.000000</Profit>
+  </Report>
+  <Report>
+    <ProductName>MINERALKA</ProductName>
+    <IdProduct>2222690135123</IdProduct>
+    <Quantity>2</Quantity>
+    <Price>50</Price>
+    <Measurment>шт.</Measurment>
+    <TotalSuplyPrice>100</TotalSuplyPrice>
+    <TotalSalePrice>110.000000</TotalSalePrice>
+    <Profit>10.000000</Profit>
+  </Report>
+</Reports>
