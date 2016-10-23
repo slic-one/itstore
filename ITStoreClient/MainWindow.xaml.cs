@@ -31,8 +31,7 @@ namespace ITStoreClient
         ShopEntities data = new ShopEntities();
         Customer customer = null;
         User user = null;
-        DateTime registrationDate;
-        DateTime outRegistrationDate;
+        
 
 
         public MainWindow(User user)
@@ -40,7 +39,7 @@ namespace ITStoreClient
 			InitializeComponent();
             dataGrid.ItemsSource = resultProducts;
             this.user = user;
-            registrationDate = DateTime.Now;
+            
         }
 
         private void DataGrid_Loaded(object sender, RoutedEventArgs e)
@@ -86,6 +85,7 @@ namespace ITStoreClient
         void DataGrid_CollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
         {
             price.Content = countPrice();
+            totalPrice = countPrice();
         }
 
         // TODO focus on Quantity column (below doesn't work)?????????
@@ -173,8 +173,20 @@ namespace ITStoreClient
         private void buttonPayment_Click(object sender, RoutedEventArgs e)
 		{
 			PaymentWindow paymentWindow = new PaymentWindow(totalPrice);
+            int idSale=ChangeSale();
 			paymentWindow.ShowDialog();
-		}
+            ChangeDB(idSale);
+            string products=null;
+            foreach(var i in resultProducts)
+            {
+                products+=(string.Format("{0}*{1}={2:c}",i.Name,i.Quantity,i.Price*i.Quantity)+"\r");
+            }
+
+            string st = string.Format("{0}{1:T}{2}{3}{4}{5}{6}{7}","\t Новий Чек\r",DateTime.Now, "\r Касир: ", user.Name,"\r Товари: \r"
+                ,products,"\r Ціна:",totalPrice);
+            MessageBox.Show(st);
+
+        }
 
         private void textBoxProductId_TextChanged(object sender, TextChangedEventArgs e)
         {
@@ -256,5 +268,74 @@ namespace ITStoreClient
 			// витягує з виділеного елемента списку Tag, в якому ссилка на Product
 			addProductToDataGrid((Product)((ListViewItem)((ListView)sender).SelectedItem).Tag);
 		}
-	}
+
+        private void ChangeDB(int id)
+        {
+            foreach(var tmp in resultProducts)
+            {
+                
+                ITStoreClient.ProductOrderQuantity ord = new ProductOrderQuantity();
+                id = data.Sales.Select(s1 => s1.idSale).ToArray().Last();
+                int idPOQ = data.ProductOrderQuantities.Select(x => x.IdProductOrderQuantity).Max();
+                idPOQ += 1;
+                ord.IdProductOrderQuantity = idPOQ;
+                ord.IdSale = id;
+                Product product = data.Products.Where(p => p.Name == tmp.Name).First();
+                ord.IdProduct=product.idProduct;
+                ord.Quantity = tmp.Quantity;
+                data.ProductOrderQuantities.Add(ord);
+                var Quantityproduct = from t in data.Products
+                        where t.Name == tmp.Name
+                        select t;
+                
+               foreach(var i in Quantityproduct)
+                {
+                    i.Quantity -= tmp.Quantity;
+                }
+                data.SaveChanges();
+            }
+            
+        }
+        private int ChangeSale()
+        {
+            ITStoreClient.Sale sale=new Sale();
+            if(customer != null)
+            {
+                sale.idCustomer = customer.idCustomer;
+            }
+                
+                sale.idUser = user.idUser;
+                sale.FullPrice = totalPrice;
+                sale.DateSale = DateTime.Now;
+            bool s=true;
+            int id;
+            do
+            {
+                if (!s)
+                {
+                    data.Sales.Remove(sale);
+                }
+                data.Sales.Add(sale);
+                id = data.Sales.Select(s1 => s1.idSale).ToArray().Last();
+                try
+                {
+                    data.SaveChanges();
+                }
+                catch(Exception ex)
+                {
+                    s = false;
+                }
+                
+
+            } while (!s);
+                
+                   if(customer!=null)
+            {
+                data.Customers.Where(c => c.idCustomer == customer.idCustomer).First().Spended_Money+=totalPrice;
+            }
+            data.SaveChanges();
+            return id;
+        }
+    }
+   
 }

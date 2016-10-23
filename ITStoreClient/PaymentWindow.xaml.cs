@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -36,5 +37,21 @@ namespace ITStoreClient
 
 			Close();
 		}
-	}
+        private void textBox_submitted_TextChanged_1(object sender, TextChangedEventArgs e)
+        {
+
+            TextBox txt = (TextBox)sender;
+            if (txt.Text != "0.0")
+            {
+                decimal toPay;
+                decimal submitted;
+                string str = labelToPayValue.Content.ToString();
+                string str1 = txt.Text.ToString();
+                decimal.TryParse(str, out toPay);
+                decimal.TryParse(str1, NumberStyles.AllowDecimalPoint, new NumberFormatInfo { NumberDecimalSeparator = "." }, out submitted);
+                submitted = (submitted - toPay);
+                labelChangeValue.Content = submitted;
+            }
+        }
+    }
 }
