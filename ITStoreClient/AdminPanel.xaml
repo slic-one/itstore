@@ -239,6 +239,7 @@
                         <Label Content="Загальний прибуток:"/>
                         <Label x:Name="totalProfitLabel" FontWeight="Bold" FontSize="17.333" Content="-"/>
                     </DockPanel>
+                    <Button x:Name="loadReport" Grid.ColumnSpan="3" Grid.Row="2" Content="Загрузити звіт" HorizontalAlignment="Left" VerticalAlignment="Center" Click="loadReport_Click"/>
                     <Button x:Name="saveReport" Grid.ColumnSpan="3" Grid.Row="2" Content="Зберегти звіт" HorizontalAlignment="Right" VerticalAlignment="Center" Click="saveReport_Click"/>
                 </Grid>
             </TabItem>

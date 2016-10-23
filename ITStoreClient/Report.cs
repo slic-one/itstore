@@ -3,34 +3,43 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Xml.Serialization;
 
 namespace ITStoreClient
 {
-    class Report
+    [Serializable]
+    [XmlType("Report")]
+    public class Report
     {
-        public Report(string ProductName,long IdProduct, decimal Quantity,string Measurement,decimal SuplyPrice, decimal Price,decimal Profit)
+
+        public Report() { }
+        public Report(string ProductName,long IdProduct, decimal Quantity,decimal Price,string Measurement,decimal TotalSuplyPrice, decimal TotalSalePrice,decimal Profit)
         {
             this.ProductName =ProductName;
             this.IdProduct = IdProduct;
-            this.Measurment = Measurement;
-            this.Price = Price;
             this.Quantity = Quantity;
-            this.SuplyPrice = SuplyPrice;
-            this.Profit = Price -SuplyPrice;
+            this.Price = Price;
+            this.Measurment = Measurement;
+            this.TotalSuplyPrice = TotalSuplyPrice;
+            this.TotalSalePrice = TotalSalePrice;
+            this.Profit = Profit;
+         
         }
 
         public string ProductName { get; set; }
-        public string Measurment { get; set; }
-
+      
         public long IdProduct { get;set; }
         public decimal Quantity { get; set;}
-        public decimal SuplyPrice { get; set; }
+       
+        public string Measurment { get; set; }
         public decimal Price { get; set; }
-        public decimal Profit { get; set; }
-        public string Cashier { get; set;}
-        public string Customer { get;set; }
 
+        public decimal TotalSuplyPrice { get; set; }
+        public decimal TotalSalePrice { get; set; }
+        public decimal Profit { get; set; }
+      
 
     }
 
+   
 }
