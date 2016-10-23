@@ -116,6 +116,7 @@
     <Compile Include="ProductOrderQuantity.cs">
       <DependentUpon>DataModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="Report.cs" />
     <Compile Include="Sale.cs">
       <DependentUpon>DataModel.tt</DependentUpon>
     </Compile>
