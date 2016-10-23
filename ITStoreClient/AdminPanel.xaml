@@ -24,12 +24,13 @@
                             <RowDefinition Height="*"></RowDefinition>
                             <RowDefinition Height="Auto"></RowDefinition>
                         </Grid.RowDefinitions>
-                        <DataGrid x:Name="UsersList"  Background="Silver" Margin="10,0,10,10" />
+                        <DataGrid x:Name="UsersList"  IsReadOnly="True" Background="Silver" Margin="10,0,10,10"  SelectionChanged="UsersList_SelectionChanged"/>
 
 
                         <StackPanel Grid.Row="1" HorizontalAlignment="Right" Orientation="Horizontal" Margin="5,2,5,10">
-                            <Button Margin="2,0,0,0"  Padding="2" Content="Зберегти зміни" Click="SaveChanges_Click"/>
-                            <Button Margin="2,0,0,0"  Padding="2" Content="Добавити" Click="AddUser_Click"/>
+                            <Button Margin="2,0,0,0"  Name="saveChangesUserButton" Padding="2" Content="Зберегти зміни" Click="SaveChanges_Click"/>
+                            <Button Margin="2,0,0,0"  Padding="2" Content="Створити нового користувача" Click="ClearUserTextBoxes_Click"/>
+                            <Button Margin="2,0,0,0"  Name="addUserButton"  Padding="2" Content="Зберегти нового користувача" IsEnabled="False" Click="AddUser_Click"/>
                             <Button Margin="2,0,0,0"  Padding="2" Content="Видалити" Click="DeleteUser_Click"/>
 
                         </StackPanel>
@@ -52,13 +53,13 @@
                             </Grid.RowDefinitions>
 
                             <TextBlock Margin="7">Код користувача:</TextBlock>
-                            <TextBox Margin="5" Grid.Column="1" IsReadOnly="True" Text="{Binding Path=idUser}"></TextBox>
+                            <TextBox  Name="UserId" Margin="5" Grid.Column="1" IsReadOnly="True" Background="LightGray" Text="{Binding Path=idUser}"></TextBox>
                             <TextBlock Margin="7" Grid.Row="1">Ім'я:</TextBlock>
-                            <TextBox Name="UserName" Margin="5" Grid.Row="1" Grid.Column="1" Text="{Binding Path=Name}"></TextBox>
+                            <TextBox Name="UserName" Margin="5" Grid.Row="1" Grid.Column="1" MaxLength="48" Text="{Binding Path=Name}" TextChanged="UserName_TextChanged"></TextBox>
                             <TextBlock Margin="7" Grid.Row="2">Логін:</TextBlock>
-                            <TextBox Name="UserLogin" Margin="5" Grid.Row="2" Grid.Column="1" Text="{Binding Path=Login}"></TextBox>
+                            <TextBox Name="UserLogin" Margin="5" Grid.Row="2" Grid.Column="1" MaxLength="48" Text="{Binding Path=Login}"></TextBox>
                             <TextBlock Margin="7" Grid.Row="3">Пароль:</TextBlock>
-                            <TextBox Name="UserPassword" Margin="5" Grid.Row="3" Grid.Column="1" Text="{Binding Path=Password}"></TextBox>
+                            <TextBox Name="UserPassword" Margin="5" Grid.Row="3" Grid.Column="1"  MaxLength="48" Text="{Binding Path=Password}"></TextBox>
                             <TextBlock Margin="7" Grid.Row="4">Права адміністратора:</TextBlock>
                             <CheckBox Name="UserIsAdmin" Margin="5" Grid.Row="4" Grid.Column="1" IsChecked="{Binding Path=Admin}"></CheckBox>
                         </Grid>
@@ -81,12 +82,13 @@
                             <RowDefinition Height="*"></RowDefinition>
                             <RowDefinition Height="Auto"></RowDefinition>
                         </Grid.RowDefinitions>
-                        <DataGrid x:Name="CustomersList" Background="Silver" Margin="10,0,10,10" SelectionChanged="CustomersList_SelectionChanged" />
+                        <DataGrid x:Name="CustomersList" Background="Silver" IsReadOnly="True" Margin="10,0,10,10" SelectionChanged="CustomersList_SelectionChanged" />
 
 
                         <StackPanel Grid.Row="1" HorizontalAlignment="Right" Orientation="Horizontal" Margin="5,2,5,10">
-                            <Button Margin="2,0,0,0"  Padding="2" Content="Зберегти зміни" Click="SaveChanges_Click"/>
-                            <Button Margin="2,0,0,0"  Padding="2" Content="Добавити" Click="AddCustomer_Click"/>
+                            <Button Margin="2,0,0,0"  Name="saveChangesCustomerButton" Padding="2" Content="Зберегти зміни" Click="SaveChanges_Click"/>
+                            <Button Margin="2,0,0,0"  Padding="2" Content="Створити нового клієнта" Click="ClearCustomerTextBoxes_Click"/>
+                            <Button Margin="2,0,0,0"  Name="addCustomerButton"  Padding="2" Content="Зберегти нового клієнта" IsEnabled="False" Click="AddCustomer_Click"/>
                             <Button Margin="2,0,0,0"  Padding="2" Content="Видалити" Click="DeleteCustomer_Click"/>
 
                         </StackPanel>
@@ -109,13 +111,13 @@
                             </Grid.RowDefinitions>
 
                             <TextBlock Margin="7">Код клієнта:</TextBlock>
-                            <TextBox Name="CustomerId" Margin="5" Grid.Column="1" Text="{Binding Path=idCustomer}"></TextBox>
+                            <TextBox Name="CustomerId" Margin="5" Grid.Column="1" MaxLength="19" IsReadOnly="True" Background="LightGray" Text="{Binding Path=idCustomer}" TextChanged="CustomerId_TextChanged"></TextBox>
                             <TextBlock Margin="7" Grid.Row="1">Ім'я:</TextBlock>
-                            <TextBox Name="CustomerName" Margin="5" Grid.Row="1" Grid.Column="1" Text="{Binding Path=Name}"></TextBox>
+                            <TextBox Name="CustomerName" Margin="5" Grid.Row="1" Grid.Column="1" MaxLength="48" Text="{Binding Path=Name}" TextChanged="CustomerName_TextChanged"></TextBox>
                             <TextBlock Margin="7" Grid.Row="2">Прізвище:</TextBlock>
-                            <TextBox Name="CustomerSurname" Margin="5" Grid.Row="2" Grid.Column="1" Text="{Binding Path=Surname}"></TextBox>
+                            <TextBox Name="CustomerSurname" Margin="5" Grid.Row="2" Grid.Column="1" MaxLength="48" Text="{Binding Path=Surname}" TextChanged="CustomerSurname_TextChanged"></TextBox>
                             <TextBlock Margin="7" Grid.Row="3">Сума покупок:</TextBlock>
-                            <TextBox Name="CustomerSpentMoney" Margin="5" Grid.Row="3" Grid.Column="1" Text="{Binding Path=Spended_Money}"></TextBox>
+                            <TextBox Name="CustomerSpentMoney" Margin="5" Grid.Row="3" Grid.Column="1" MaxLength="19" Text="{Binding Path=Spended_Money}" TextChanged="CustomerSpended_Money_TextChanged"></TextBox>
                             <TextBlock Margin="7" Grid.Row="4">Знижка %:</TextBlock>
                             <ComboBox Name="DiscountComboBox" Margin="5" Grid.Row="4" Grid.Column="1" DropDownClosed="DiscountComboBox_DropDownClosed"/>
 
@@ -141,12 +143,13 @@
                             <RowDefinition Height="*"></RowDefinition>
                             <RowDefinition Height="Auto"></RowDefinition>
                         </Grid.RowDefinitions>
-                        <DataGrid x:Name="ProductsList"  Background="Silver" Margin="10,0,10,10" SelectionChanged="ProductsList_SelectionChanged" />
+                        <DataGrid x:Name="ProductsList"  Background="Silver"  IsReadOnly="True" Margin="10,0,10,10" SelectionChanged="ProductsList_SelectionChanged" />
 
 
                         <StackPanel Grid.Row="1" HorizontalAlignment="Right" Orientation="Horizontal" Margin="5,2,5,10">
-                            <Button Margin="2,0,0,0"  Padding="2" Content="Зберегти зміни" Click="SaveChanges_Click"/>
-                            <Button Margin="2,0,0,0"  Padding="2" Content="Добавити" Click="AddProduct_Click"/>
+                            <Button Margin="2,0,0,0"  Name="saveChangesProductButton" Padding="2" Content="Зберегти зміни" Click="SaveChanges_Click"/>
+                            <Button Margin="2,0,0,0"  Padding="2" Content="Створити новий продукт" Click="ClearProductTextBoxes_Click"/>
+                            <Button Margin="2,0,0,0"  Name="addProductButton"  Padding="2" Content="Зберегти новий продукт" Click="AddProduct_Click"/>
                             <Button Margin="2,0,0,0"  Padding="2" Content="Видалити" Click="DeleteProduct_Click"/>
 
                         </StackPanel>
@@ -172,13 +175,13 @@
                             </Grid.RowDefinitions>
 
                             <TextBlock Margin="7">Код товару:</TextBlock>
-                            <TextBox Name="ProductId" Margin="5" Grid.Column="1" Text="{Binding Path=idProduct}"></TextBox>
+                            <TextBox Name="ProductId" Margin="5" Grid.Column="1" MaxLength="19" IsReadOnly="True" Background="LightGray" Text="{Binding Path=idProduct}" TextChanged="ProductId_TextChanged"></TextBox>
                             <TextBlock Margin="7" Grid.Row="1">Назва:</TextBlock>
-                            <TextBox Name="ProductName" Margin="5" Grid.Row="1" Grid.Column="1" Text="{Binding Path=Name}"></TextBox>
+                            <TextBox Name="ProductName" Margin="5" Grid.Row="1" Grid.Column="1" MaxLength="48" Text="{Binding Path=Name}" TextChanged="ProductName_TextChanged"></TextBox>
                             <TextBlock Margin="7" Grid.Row="2">Ціна (грн):</TextBlock>
-                            <TextBox Name="ProductPrice" Margin="5" Grid.Row="2" Grid.Column="1" Text="{Binding Path=Price}"></TextBox>
+                            <TextBox Name="ProductPrice" Margin="5" Grid.Row="2" Grid.Column="1" MaxLength="19" Text="{Binding Path=Price}" TextChanged="ProductPrice_TextChanged"></TextBox>
                             <TextBlock Margin="7" Grid.Row="3">Кількість:</TextBlock>
-                            <TextBox Name="ProductQuantity" Margin="5" Grid.Row="3" Grid.Column="1" Text="{Binding Path=Quantity}"></TextBox>
+                            <TextBox Name="ProductQuantity" Margin="5" Grid.Row="3" Grid.Column="1" MaxLength="19" Text="{Binding Path=Quantity}" TextChanged="ProductQuantity_TextChanged"></TextBox>
                             <TextBlock Margin="7" Grid.Row="4">Категорія:</TextBlock>
                             <ComboBox Name="CategoryComboBox" Margin="5" Grid.Row="4" Grid.Column="1" DropDownClosed="CategoryComboBox_DropDownClosed" />
                             <TextBlock Margin="7" Grid.Row="5">Націнка %:</TextBlock>
@@ -218,7 +221,7 @@
                                 </Style>
                             </DatePicker.Resources>
                         </DatePicker>
-                        
+
                         <Label HorizontalAlignment="Left" VerticalAlignment="Center"  Content="Касир" />
                         <ComboBox x:Name="cashierComboBox" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="10, 0" MinWidth="50" />
                         <Label HorizontalAlignment="Left" VerticalAlignment="Center"  Content="Покупець" />
@@ -253,12 +256,13 @@
                             <RowDefinition Height="*"></RowDefinition>
                             <RowDefinition Height="Auto"></RowDefinition>
                         </Grid.RowDefinitions>
-                        <DataGrid x:Name="ProducersList"  Background="Silver" Margin="10,0,10,10" />
+                        <DataGrid x:Name="ProducersList" IsReadOnly="True" Background="Silver" Margin="10,0,10,10" SelectionChanged="ProducersList_SelectionChanged" />
 
 
                         <StackPanel Grid.Row="1" HorizontalAlignment="Right" Orientation="Horizontal" Margin="5,2,5,10">
-                            <Button Margin="2,0,0,0"  Padding="2" Content="Зберегти зміни" Click="SaveChanges_Click"/>
-                            <Button Margin="2,0,0,0"  Padding="2" Content="Добавити" Click="AddProducer_Click"/>
+                            <Button Margin="2,0,0,0"  Name="saveChangesProducerButton" Padding="2" Content="Зберегти зміни" Click="SaveChanges_Click"/>
+                            <Button Margin="2,0,0,0"  Padding="2" Content="Створити нового виробника" Click="ClearProducerTextBoxes_Click"/>
+                            <Button Margin="2,0,0,0"  Name="addProducerButton" Padding="2" Content="Зберегти нового виробника" Click="AddProducer_Click"/>
                             <Button Margin="2,0,0,0"  Padding="2" Content="Видалити" Click="DeleteProducer_Click"/>
                         </StackPanel>
                     </Grid>
@@ -277,18 +281,25 @@
                                 <RowDefinition Height="Auto"></RowDefinition>
                                 <RowDefinition Height="Auto"></RowDefinition>
                                 <RowDefinition Height="Auto"></RowDefinition>
+                                <RowDefinition Height="Auto"></RowDefinition>
+                                <RowDefinition Height="Auto"></RowDefinition>
                             </Grid.RowDefinitions>
 
                             <TextBlock Margin="7">Код виробника:</TextBlock>
-                            <TextBox Margin="5" Grid.Column="1"  IsReadOnly="True" Text="{Binding Path=idProducer}"></TextBox>
+                            <TextBox Name="ProducerId" Margin="5" Grid.Column="1"  IsReadOnly="True" Background="LightGray" Text="{Binding Path=idProducer}"></TextBox>
                             <TextBlock Margin="7" Grid.Row="1">Назва:</TextBlock>
-                            <TextBox  Name="ProducerName" Margin="5" Grid.Row="1" Grid.Column="1" Text="{Binding Path=Name}"></TextBox>
-                            <TextBlock Margin="7" Grid.Row="2">Країна:</TextBlock>
-                            <TextBox Name="ProducerCountry" Margin="5" Grid.Row="2" Grid.Column="1" Text="{Binding Path=Address.Country}"></TextBox>
-                            <TextBlock Margin="7" Grid.Row="3">Місто:</TextBlock>
-                            <TextBox Name="ProducerTown" Margin="5" Grid.Row="3" Grid.Column="1" Text="{Binding Path=Address.Town}"></TextBox>
-                            <TextBlock Margin="7" Grid.Row="4">Вулиця:</TextBlock>
-                            <TextBox Name="ProducerStreet" Margin="5" Grid.Row="4" Grid.Column="1" Text="{Binding Path=Address.Street}"></TextBox>
+                            <TextBox  Name="ProducerName" Margin="5" Grid.Row="1" Grid.Column="1" MaxLength="48" Text="{Binding Path=Name}" TextChanged="ProducerName_TextChanged"></TextBox>
+                            <TextBlock Margin="7" Grid.Row="2"  Grid.Column="2">Aдреса:</TextBlock>
+                            <TextBlock Margin="7" Grid.Row="3">Країна:</TextBlock>
+                            <TextBox Name="ProducerCountry" Margin="5" Grid.Row="3" Grid.Column="1" IsReadOnly="True" Background="LightGray" MaxLength="48" Text="{Binding Path=Address.Country}" TextChanged="ProducerCountry_TextChanged"></TextBox>
+                            <TextBlock Margin="7" Grid.Row="4">Місто:</TextBlock>
+                            <TextBox Name="ProducerTown" Margin="5" Grid.Row="4" Grid.Column="1" IsReadOnly="True" Background="LightGray" MaxLength="48" Text="{Binding Path=Address.Town}" TextChanged="ProducerTown_TextChanged"></TextBox>
+                            <TextBlock Margin="7" Grid.Row="5">Вулиця:</TextBlock>
+                            <TextBox Name="ProducerStreet" Margin="5" Grid.Row="5" Grid.Column="1" IsReadOnly="True" Background="LightGray" MaxLength="48" Text="{Binding Path=Address.Street}" TextChanged="ProducerStreet_TextChanged"></TextBox>
+                            <StackPanel Grid.Row="6" Grid.Column="2" HorizontalAlignment="Center" Orientation="Horizontal" Margin="5,2,5,10">
+                                <Button Margin="2,0,0,0" Name="ChangeAddressButton" Padding="2" Content="Змінити адресу" Click="ChangeProducerAddress_Click"/>
+                                <Button Margin="2,0,0,0" Name="SaveAddressButton" Padding="2" Content="Застосувати зміну адреси" Click="SaveChangesProducerAddress_Click" />
+                            </StackPanel>
                         </Grid>
                     </Border>
                 </Grid>
@@ -306,12 +317,13 @@
                             <RowDefinition Height="*"></RowDefinition>
                             <RowDefinition Height="Auto"></RowDefinition>
                         </Grid.RowDefinitions>
-                        <DataGrid x:Name="SuppliersList"  Background="Silver" Margin="10,0,10,10" />
+                        <DataGrid x:Name="SuppliersList" IsReadOnly="True" Background="Silver" Margin="10,0,10,10"  SelectionChanged="SuppliersList_SelectionChanged"/>
 
 
                         <StackPanel Grid.Row="1" HorizontalAlignment="Right" Orientation="Horizontal" Margin="5,2,5,10">
-                            <Button Margin="2,0,0,0"  Padding="2" Content="Зберегти зміни" Click="SaveChanges_Click"/>
-                            <Button Margin="2,0,0,0"  Padding="2" Content="Добавити" Click="AddSupplier_Click"/>
+                            <Button Margin="2,0,0,0"  Name="saveChangesSupplierButton" Padding="2" Content="Зберегти зміни" Click="SaveChanges_Click"/>
+                            <Button Margin="2,0,0,0"  Padding="2" Content="Створити нового постачальника" Click="ClearSupplierTextBoxes_Click"/>
+                            <Button Margin="2,0,0,0"  Name="addSupplierButton" Padding="2" Content="Зберегти нового постачальника" Click="AddSupplier_Click"/>
                             <Button Margin="2,0,0,0"  Padding="2" Content="Видалити" Click="DeleteSupplier_Click"/>
                         </StackPanel>
                     </Grid>
@@ -330,18 +342,25 @@
                                 <RowDefinition Height="Auto"></RowDefinition>
                                 <RowDefinition Height="Auto"></RowDefinition>
                                 <RowDefinition Height="Auto"></RowDefinition>
+                                <RowDefinition Height="Auto"></RowDefinition>
+                                <RowDefinition Height="Auto"></RowDefinition>
                             </Grid.RowDefinitions>
 
                             <TextBlock Margin="7">Код постачальника:</TextBlock>
-                            <TextBox Margin="5" Grid.Column="1"  IsReadOnly="True" Text="{Binding Path=idSupplier}"></TextBox>
+                            <TextBox Name="SupplierId" Margin="5" Grid.Column="1"  IsReadOnly="True" Background="LightGray" Text="{Binding Path=idSupplier}" ></TextBox>
                             <TextBlock Margin="7" Grid.Row="1">Назва:</TextBlock>
-                            <TextBox  Name="SupplierName" Margin="5" Grid.Row="1" Grid.Column="1" Text="{Binding Path=Name}"></TextBox>
-                            <TextBlock Margin="7" Grid.Row="2">Країна:</TextBlock>
-                            <TextBox Name="SupplierCountry" Margin="5" Grid.Row="2" Grid.Column="1" Text="{Binding Path=Address.Country}"></TextBox>
-                            <TextBlock Margin="7" Grid.Row="3">Місто:</TextBlock>
-                            <TextBox Name="SupplierTown" Margin="5" Grid.Row="3" Grid.Column="1" Text="{Binding Path=Address.Town}"></TextBox>
-                            <TextBlock Margin="7" Grid.Row="4">Вулиця:</TextBlock>
-                            <TextBox Name="SupplierStreet" Margin="5" Grid.Row="4" Grid.Column="1" Text="{Binding Path=Address.Street}"></TextBox>
+                            <TextBox  Name="SupplierName" Margin="5" Grid.Row="1" Grid.Column="1" MaxLength="48" Text="{Binding Path=Name}" TextChanged="SupplierName_TextChanged" ></TextBox>
+                            <TextBlock Margin="7" Grid.Row="2"  Grid.Column="2">Aдреса:</TextBlock>
+                            <TextBlock Margin="7" Grid.Row="3">Країна:</TextBlock>
+                            <TextBox Name="SupplierCountry" Margin="5" Grid.Row="3" Grid.Column="1" MaxLength="48" IsReadOnly="True" Background="LightGray" Text="{Binding Path=Address.Country}"  TextChanged="SupplierCountry_TextChanged"></TextBox>
+                            <TextBlock Margin="7" Grid.Row="4">Місто:</TextBlock>
+                            <TextBox Name="SupplierTown" Margin="5" Grid.Row="4" Grid.Column="1" MaxLength="48" IsReadOnly="True" Background="LightGray" Text="{Binding Path=Address.Town}" TextChanged="SupplierTown_TextChanged" ></TextBox>
+                            <TextBlock Margin="7" Grid.Row="5">Вулиця:</TextBlock>
+                            <TextBox Name="SupplierStreet" Margin="5" Grid.Row="5" Grid.Column="1" MaxLength="48" IsReadOnly="True" Background="LightGray" Text="{Binding Path=Address.Street}" TextChanged="SupplierStreet_TextChanged" ></TextBox>
+                            <StackPanel Grid.Row="6" Grid.Column="2" HorizontalAlignment="Center" Orientation="Horizontal" Margin="5,2,5,10">
+                                <Button Margin="2,0,0,0" Name="ChangeSupplierAddressButton" Padding="2" Content="Змінити адресу" Click="ChangeSupplierAddress_Click"/>
+                                <Button Margin="2,0,0,0" Name="SaveSupplierAddressButton" Padding="2" Content="Застосувати зміну адреси" Click="SaveChangesSupplierAddress_Click" />
+                            </StackPanel>
                         </Grid>
                     </Border>
                 </Grid>
@@ -359,12 +378,13 @@
                             <RowDefinition Height="*"></RowDefinition>
                             <RowDefinition Height="Auto"></RowDefinition>
                         </Grid.RowDefinitions>
-                        <DataGrid x:Name="CategoriesList"  Background="Silver" Margin="10,0,10,10" />
+                        <DataGrid x:Name="CategoriesList" IsReadOnly="True" Background="Silver" Margin="10,0,10,10"  SelectionChanged="CategoriesList_SelectionChanged" />
 
 
                         <StackPanel Grid.Row="1" HorizontalAlignment="Right" Orientation="Horizontal" Margin="5,2,5,10">
-                            <Button Margin="2,0,0,0"  Padding="2" Content="Зберегти зміни" Click="SaveChanges_Click"/>
-                            <Button Margin="2,0,0,0"  Padding="2" Content="Добавити" Click="AddCategory_Click"/>
+                            <Button Margin="2,0,0,0"  Name="saveChangesCategoryButton" Padding="2" Content="Зберегти зміни" Click="SaveChanges_Click"/>
+                            <Button Margin="2,0,0,0"  Padding="2" Content="Створити нову категорію" Click="ClearCategoryTextBoxes_Click"/>
+                            <Button Margin="2,0,0,0"  Name="addCategoryButton"  Padding="2" Content="Зберегти нову категорію" Click="AddCategory_Click"/>
                             <Button Margin="2,0,0,0"  Padding="2" Content="Видалити" Click="DeleteCategory_Click"/>
 
                         </StackPanel>
@@ -386,9 +406,9 @@
                             </Grid.RowDefinitions>
 
                             <TextBlock Margin="7">Код категорії:</TextBlock>
-                            <TextBox Margin="5" Grid.Column="1" IsReadOnly="True" Text="{Binding Path=idCatedory}"></TextBox>
+                            <TextBox Name="CategoryId" Margin="5" Grid.Column="1" IsReadOnly="True" Background="LightGray" Text="{Binding Path=idCatedory}"></TextBox>
                             <TextBlock Margin="7" Grid.Row="1">Назва:</TextBlock>
-                            <TextBox Name="CategoryName" Margin="5" Grid.Row="1" Grid.Column="1" Text="{Binding Path=Name}"></TextBox>
+                            <TextBox Name="CategoryName" Margin="5" Grid.Row="1" Grid.Column="1" MaxLength="48" Text="{Binding Path=Name}" TextChanged="CategoryName_TextChanged"></TextBox>
 
                         </Grid>
                     </Border>
@@ -408,12 +428,13 @@
                             <RowDefinition Height="*"></RowDefinition>
                             <RowDefinition Height="Auto"></RowDefinition>
                         </Grid.RowDefinitions>
-                        <DataGrid x:Name="MarkUpList"  Background="Silver" Margin="10,0,10,10" />
+                        <DataGrid x:Name="MarkUpList" IsReadOnly="True" Background="Silver" Margin="10,0,10,10" SelectionChanged="MarkUpList_SelectionChanged" />
 
 
                         <StackPanel Grid.Row="1" HorizontalAlignment="Right" Orientation="Horizontal" Margin="5,2,5,10">
-                            <Button Margin="2,0,0,0"  Padding="2" Content="Зберегти зміни" Click="SaveChanges_Click"/>
-                            <Button Margin="2,0,0,0"  Padding="2" Content="Добавити" Click="AddMarkUp_Click"/>
+                            <Button Margin="2,0,0,0"  Name="saveChangesMarkUpButton" Padding="2" Content="Зберегти зміни" Click="SaveChanges_Click"/>
+                            <Button Margin="2,0,0,0"  Padding="2" Content="Створити нову націнку" Click="ClearMarkUpTextBoxes_Click"/>
+                            <Button Margin="2,0,0,0"  Name="addMarkUpButton"  Padding="2" Content="Зберегти нову націнку" Click="AddMarkUp_Click"/>
                             <Button Margin="2,0,0,0"  Padding="2" Content="Видалити" Click="DeleteMarkUp_Click"/>
 
                         </StackPanel>
@@ -435,11 +456,11 @@
                             </Grid.RowDefinitions>
 
                             <TextBlock Margin="7">Код націнки:</TextBlock>
-                            <TextBox Margin="5" Grid.Column="1" IsReadOnly="True" Text="{Binding Path=idMarkup}"></TextBox>
+                            <TextBox Name="MarkUpId" Margin="5" Grid.Column="1" IsReadOnly="True" Background="LightGray" Text="{Binding Path=idMarkup}"></TextBox>
                             <TextBlock Margin="7" Grid.Row="1">Назва:</TextBlock>
-                            <TextBox Name="MarkUpName" Margin="5" Grid.Row="1" Grid.Column="1" Text="{Binding Path=Name}"></TextBox>
+                            <TextBox Name="MarkUpName" Margin="5" Grid.Row="1" Grid.Column="1" MaxLength="48" Text="{Binding Path=Name}" TextChanged="MarkUpName_TextChanged"></TextBox>
                             <TextBlock Margin="7" Grid.Row="2">Розмір %:</TextBlock>
-                            <TextBox Name="MarkUpPercent" Margin="5" Grid.Row="2" Grid.Column="1" Text="{Binding Path=Percent}"></TextBox>
+                            <TextBox Name="MarkUpPercent" Margin="5" Grid.Row="2" Grid.Column="1" MaxLength="5" Text="{Binding Path=Percent}" TextChanged="MarkUpPercent_TextChanged"></TextBox>
 
                         </Grid>
                     </Border>
@@ -459,12 +480,13 @@
                             <RowDefinition Height="*"></RowDefinition>
                             <RowDefinition Height="Auto"></RowDefinition>
                         </Grid.RowDefinitions>
-                        <DataGrid x:Name="MeasurementsList"  Background="Silver" Margin="10,0,10,10" />
+                        <DataGrid x:Name="MeasurementsList"  IsReadOnly="True" Background="Silver" Margin="10,0,10,10" SelectionChanged="MeasurementsList_SelectionChanged" />
 
 
                         <StackPanel Grid.Row="1" HorizontalAlignment="Right" Orientation="Horizontal" Margin="5,2,5,10">
-                            <Button Margin="2,0,0,0"  Padding="2" Content="Зберегти зміни" Click="SaveChanges_Click"/>
-                            <Button Margin="2,0,0,0"  Padding="2" Content="Добавити" Click="AddMeasurement_Click"/>
+                            <Button Margin="2,0,0,0"  Name="saveChangesMeasurementButton" Padding="2" Content="Зберегти зміни" Click="SaveChanges_Click"/>
+                            <Button Margin="2,0,0,0"  Padding="2" Content="Створити нову одиницю виміру" Click="ClearMeasurementTextBoxes_Click"/>
+                            <Button Margin="2,0,0,0"  Name="addMeasurementButton"  Padding="2" Content="Зберегти нову одиницю виміру" Click="AddMeasurement_Click"/>
                             <Button Margin="2,0,0,0"  Padding="2" Content="Видалити" Click="DeleteMeasurement_Click"/>
 
                         </StackPanel>
@@ -486,11 +508,11 @@
                             </Grid.RowDefinitions>
 
                             <TextBlock Margin="7">Код одиниці виміру:</TextBlock>
-                            <TextBox Margin="5" Grid.Column="1" IsReadOnly="True" Text="{Binding Path=idMeasurement}"></TextBox>
+                            <TextBox Name="MeasurementId" Margin="5" Grid.Column="1" IsReadOnly="True" Background="LightGray" Text="{Binding Path=idMeasurement}"></TextBox>
                             <TextBlock Margin="7" Grid.Row="1">Назва:</TextBlock>
-                            <TextBox Name="MeasurementName" Margin="5" Grid.Row="1" Grid.Column="1" Text="{Binding Path=Name}"></TextBox>
+                            <TextBox Name="MeasurementName" Margin="5" Grid.Row="1" Grid.Column="1" MaxLength="48" Text="{Binding Path=Name}" TextChanged="MeasurementName_TextChanged" ></TextBox>
                             <TextBlock Margin="7" Grid.Row="2">Опис:</TextBlock>
-                            <TextBox Name="MeasurementDescription" Margin="5" Grid.Row="2" Grid.Column="1" Text="{Binding Path=Description}"></TextBox>
+                            <TextBox Name="MeasurementDescription" Margin="5" Grid.Row="2" Grid.Column="1" MaxLength="48" Text="{Binding Path=Description}" TextChanged="MeasurementDescription_TextChanged" ></TextBox>
 
                         </Grid>
                     </Border>
