@@ -24,7 +24,7 @@
         <Label Grid.Column="1" x:Name="labelToPayValue" Content="0.00" HorizontalAlignment="Center" Margin="10" VerticalAlignment="Center"/>
 
         <Label Grid.Row="1" x:Name="labelPayed" Content="Внесено:" HorizontalAlignment="Center" Margin="10" VerticalAlignment="Center"/>
-        <TextBox x:Name="textBox_submitted" Grid.Column="1" HorizontalAlignment="Center" Height="24" Margin="10" Grid.Row="1" Text="0.0" VerticalAlignment="Center" Width="120" TextChanged="textBox_submitted_TextChanged_1" SpellCheck.IsEnabled="True"/>
+        <TextBox x:Name="textBox_submitted" Grid.Column="1" HorizontalAlignment="Center" Height="24" Margin="10" Grid.Row="1" VerticalAlignment="Center" Width="120" TextChanged="textBox_submitted_TextChanged_1" SpellCheck.IsEnabled="True"/>
 
         <Label Grid.Row="2" x:Name="labelChange" Content="Решта:" HorizontalAlignment="Center" Margin="10" VerticalAlignment="Center"/>
         <Label Grid.Row="2" Grid.Column="1" x:Name="labelChangeValue" Content="0.00" HorizontalAlignment="Center" Margin="10" VerticalAlignment="Center"/>

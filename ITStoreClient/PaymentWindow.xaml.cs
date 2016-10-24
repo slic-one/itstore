@@ -39,7 +39,6 @@ namespace ITStoreClient
 		}
         private void textBox_submitted_TextChanged_1(object sender, TextChangedEventArgs e)
         {
-
             TextBox txt = (TextBox)sender;
             if (txt.Text != "0.0")
             {
@@ -48,7 +47,16 @@ namespace ITStoreClient
                 string str = labelToPayValue.Content.ToString();
                 string str1 = txt.Text.ToString();
                 decimal.TryParse(str, out toPay);
-                decimal.TryParse(str1, NumberStyles.AllowDecimalPoint, new NumberFormatInfo { NumberDecimalSeparator = "." }, out submitted);
+
+				if (decimal.Parse(textBox_submitted.Text) < toPay)
+				{
+					buttonDone.IsEnabled = false;
+				}
+				else
+				{
+					buttonDone.IsEnabled = true;
+				}
+				decimal.TryParse(str1, NumberStyles.AllowDecimalPoint, new NumberFormatInfo { NumberDecimalSeparator = "." }, out submitted);
                 submitted = (submitted - toPay);
                 labelChangeValue.Content = submitted;
             }

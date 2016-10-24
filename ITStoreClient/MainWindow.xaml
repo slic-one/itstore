@@ -25,7 +25,7 @@
                     <MenuItem Header="_Вийти" Click="MenuItemQuit_Click" />
                 </MenuItem>
                 <MenuItem Header="_Редагувати">
-                    <MenuItem Header="_Очистити поточний список товарів" />
+                    <MenuItem Header="_Очистити поточний список товарів" Click="MenuItem_Click"  />
                 </MenuItem>
             </Menu>
         </DockPanel>

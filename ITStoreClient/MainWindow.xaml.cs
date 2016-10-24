@@ -185,7 +185,7 @@ namespace ITStoreClient
             string st = string.Format("{0}{1:T}{2}{3}{4}{5}{6}{7}","\t Новий Чек\r",DateTime.Now, "\r Касир: ", user.Name,"\r Товари: \r"
                 ,products,"\r Ціна:",totalPrice);
             MessageBox.Show(st);
-
+			resultProducts.Clear();
         }
 
         private void textBoxProductId_TextChanged(object sender, TextChangedEventArgs e)
@@ -336,6 +336,11 @@ namespace ITStoreClient
             data.SaveChanges();
             return id;
         }
-    }
+
+		private void MenuItem_Click(object sender, RoutedEventArgs e)
+		{
+			resultProducts.Clear();
+		}
+	}
    
 }
