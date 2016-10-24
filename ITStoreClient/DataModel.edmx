@@ -25,7 +25,7 @@
           <Key>
             <PropertyRef Name="idCustomer" />
           </Key>
-          <Property Name="idCustomer" Type="bigint" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="idCustomer" Type="bigint" Nullable="false" StoreGeneratedPattern="None" />
           <Property Name="Name" Type="varchar" MaxLength="50" Nullable="false" />
           <Property Name="Surname" Type="varchar" MaxLength="50" Nullable="false" />
           <Property Name="Spended Money" Type="decimal" Precision="18" Scale="0" Nullable="false" />
@@ -78,7 +78,7 @@
           <Key>
             <PropertyRef Name="idProduct" />
           </Key>
-          <Property Name="idProduct" Type="bigint" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="idProduct" Type="bigint" Nullable="false" StoreGeneratedPattern="None" />
           <Property Name="Name" Type="varchar" MaxLength="50" Nullable="false" />
           <Property Name="idCategory" Type="int" Nullable="false" />
           <Property Name="Price" Type="decimal" Precision="18" Scale="0" Nullable="false" />
@@ -416,7 +416,7 @@
           <Key>
             <PropertyRef Name="idCustomer" />
           </Key>
-          <Property Name="idCustomer" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="idCustomer" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="None" />
           <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="Surname" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="Spended_Money" Type="Decimal" Precision="18" Scale="0" Nullable="false" />
@@ -478,7 +478,7 @@
           <Key>
             <PropertyRef Name="idProduct" />
           </Key>
-          <Property Name="idProduct" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="idProduct" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="None" />
           <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="idCategory" Type="Int32" Nullable="false" />
           <Property Name="Price" Type="Decimal" Precision="18" Scale="0" Nullable="false" />

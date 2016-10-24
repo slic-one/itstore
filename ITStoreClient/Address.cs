@@ -30,11 +30,10 @@ namespace ITStoreClient
         public virtual ICollection<Producer> Producers { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Supplier> Suppliers { get; set; }
+		public override string ToString()
+		{
+			return Country + "  " + Town + "  " + Street;
 
-        public override string ToString()
-        {
-            return Country + "  " + Town + "  " + Street;
-
-        }
-    }
+		}
+	}
 }

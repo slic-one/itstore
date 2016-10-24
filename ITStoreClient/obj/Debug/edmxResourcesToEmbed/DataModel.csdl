@@ -23,7 +23,7 @@
     <Key>
       <PropertyRef Name="idCustomer" />
     </Key>
-    <Property Name="idCustomer" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="idCustomer" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="None" />
     <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
     <Property Name="Surname" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
     <Property Name="Spended_Money" Type="Decimal" Precision="18" Scale="0" Nullable="false" />
@@ -85,7 +85,7 @@
     <Key>
       <PropertyRef Name="idProduct" />
     </Key>
-    <Property Name="idProduct" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="idProduct" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="None" />
     <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
     <Property Name="idCategory" Type="Int32" Nullable="false" />
     <Property Name="Price" Type="Decimal" Precision="18" Scale="0" Nullable="false" />

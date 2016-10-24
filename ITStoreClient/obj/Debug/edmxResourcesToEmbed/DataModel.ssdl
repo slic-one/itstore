@@ -20,7 +20,7 @@
     <Key>
       <PropertyRef Name="idCustomer" />
     </Key>
-    <Property Name="idCustomer" Type="bigint" Nullable="false" StoreGeneratedPattern="Identity" />
+    <Property Name="idCustomer" Type="bigint" Nullable="false" StoreGeneratedPattern="None" />
     <Property Name="Name" Type="varchar" MaxLength="50" Nullable="false" />
     <Property Name="Surname" Type="varchar" MaxLength="50" Nullable="false" />
     <Property Name="Spended Money" Type="decimal" Precision="18" Scale="0" Nullable="false" />
@@ -73,7 +73,7 @@
     <Key>
       <PropertyRef Name="idProduct" />
     </Key>
-    <Property Name="idProduct" Type="bigint" Nullable="false" StoreGeneratedPattern="Identity" />
+    <Property Name="idProduct" Type="bigint" Nullable="false" StoreGeneratedPattern="None" />
     <Property Name="Name" Type="varchar" MaxLength="50" Nullable="false" />
     <Property Name="idCategory" Type="int" Nullable="false" />
     <Property Name="Price" Type="decimal" Precision="18" Scale="0" Nullable="false" />
